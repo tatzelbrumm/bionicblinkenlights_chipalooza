@@ -1,0 +1,154 @@
+* SPDX-FileCopyrightText: 2026 Christoph Maier
+* SPDX-License-Identifier: Apache-2.0
+*
+* Bionic Blinkenlights for the Chipalooza sg13cmos5l harness: source netlist (source of truth).
+*
+* Based on the 4-transistor integrate-and-fire neuron of Bionic Blinkenlights
+* (https://cmucsd.bitbucket.io/bionicblinkenlights/, img8.html, spike1.asc): Q1 npn (membrane -> out),
+* Q3 pnp (out low -> current into the membrane), Q4 pnp (slowout low -> reset), Q2 npn (reset
+* discharges the membrane), R1..R5, C1 (membrane), C2 (slowout).
+*
+* CMOS translation, 3.3 V thick-oxide devices (sg13_hv_*) only, same four transistors in the same
+* roles. Each resistor becomes one MOSFET:
+*   R1, R5  long PMOS, gate tied to vss       (self-biased, about 1 uA when conducting)
+*   R2      long NMOS, gate tied to vdd       (self-biased)
+*   R3      long PMOS, gate = vin             (the only biased one: 10 pA .. 300 pA from the tuning DAC)
+*   R4      merged into Q3 (M3 drives the membrane directly; M2 is made stronger than M3)
+* All timing capacitors are on-chip MOS gate capacitors. On the bus-coupled neurons the analog bus
+* line (on-chip wire, pad, and whatever hangs on it off-chip) adds to the membrane capacitance.
+* The spike is short (about 5 us); out, the membrane and the bus swing rail to rail during it.
+
+* ---------------------------------------------------------------------------------------------------
+* The neuron: 8 transistors, 2 MOS capacitors.
+*   XM1 [Q1]  fires when vm reaches about 0.7 V (where M1 out-sinks the R1 stand-in)
+*   XM3 [Q3]  out low -> membrane pulled to vdd (regenerative upstroke)
+*   XM4 [Q4]  slow low -> rst high
+*   XM2 [Q2]  rst high -> membrane discharged (stronger than M3)
+*   XMR1 [R1], XMR2 [R2], XMR3 [R3], XMR5 [R5], XC1 [C1] 10 pF (18 fingers of 12.5 x 10 um), XC2 [C2] 1.8 pF
+.subckt bbl_neuron vdd vss vm out vin
+XM1 out vm vss vss sg13_hv_nmos w=1u l=1u ng=1 m=1
+XM2 vm rst vss vss sg13_hv_nmos w=2u l=0.45u ng=1 m=1
+XM3 vm out vdd vdd sg13_hv_pmos w=1u l=0.45u ng=1 m=1
+XM4 rst slow vdd vdd sg13_hv_pmos w=1u l=0.45u ng=1 m=1
+XMR1 out vss vdd vdd sg13_hv_pmos w=0.3u l=20u ng=1 m=1
+XMR2 rst vdd vss vss sg13_hv_nmos w=0.3u l=20u ng=1 m=1
+XMR3 vm vin vdd vdd sg13_hv_pmos w=0.3u l=30u ng=1 m=1
+XMR5 slow vss out vdd sg13_hv_pmos w=0.3u l=100u ng=1 m=1
+XC1 vdd vm vdd vdd sg13_hv_pmos w=225u l=10u ng=18 m=1
+XC2 vss slow vss vss sg13_hv_nmos w=40u l=10u ng=4 m=1
+.ends bbl_neuron
+
+* ---------------------------------------------------------------------------------------------------
+* Tuning DAC (the bias of the R3 stand-in): the diode XMD carries (0.5 + code) x 0.7 nA,
+* code = b3..b0; XMR3 mirrors about 1/57 of it into the membrane: f is about 0.65 Hz x (1 + 2 code),
+* i.e. 0.7 Hz .. 21 Hz. The half-unit leg is always on, so dig_in = 0 (harness default) still blinks.
+* b0..b3 are 1.2 V logic on NMOS switches whose sources sit at vss.
+.subckt bbl_dac vdd vss vin vbnl b0 b1 b2 b3
+XMD vin vin vdd vdd sg13_hv_pmos w=3u l=3u ng=1 m=1
+XMH vin vbnl vss vss sg13_hv_nmos w=0.3u l=4.5u ng=1 m=1
+XMU0 vin vbnl s0 vss sg13_hv_nmos w=0.3u l=2u ng=1 m=1
+XMS0 s0 b0 vss vss sg13_hv_nmos w=0.3u l=0.45u ng=1 m=1
+XMU1 vin vbnl s1 vss sg13_hv_nmos w=0.6u l=2u ng=2 m=1
+XMS1 s1 b1 vss vss sg13_hv_nmos w=0.6u l=0.45u ng=2 m=1
+XMU2 vin vbnl s2 vss sg13_hv_nmos w=1.2u l=2u ng=4 m=1
+XMS2 s2 b2 vss vss sg13_hv_nmos w=1.2u l=0.45u ng=4 m=1
+XMU3 vin vbnl s3 vss sg13_hv_nmos w=2.4u l=2u ng=8 m=1
+XMS3 s3 b3 vss vss sg13_hv_nmos w=2.4u l=0.45u ng=8 m=1
+.ends bbl_dac
+
+* One neuron with its tuning DAC.
+.subckt bbl_unit vdd vss vm out vbnl b0 b1 b2 b3
+XN vdd vss vm out vin bbl_neuron
+XD vdd vss vin vbnl b0 b1 b2 b3 bbl_dac
+.ends bbl_unit
+
+* 3.3 V inverter: LED bus driver of N0 / N1 (bus high while the neuron fires) and spike output spk.
+.subckt bbl_inv vdd vss a y
+XMN y a vss vss sg13_hv_nmos w=1u l=0.45u ng=1 m=1
+XMP y a vdd vdd sg13_hv_pmos w=1u l=0.45u ng=1 m=1
+.ends bbl_inv
+
+* Pulse synapse pre -> post, the on-chip stand-in for the photoresistor of the demos: while the
+* presynaptic neuron fires (spk high) and the leg is enabled (en, 1.2 V logic), the long PMOS XMS*
+* injects charge straight into the postsynaptic membrane. Its gate g* is a 3.3 V NAND of spk and en:
+* NMOS stack XMN*/XMB*, pull-ups XMP* (spk low) and the self-biased weak XMR* (en low). Nothing floats
+* next to the membrane, so a disabled leg leaks only the off current of XMS*.
+* Weak leg about 0.06 V per presynaptic spike, strong leg about 0.3 V (20 pF membrane).
+.subckt bbl_syn vdd vss spk post enw ens
+XMNW gw enw bw vss sg13_hv_nmos w=0.3u l=0.45u ng=1 m=1
+XMBW bw spk vss vss sg13_hv_nmos w=0.3u l=0.45u ng=1 m=1
+XMPW gw spk vdd vdd sg13_hv_pmos w=0.3u l=0.45u ng=1 m=1
+XMRW gw vss vdd vdd sg13_hv_pmos w=0.3u l=20u ng=1 m=1
+XMSW post gw vdd vdd sg13_hv_pmos w=0.3u l=100u ng=1 m=1
+XMNS gs ens bs vss sg13_hv_nmos w=0.3u l=0.45u ng=1 m=1
+XMBS bs spk vss vss sg13_hv_nmos w=0.3u l=0.45u ng=1 m=1
+XMPS gs spk vdd vdd sg13_hv_pmos w=0.3u l=0.45u ng=1 m=1
+XMRS gs vss vdd vdd sg13_hv_pmos w=0.3u l=20u ng=1 m=1
+XMSS post gs vdd vdd sg13_hv_pmos w=0.3u l=20u ng=1 m=1
+.ends bbl_syn
+
+* Gap junction a <-> b (electrical synapse): two legs, each an NMOS pass gate at the analog coupling
+* voltage vc in series with a 1.2 V switch (enw: weak leg, ens: strong leg). The conductance runs
+* continuously from about 0 (vc < 0.4 V) to fully on (vc = 3.3 V).
+.subckt bbl_gap vss a b vc enw ens
+XMGW a vc gw vss sg13_hv_nmos w=0.3u l=10u ng=1 m=1
+XMTW gw enw b vss sg13_hv_nmos w=0.3u l=0.45u ng=1 m=1
+XMGS a vc gs vss sg13_hv_nmos w=1u l=0.45u ng=1 m=1
+XMTS gs ens b vss sg13_hv_nmos w=1u l=0.45u ng=1 m=1
+.ends bbl_gap
+
+* ---------------------------------------------------------------------------------------------------
+* Self-biased reference (no harness bias needed): subthreshold beta multiplier, K = 8, rhigh
+* degeneration, about 45 nA per branch; start-up by the Vgs = 0 leakage of XMSU; ena (1.2 V) gates
+* both branches and, inverted in the 1.2 V domain (XMIN's bulk is the common substrate, vss), clamps vbn to vss. Outputs: vbn (NMOS diode W/L =
+* 2/2 at 45 nA); vbnl (NMOS diode W/L = 2/2 at about 2.5 nA, gate bias of the tuning DACs); vcpla / vcplb are pulled up by about 1 nA each, so an
+* undriven coupling input means full coupling, and held by 2.2 pF each (XCA, XCB) against the kicks of
+* the membrane and bus swings through the pass gates.
+.subckt bbl_bias vdd vss vddl vssl ena vbnl vcpla vcplb
+XMIN enab ena vssl vss sg13_lv_nmos w=0.3u l=0.5u ng=1 m=1
+XMIP enab ena vddl vddl sg13_lv_pmos w=0.3u l=0.5u ng=1 m=1
+XMNA vbn vbn sa vss sg13_hv_nmos w=2u l=2u ng=1 m=1
+XMNB vbp vbn rs vss sg13_hv_nmos w=16u l=2u ng=8 m=1
+XMPA vbn vbp vdd vdd sg13_hv_pmos w=2u l=2u ng=1 m=1
+XMPB vbp vbp vdd vdd sg13_hv_pmos w=2u l=2u ng=1 m=1
+XR1 rs sb vss rhigh w=0.5e-6 l=41.055e-6 m=1 b=9
+XMEA sa ena vss vss sg13_hv_nmos w=1u l=0.45u ng=1 m=1
+XMEB sb ena vss vss sg13_hv_nmos w=1u l=0.45u ng=1 m=1
+XMCL vbn enab vss vss sg13_hv_nmos w=1u l=0.45u ng=1 m=1
+XMSU vbn vdd vdd vdd sg13_hv_pmos w=4u l=0.45u ng=1 m=1
+XMLP vbnl vbp vdd vdd sg13_hv_pmos w=0.3u l=8u ng=1 m=1
+XMLD vbnl vbnl vss vss sg13_hv_nmos w=2u l=2u ng=1 m=1
+XMCA vcpla vbp vdd vdd sg13_hv_pmos w=0.3u l=22u ng=1 m=1
+XMCB vcplb vbp vdd vdd sg13_hv_pmos w=0.3u l=22u ng=1 m=1
+XCA vss vcpla vss vss sg13_hv_nmos w=50u l=10u ng=5 m=1
+XCB vss vcplb vss vss sg13_hv_nmos w=50u l=10u ng=5 m=1
+.ends bbl_bias
+
+* ---------------------------------------------------------------------------------------------------
+* The four neurons and their connections (d0..d23 = dig_in[23:0], 1.2 V logic):
+*   N0, N1 ("A", "B" of the demos): isolated from the buses by the inverters XL0 / XL1, so analog_bus0 /
+*          analog_bus1 are high while N0 / N1 fire and bus loading does not affect them.
+*          Pulse synapses N0 -> N1 (d16 weak, d17 strong), N1 -> N0 (d18, d19);
+*          gap junction N0 <-> N1 (d20 weak, d21 strong) at the coupling voltage vcpla.
+*   N2, N3: membranes on analog_bus2 / analog_bus3 through NMOS pass gates at vcplb: the bus
+*          capacitance is part of their membrane capacitance; the bus is high while they fire.
+*          N3 also reaches analog_bus2 (d22 weak, d23 strong) and through it N2.
+*   Tuning codes: N0 d3..d0, N1 d7..d4, N2 d11..d8, N3 d15..d12.
+.subckt bbl_core vdd vss vddl vssl ena d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 d10 d11 d12 d13 d14 d15 d16
++ d17 d18 d19 d20 d21 d22 d23 bus0 bus1 bus2 bus3 vcpla vcplb
+XB vdd vss vddl vssl ena vbnl vcpla vcplb bbl_bias
+XU0 vdd vss vm0 out0 vbnl d0 d1 d2 d3 bbl_unit
+XU1 vdd vss vm1 out1 vbnl d4 d5 d6 d7 bbl_unit
+XU2 vdd vss vm2 out2 vbnl d8 d9 d10 d11 bbl_unit
+XU3 vdd vss vm3 out3 vbnl d12 d13 d14 d15 bbl_unit
+XL0 vdd vss out0 bus0 bbl_inv
+XL1 vdd vss out1 bus1 bbl_inv
+XI0 vdd vss out0 spk0 bbl_inv
+XI1 vdd vss out1 spk1 bbl_inv
+XS01 vdd vss spk0 vm1 d16 d17 bbl_syn
+XS10 vdd vss spk1 vm0 d18 d19 bbl_syn
+XG01 vss vm0 vm1 vcpla d20 d21 bbl_gap
+XMP2 bus2 vcplb vm2 vss sg13_hv_nmos w=1u l=0.45u ng=1 m=1
+XMP3 bus3 vcplb vm3 vss sg13_hv_nmos w=1u l=0.45u ng=1 m=1
+XG32 vss bus2 vm3 vcplb d22 d23 bbl_gap
+.ends bbl_core

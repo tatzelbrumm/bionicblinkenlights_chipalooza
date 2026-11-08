@@ -1,0 +1,5 @@
+# simulation scratch output (curated results are committed under testbenches/ngspice/results/)
+testbenches/ngspice/out/
+__pycache__/
+*.pyc
+*.raw

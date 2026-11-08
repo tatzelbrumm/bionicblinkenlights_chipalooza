@@ -1,0 +1,58 @@
+* SPDX-FileCopyrightText: 2026 Christoph Maier
+* SPDX-License-Identifier: Apache-2.0
+*
+* Bionic Blinkenlights: the two slot variants for the Chipalooza sg13cmos5l harness (include bbl.spice).
+* Port names are the harness slot wrapper's pin names. Unused harness inputs are ports without
+* connections (clk, reset, ibias0, ibias1; and vbias in the pad variant, s1_an[0] which is the same pad
+* as s1_an_0_esd).
+*
+* bbl_slot_shared: shared pins only, fits any slot. Coupling voltage vcpla = vbias (harness voltage
+*                  bias; pulled up on chip when not driven); the bus coupling vcplb is internal (pulled up).
+* bbl_slot_pads:   two dedicated analog pads (built for slot 1's pad positions, s1_*):
+*                  vcpla = s1_an_0_esd (neuron-neuron gap junction strength), vcplb = s1_an[1] (bus coupling).
+* dig_out[11:0] are held low by bbl_tielo (1.2 V NMOS, gate at vdd_1v2).
+
+.subckt bbl_tielo vddl vssl vss q0 q1 q2 q3 q4 q5 q6 q7 q8 q9 q10 q11
+XMT0 q0 vddl vssl vss sg13_lv_nmos w=0.3u l=0.5u ng=1 m=1
+XMT1 q1 vddl vssl vss sg13_lv_nmos w=0.3u l=0.5u ng=1 m=1
+XMT2 q2 vddl vssl vss sg13_lv_nmos w=0.3u l=0.5u ng=1 m=1
+XMT3 q3 vddl vssl vss sg13_lv_nmos w=0.3u l=0.5u ng=1 m=1
+XMT4 q4 vddl vssl vss sg13_lv_nmos w=0.3u l=0.5u ng=1 m=1
+XMT5 q5 vddl vssl vss sg13_lv_nmos w=0.3u l=0.5u ng=1 m=1
+XMT6 q6 vddl vssl vss sg13_lv_nmos w=0.3u l=0.5u ng=1 m=1
+XMT7 q7 vddl vssl vss sg13_lv_nmos w=0.3u l=0.5u ng=1 m=1
+XMT8 q8 vddl vssl vss sg13_lv_nmos w=0.3u l=0.5u ng=1 m=1
+XMT9 q9 vddl vssl vss sg13_lv_nmos w=0.3u l=0.5u ng=1 m=1
+XMT10 q10 vddl vssl vss sg13_lv_nmos w=0.3u l=0.5u ng=1 m=1
+XMT11 q11 vddl vssl vss sg13_lv_nmos w=0.3u l=0.5u ng=1 m=1
+.ends bbl_tielo
+
+.subckt bbl_slot_shared vdd_3v3 vss_3v3 vdd_1v2 vss_1v2 enable clk reset
++ dig_in[0] dig_in[1] dig_in[2] dig_in[3] dig_in[4] dig_in[5] dig_in[6] dig_in[7] dig_in[8] dig_in[9]
++ dig_in[10] dig_in[11] dig_in[12] dig_in[13] dig_in[14] dig_in[15] dig_in[16] dig_in[17] dig_in[18]
++ dig_in[19] dig_in[20] dig_in[21] dig_in[22] dig_in[23]
++ dig_out[0] dig_out[1] dig_out[2] dig_out[3] dig_out[4] dig_out[5] dig_out[6] dig_out[7] dig_out[8]
++ dig_out[9] dig_out[10] dig_out[11]
++ analog_bus0 analog_bus1 analog_bus2 analog_bus3 vbias ibias0 ibias1
+XC vdd_3v3 vss_3v3 vdd_1v2 vss_1v2 enable dig_in[0] dig_in[1] dig_in[2] dig_in[3] dig_in[4] dig_in[5]
++ dig_in[6] dig_in[7] dig_in[8] dig_in[9] dig_in[10] dig_in[11] dig_in[12] dig_in[13] dig_in[14]
++ dig_in[15] dig_in[16] dig_in[17] dig_in[18] dig_in[19] dig_in[20] dig_in[21] dig_in[22] dig_in[23]
++ analog_bus0 analog_bus1 analog_bus2 analog_bus3 vbias vcplb bbl_core
+XT vdd_1v2 vss_1v2 vss_3v3 dig_out[0] dig_out[1] dig_out[2] dig_out[3] dig_out[4] dig_out[5]
++ dig_out[6] dig_out[7] dig_out[8] dig_out[9] dig_out[10] dig_out[11] bbl_tielo
+.ends bbl_slot_shared
+
+.subckt bbl_slot_pads vdd_3v3 vss_3v3 vdd_1v2 vss_1v2 enable clk reset
++ dig_in[0] dig_in[1] dig_in[2] dig_in[3] dig_in[4] dig_in[5] dig_in[6] dig_in[7] dig_in[8] dig_in[9]
++ dig_in[10] dig_in[11] dig_in[12] dig_in[13] dig_in[14] dig_in[15] dig_in[16] dig_in[17] dig_in[18]
++ dig_in[19] dig_in[20] dig_in[21] dig_in[22] dig_in[23]
++ dig_out[0] dig_out[1] dig_out[2] dig_out[3] dig_out[4] dig_out[5] dig_out[6] dig_out[7] dig_out[8]
++ dig_out[9] dig_out[10] dig_out[11]
++ analog_bus0 analog_bus1 analog_bus2 analog_bus3 vbias ibias0 ibias1 s1_an[0] s1_an[1] s1_an_0_esd
+XC vdd_3v3 vss_3v3 vdd_1v2 vss_1v2 enable dig_in[0] dig_in[1] dig_in[2] dig_in[3] dig_in[4] dig_in[5]
++ dig_in[6] dig_in[7] dig_in[8] dig_in[9] dig_in[10] dig_in[11] dig_in[12] dig_in[13] dig_in[14]
++ dig_in[15] dig_in[16] dig_in[17] dig_in[18] dig_in[19] dig_in[20] dig_in[21] dig_in[22] dig_in[23]
++ analog_bus0 analog_bus1 analog_bus2 analog_bus3 s1_an_0_esd s1_an[1] bbl_core
+XT vdd_1v2 vss_1v2 vss_3v3 dig_out[0] dig_out[1] dig_out[2] dig_out[3] dig_out[4] dig_out[5]
++ dig_out[6] dig_out[7] dig_out[8] dig_out[9] dig_out[10] dig_out[11] bbl_tielo
+.ends bbl_slot_pads
