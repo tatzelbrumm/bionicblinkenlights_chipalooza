@@ -1,0 +1,121 @@
+v {xschem version=3.4.5 file_version=1.2}
+G {}
+K {type=subcircuit
+format="@name @pinlist @symname"
+template="name=x1"
+}
+V {}
+S {}
+E {}
+L 4 -80 -260 80 -260 {}
+L 4 80 -260 80 260 {}
+L 4 80 260 -80 260 {}
+L 4 -80 260 -80 -260 {}
+T {@symname} -75 -285 0 0 0.3 0.3 {}
+T {@name} -75 265 0 0 0.3 0.3 {}
+T {Bionic Blinkenlights core} -70 -10 0 0 0.25 0.25 {}
+B 5 -42.5 -282.5 -37.5 -277.5 {name=vdd dir=inout sim_pinnumber=1}
+L 4 -40 -280 -40 -260 {}
+T {vdd} -46 -255 1 0 0.2 0.2 {}
+B 5 -42.5 277.5 -37.5 282.5 {name=vss dir=inout sim_pinnumber=2}
+L 4 -40 260 -40 280 {}
+T {vss} -46 255 3 0 0.2 0.2 {}
+B 5 -2.5 -282.5 2.5 -277.5 {name=vddl dir=inout sim_pinnumber=3}
+L 4 0 -280 0 -260 {}
+T {vddl} -6 -255 1 0 0.2 0.2 {}
+B 5 -2.5 277.5 2.5 282.5 {name=vssl dir=inout sim_pinnumber=4}
+L 4 0 260 0 280 {}
+T {vssl} -6 255 3 0 0.2 0.2 {}
+B 5 -102.5 -242.5 -97.5 -237.5 {name=ena dir=inout sim_pinnumber=5}
+L 4 -100 -240 -80 -240 {}
+T {ena} -75 -246 0 0 0.2 0.2 {}
+B 5 -102.5 -222.5 -97.5 -217.5 {name=d0 dir=inout sim_pinnumber=6}
+L 4 -100 -220 -80 -220 {}
+T {d0} -75 -226 0 0 0.2 0.2 {}
+B 5 -102.5 -202.5 -97.5 -197.5 {name=d1 dir=inout sim_pinnumber=7}
+L 4 -100 -200 -80 -200 {}
+T {d1} -75 -206 0 0 0.2 0.2 {}
+B 5 -102.5 -182.5 -97.5 -177.5 {name=d2 dir=inout sim_pinnumber=8}
+L 4 -100 -180 -80 -180 {}
+T {d2} -75 -186 0 0 0.2 0.2 {}
+B 5 -102.5 -162.5 -97.5 -157.5 {name=d3 dir=inout sim_pinnumber=9}
+L 4 -100 -160 -80 -160 {}
+T {d3} -75 -166 0 0 0.2 0.2 {}
+B 5 -102.5 -142.5 -97.5 -137.5 {name=d4 dir=inout sim_pinnumber=10}
+L 4 -100 -140 -80 -140 {}
+T {d4} -75 -146 0 0 0.2 0.2 {}
+B 5 -102.5 -122.5 -97.5 -117.5 {name=d5 dir=inout sim_pinnumber=11}
+L 4 -100 -120 -80 -120 {}
+T {d5} -75 -126 0 0 0.2 0.2 {}
+B 5 -102.5 -102.5 -97.5 -97.5 {name=d6 dir=inout sim_pinnumber=12}
+L 4 -100 -100 -80 -100 {}
+T {d6} -75 -106 0 0 0.2 0.2 {}
+B 5 -102.5 -82.5 -97.5 -77.5 {name=d7 dir=inout sim_pinnumber=13}
+L 4 -100 -80 -80 -80 {}
+T {d7} -75 -86 0 0 0.2 0.2 {}
+B 5 -102.5 -62.5 -97.5 -57.5 {name=d8 dir=inout sim_pinnumber=14}
+L 4 -100 -60 -80 -60 {}
+T {d8} -75 -66 0 0 0.2 0.2 {}
+B 5 -102.5 -42.5 -97.5 -37.5 {name=d9 dir=inout sim_pinnumber=15}
+L 4 -100 -40 -80 -40 {}
+T {d9} -75 -46 0 0 0.2 0.2 {}
+B 5 -102.5 -22.5 -97.5 -17.5 {name=d10 dir=inout sim_pinnumber=16}
+L 4 -100 -20 -80 -20 {}
+T {d10} -75 -26 0 0 0.2 0.2 {}
+B 5 -102.5 -2.5 -97.5 2.5 {name=d11 dir=inout sim_pinnumber=17}
+L 4 -100 0 -80 0 {}
+T {d11} -75 -6 0 0 0.2 0.2 {}
+B 5 -102.5 17.5 -97.5 22.5 {name=d12 dir=inout sim_pinnumber=18}
+L 4 -100 20 -80 20 {}
+T {d12} -75 14 0 0 0.2 0.2 {}
+B 5 -102.5 37.5 -97.5 42.5 {name=d13 dir=inout sim_pinnumber=19}
+L 4 -100 40 -80 40 {}
+T {d13} -75 34 0 0 0.2 0.2 {}
+B 5 -102.5 57.5 -97.5 62.5 {name=d14 dir=inout sim_pinnumber=20}
+L 4 -100 60 -80 60 {}
+T {d14} -75 54 0 0 0.2 0.2 {}
+B 5 -102.5 77.5 -97.5 82.5 {name=d15 dir=inout sim_pinnumber=21}
+L 4 -100 80 -80 80 {}
+T {d15} -75 74 0 0 0.2 0.2 {}
+B 5 -102.5 97.5 -97.5 102.5 {name=d16 dir=inout sim_pinnumber=22}
+L 4 -100 100 -80 100 {}
+T {d16} -75 94 0 0 0.2 0.2 {}
+B 5 -102.5 117.5 -97.5 122.5 {name=d17 dir=inout sim_pinnumber=23}
+L 4 -100 120 -80 120 {}
+T {d17} -75 114 0 0 0.2 0.2 {}
+B 5 -102.5 137.5 -97.5 142.5 {name=d18 dir=inout sim_pinnumber=24}
+L 4 -100 140 -80 140 {}
+T {d18} -75 134 0 0 0.2 0.2 {}
+B 5 -102.5 157.5 -97.5 162.5 {name=d19 dir=inout sim_pinnumber=25}
+L 4 -100 160 -80 160 {}
+T {d19} -75 154 0 0 0.2 0.2 {}
+B 5 -102.5 177.5 -97.5 182.5 {name=d20 dir=inout sim_pinnumber=26}
+L 4 -100 180 -80 180 {}
+T {d20} -75 174 0 0 0.2 0.2 {}
+B 5 -102.5 197.5 -97.5 202.5 {name=d21 dir=inout sim_pinnumber=27}
+L 4 -100 200 -80 200 {}
+T {d21} -75 194 0 0 0.2 0.2 {}
+B 5 -102.5 217.5 -97.5 222.5 {name=d22 dir=inout sim_pinnumber=28}
+L 4 -100 220 -80 220 {}
+T {d22} -75 214 0 0 0.2 0.2 {}
+B 5 -102.5 237.5 -97.5 242.5 {name=d23 dir=inout sim_pinnumber=29}
+L 4 -100 240 -80 240 {}
+T {d23} -75 234 0 0 0.2 0.2 {}
+B 5 97.5 -242.5 102.5 -237.5 {name=bus0 dir=inout sim_pinnumber=30}
+L 4 80 -240 100 -240 {}
+T {bus0} 75 -246 0 1 0.2 0.2 {}
+B 5 97.5 -222.5 102.5 -217.5 {name=bus1 dir=inout sim_pinnumber=31}
+L 4 80 -220 100 -220 {}
+T {bus1} 75 -226 0 1 0.2 0.2 {}
+B 5 97.5 -202.5 102.5 -197.5 {name=bus2 dir=inout sim_pinnumber=32}
+L 4 80 -200 100 -200 {}
+T {bus2} 75 -206 0 1 0.2 0.2 {}
+B 5 97.5 -182.5 102.5 -177.5 {name=bus3 dir=inout sim_pinnumber=33}
+L 4 80 -180 100 -180 {}
+T {bus3} 75 -186 0 1 0.2 0.2 {}
+B 5 97.5 -162.5 102.5 -157.5 {name=vcpla dir=inout sim_pinnumber=34}
+L 4 80 -160 100 -160 {}
+T {vcpla} 75 -166 0 1 0.2 0.2 {}
+B 5 97.5 -142.5 102.5 -137.5 {name=vcplb dir=inout sim_pinnumber=35}
+L 4 80 -140 100 -140 {}
+T {vcplb} 75 -146 0 1 0.2 0.2 {}

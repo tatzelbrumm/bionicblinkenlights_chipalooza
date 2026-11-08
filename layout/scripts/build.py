@@ -124,7 +124,7 @@ def unit(ly):
             ('XM2', 'n', 2, 0.45, 1, 'vss', 'vm', 'rst'),
             ('XMR2', 'n', 0.3, 20, 1, 'vss', 'rst', 'vdd'),
             ('XC2', 'n', 40, 10, 4, 'vss', 'vss', 'slow'),
-            ('XMH', 'n', 0.3, 4.5, 1, 'vss', 'vin', 'vbnl'),
+            ('XMH', 'n', 0.3, 9, 1, 'vss', 'vin', 'vbnl'),
             ('XMU0', 'n', 0.3, 2, 1, 's0', 'vin', 'vbnl'),
             ('XMS0', 'n', 0.3, 0.45, 1, 'vss', 's0', 'b0'),
             ('XMU1', 'n', 0.6, 2, 2, 's1', 'vin', 'vbnl'),

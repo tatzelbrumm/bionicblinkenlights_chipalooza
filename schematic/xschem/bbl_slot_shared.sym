@@ -1,0 +1,166 @@
+v {xschem version=3.4.5 file_version=1.2}
+G {}
+K {type=subcircuit
+format="@name @pinlist @symname"
+template="name=x1"
+}
+V {}
+S {}
+E {}
+L 4 -80 -510 80 -510 {}
+L 4 80 -510 80 510 {}
+L 4 80 510 -80 510 {}
+L 4 -80 510 -80 -510 {}
+T {@symname} -75 -535 0 0 0.3 0.3 {}
+T {@name} -75 515 0 0 0.3 0.3 {}
+T {bbl_slot_shared} -70 -10 0 0 0.25 0.25 {}
+B 5 -102.5 -492.5 -97.5 -487.5 {name=vdd_3v3 dir=inout sim_pinnumber=1}
+L 4 -100 -490 -80 -490 {}
+T {vdd_3v3} -75 -496 0 0 0.2 0.2 {}
+B 5 -102.5 -472.5 -97.5 -467.5 {name=vss_3v3 dir=inout sim_pinnumber=2}
+L 4 -100 -470 -80 -470 {}
+T {vss_3v3} -75 -476 0 0 0.2 0.2 {}
+B 5 -102.5 -452.5 -97.5 -447.5 {name=vdd_1v2 dir=inout sim_pinnumber=3}
+L 4 -100 -450 -80 -450 {}
+T {vdd_1v2} -75 -456 0 0 0.2 0.2 {}
+B 5 -102.5 -432.5 -97.5 -427.5 {name=vss_1v2 dir=inout sim_pinnumber=4}
+L 4 -100 -430 -80 -430 {}
+T {vss_1v2} -75 -436 0 0 0.2 0.2 {}
+B 5 -102.5 -412.5 -97.5 -407.5 {name=enable dir=inout sim_pinnumber=5}
+L 4 -100 -410 -80 -410 {}
+T {enable} -75 -416 0 0 0.2 0.2 {}
+B 5 -102.5 -392.5 -97.5 -387.5 {name=clk dir=inout sim_pinnumber=6}
+L 4 -100 -390 -80 -390 {}
+T {clk} -75 -396 0 0 0.2 0.2 {}
+B 5 -102.5 -372.5 -97.5 -367.5 {name=reset dir=inout sim_pinnumber=7}
+L 4 -100 -370 -80 -370 {}
+T {reset} -75 -376 0 0 0.2 0.2 {}
+B 5 -102.5 -352.5 -97.5 -347.5 {name=dig_in[0] dir=inout sim_pinnumber=8}
+L 4 -100 -350 -80 -350 {}
+T {dig_in[0]} -75 -356 0 0 0.2 0.2 {}
+B 5 -102.5 -332.5 -97.5 -327.5 {name=dig_in[1] dir=inout sim_pinnumber=9}
+L 4 -100 -330 -80 -330 {}
+T {dig_in[1]} -75 -336 0 0 0.2 0.2 {}
+B 5 -102.5 -312.5 -97.5 -307.5 {name=dig_in[2] dir=inout sim_pinnumber=10}
+L 4 -100 -310 -80 -310 {}
+T {dig_in[2]} -75 -316 0 0 0.2 0.2 {}
+B 5 -102.5 -292.5 -97.5 -287.5 {name=dig_in[3] dir=inout sim_pinnumber=11}
+L 4 -100 -290 -80 -290 {}
+T {dig_in[3]} -75 -296 0 0 0.2 0.2 {}
+B 5 -102.5 -272.5 -97.5 -267.5 {name=dig_in[4] dir=inout sim_pinnumber=12}
+L 4 -100 -270 -80 -270 {}
+T {dig_in[4]} -75 -276 0 0 0.2 0.2 {}
+B 5 -102.5 -252.5 -97.5 -247.5 {name=dig_in[5] dir=inout sim_pinnumber=13}
+L 4 -100 -250 -80 -250 {}
+T {dig_in[5]} -75 -256 0 0 0.2 0.2 {}
+B 5 -102.5 -232.5 -97.5 -227.5 {name=dig_in[6] dir=inout sim_pinnumber=14}
+L 4 -100 -230 -80 -230 {}
+T {dig_in[6]} -75 -236 0 0 0.2 0.2 {}
+B 5 -102.5 -212.5 -97.5 -207.5 {name=dig_in[7] dir=inout sim_pinnumber=15}
+L 4 -100 -210 -80 -210 {}
+T {dig_in[7]} -75 -216 0 0 0.2 0.2 {}
+B 5 -102.5 -192.5 -97.5 -187.5 {name=dig_in[8] dir=inout sim_pinnumber=16}
+L 4 -100 -190 -80 -190 {}
+T {dig_in[8]} -75 -196 0 0 0.2 0.2 {}
+B 5 -102.5 -172.5 -97.5 -167.5 {name=dig_in[9] dir=inout sim_pinnumber=17}
+L 4 -100 -170 -80 -170 {}
+T {dig_in[9]} -75 -176 0 0 0.2 0.2 {}
+B 5 -102.5 -152.5 -97.5 -147.5 {name=dig_in[10] dir=inout sim_pinnumber=18}
+L 4 -100 -150 -80 -150 {}
+T {dig_in[10]} -75 -156 0 0 0.2 0.2 {}
+B 5 -102.5 -132.5 -97.5 -127.5 {name=dig_in[11] dir=inout sim_pinnumber=19}
+L 4 -100 -130 -80 -130 {}
+T {dig_in[11]} -75 -136 0 0 0.2 0.2 {}
+B 5 -102.5 -112.5 -97.5 -107.5 {name=dig_in[12] dir=inout sim_pinnumber=20}
+L 4 -100 -110 -80 -110 {}
+T {dig_in[12]} -75 -116 0 0 0.2 0.2 {}
+B 5 -102.5 -92.5 -97.5 -87.5 {name=dig_in[13] dir=inout sim_pinnumber=21}
+L 4 -100 -90 -80 -90 {}
+T {dig_in[13]} -75 -96 0 0 0.2 0.2 {}
+B 5 -102.5 -72.5 -97.5 -67.5 {name=dig_in[14] dir=inout sim_pinnumber=22}
+L 4 -100 -70 -80 -70 {}
+T {dig_in[14]} -75 -76 0 0 0.2 0.2 {}
+B 5 -102.5 -52.5 -97.5 -47.5 {name=dig_in[15] dir=inout sim_pinnumber=23}
+L 4 -100 -50 -80 -50 {}
+T {dig_in[15]} -75 -56 0 0 0.2 0.2 {}
+B 5 -102.5 -32.5 -97.5 -27.5 {name=dig_in[16] dir=inout sim_pinnumber=24}
+L 4 -100 -30 -80 -30 {}
+T {dig_in[16]} -75 -36 0 0 0.2 0.2 {}
+B 5 -102.5 -12.5 -97.5 -7.5 {name=dig_in[17] dir=inout sim_pinnumber=25}
+L 4 -100 -10 -80 -10 {}
+T {dig_in[17]} -75 -16 0 0 0.2 0.2 {}
+B 5 -102.5 7.5 -97.5 12.5 {name=dig_in[18] dir=inout sim_pinnumber=26}
+L 4 -100 10 -80 10 {}
+T {dig_in[18]} -75 4 0 0 0.2 0.2 {}
+B 5 -102.5 27.5 -97.5 32.5 {name=dig_in[19] dir=inout sim_pinnumber=27}
+L 4 -100 30 -80 30 {}
+T {dig_in[19]} -75 24 0 0 0.2 0.2 {}
+B 5 -102.5 47.5 -97.5 52.5 {name=dig_in[20] dir=inout sim_pinnumber=28}
+L 4 -100 50 -80 50 {}
+T {dig_in[20]} -75 44 0 0 0.2 0.2 {}
+B 5 -102.5 67.5 -97.5 72.5 {name=dig_in[21] dir=inout sim_pinnumber=29}
+L 4 -100 70 -80 70 {}
+T {dig_in[21]} -75 64 0 0 0.2 0.2 {}
+B 5 -102.5 87.5 -97.5 92.5 {name=dig_in[22] dir=inout sim_pinnumber=30}
+L 4 -100 90 -80 90 {}
+T {dig_in[22]} -75 84 0 0 0.2 0.2 {}
+B 5 -102.5 107.5 -97.5 112.5 {name=dig_in[23] dir=inout sim_pinnumber=31}
+L 4 -100 110 -80 110 {}
+T {dig_in[23]} -75 104 0 0 0.2 0.2 {}
+B 5 -102.5 127.5 -97.5 132.5 {name=dig_out[0] dir=inout sim_pinnumber=32}
+L 4 -100 130 -80 130 {}
+T {dig_out[0]} -75 124 0 0 0.2 0.2 {}
+B 5 -102.5 147.5 -97.5 152.5 {name=dig_out[1] dir=inout sim_pinnumber=33}
+L 4 -100 150 -80 150 {}
+T {dig_out[1]} -75 144 0 0 0.2 0.2 {}
+B 5 -102.5 167.5 -97.5 172.5 {name=dig_out[2] dir=inout sim_pinnumber=34}
+L 4 -100 170 -80 170 {}
+T {dig_out[2]} -75 164 0 0 0.2 0.2 {}
+B 5 -102.5 187.5 -97.5 192.5 {name=dig_out[3] dir=inout sim_pinnumber=35}
+L 4 -100 190 -80 190 {}
+T {dig_out[3]} -75 184 0 0 0.2 0.2 {}
+B 5 -102.5 207.5 -97.5 212.5 {name=dig_out[4] dir=inout sim_pinnumber=36}
+L 4 -100 210 -80 210 {}
+T {dig_out[4]} -75 204 0 0 0.2 0.2 {}
+B 5 -102.5 227.5 -97.5 232.5 {name=dig_out[5] dir=inout sim_pinnumber=37}
+L 4 -100 230 -80 230 {}
+T {dig_out[5]} -75 224 0 0 0.2 0.2 {}
+B 5 -102.5 247.5 -97.5 252.5 {name=dig_out[6] dir=inout sim_pinnumber=38}
+L 4 -100 250 -80 250 {}
+T {dig_out[6]} -75 244 0 0 0.2 0.2 {}
+B 5 -102.5 267.5 -97.5 272.5 {name=dig_out[7] dir=inout sim_pinnumber=39}
+L 4 -100 270 -80 270 {}
+T {dig_out[7]} -75 264 0 0 0.2 0.2 {}
+B 5 -102.5 287.5 -97.5 292.5 {name=dig_out[8] dir=inout sim_pinnumber=40}
+L 4 -100 290 -80 290 {}
+T {dig_out[8]} -75 284 0 0 0.2 0.2 {}
+B 5 -102.5 307.5 -97.5 312.5 {name=dig_out[9] dir=inout sim_pinnumber=41}
+L 4 -100 310 -80 310 {}
+T {dig_out[9]} -75 304 0 0 0.2 0.2 {}
+B 5 -102.5 327.5 -97.5 332.5 {name=dig_out[10] dir=inout sim_pinnumber=42}
+L 4 -100 330 -80 330 {}
+T {dig_out[10]} -75 324 0 0 0.2 0.2 {}
+B 5 -102.5 347.5 -97.5 352.5 {name=dig_out[11] dir=inout sim_pinnumber=43}
+L 4 -100 350 -80 350 {}
+T {dig_out[11]} -75 344 0 0 0.2 0.2 {}
+B 5 -102.5 367.5 -97.5 372.5 {name=analog_bus0 dir=inout sim_pinnumber=44}
+L 4 -100 370 -80 370 {}
+T {analog_bus0} -75 364 0 0 0.2 0.2 {}
+B 5 -102.5 387.5 -97.5 392.5 {name=analog_bus1 dir=inout sim_pinnumber=45}
+L 4 -100 390 -80 390 {}
+T {analog_bus1} -75 384 0 0 0.2 0.2 {}
+B 5 -102.5 407.5 -97.5 412.5 {name=analog_bus2 dir=inout sim_pinnumber=46}
+L 4 -100 410 -80 410 {}
+T {analog_bus2} -75 404 0 0 0.2 0.2 {}
+B 5 -102.5 427.5 -97.5 432.5 {name=analog_bus3 dir=inout sim_pinnumber=47}
+L 4 -100 430 -80 430 {}
+T {analog_bus3} -75 424 0 0 0.2 0.2 {}
+B 5 -102.5 447.5 -97.5 452.5 {name=vbias dir=inout sim_pinnumber=48}
+L 4 -100 450 -80 450 {}
+T {vbias} -75 444 0 0 0.2 0.2 {}
+B 5 -102.5 467.5 -97.5 472.5 {name=ibias0 dir=inout sim_pinnumber=49}
+L 4 -100 470 -80 470 {}
+T {ibias0} -75 464 0 0 0.2 0.2 {}
+B 5 -102.5 487.5 -97.5 492.5 {name=ibias1 dir=inout sim_pinnumber=50}
+L 4 -100 490 -80 490 {}
+T {ibias1} -75 484 0 0 0.2 0.2 {}

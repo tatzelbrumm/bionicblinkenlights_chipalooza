@@ -90,12 +90,13 @@ class Router:
         return x
 
 
-def build_variant(frame_gds, variant, outdir):
+def build_variant(frame_gds, variant, outdir, slot=None):
     ly = db.Layout()
     ly.dbu = 0.001
     ly.technology_name = TECHNAME
     cells = {b.cell.name: b for b in build.cells(ly)}
-    top = ly.create_cell(f'bbl_slot_{variant}')
+    topname = f'slot_{slot}' if slot else f'bbl_slot_{variant}'
+    top = ly.create_cell(topname)
     li = {k: ly.layer(*v) for k, v in L.items()}
     R = Router(top, li)
 
@@ -146,8 +147,8 @@ def build_variant(frame_gds, variant, outdir):
     if variant == 'shared':
         pin_of['vcpla'] = 'vbias'
     else:
-        pin_of['vcpla'] = 's1_an_0_esd'
-        pin_of['vcplb'] = 's1_an[1]'
+        pin_of['vcpla'] = f's{slot or 1}_an_0_esd'
+        pin_of['vcplb'] = f's{slot or 1}_an[1]'
 
     # trunk assignment: pin nets first (they must stay below PINLIM), then the rest
     signal_nets = sorted(n for n in ports if n not in SUPPLY_STRAPS)
@@ -217,7 +218,7 @@ def build_variant(frame_gds, variant, outdir):
     os.makedirs(outdir, exist_ok=True)
     opt = db.SaveLayoutOptions()
     opt.write_context_info = False
-    out = os.path.join(outdir, f'bbl_slot_{variant}.gds')
+    out = os.path.join(outdir, topname + '.gds')
     # keep only the cells under this top
     keep = set([top.cell_index()]) | set(top.called_cells())
     for ci in [c.cell_index() for c in ly.each_cell()]:
@@ -228,8 +229,18 @@ def build_variant(frame_gds, variant, outdir):
     return out
 
 
+TWO_PAD_SLOTS = (1, 2, 3, 6, 7, 12, 13, 16, 17, 18)
+
 if __name__ == '__main__':
-    frame = sys.argv[1]
+    # build_slot.py <harness>/gds <outdir>                    the two generic variants (slot 1 frame)
+    # build_slot.py <harness>/gds <outdir> <N> shared|pads    slot_<N>.gds for the harness, top cell slot_<N>
+    hdir = sys.argv[1]
     outdir = sys.argv[2] if len(sys.argv) > 2 else os.path.join(os.path.dirname(__file__), '..', 'gds')
-    for v in ('shared', 'pads'):
-        build_variant(frame, v, outdir)
+    if len(sys.argv) > 4:
+        n, v = int(sys.argv[3]), sys.argv[4]
+        if v == 'pads' and n not in TWO_PAD_SLOTS:
+            sys.exit(f'slot {n} does not have two dedicated analog pads; use the shared variant')
+        build_variant(os.path.join(hdir, f'slot{n}_wrapper.gds'), v, outdir, slot=n)
+    else:
+        for v in ('shared', 'pads'):
+            build_variant(os.path.join(hdir, 'slot1_wrapper.gds'), v, outdir)

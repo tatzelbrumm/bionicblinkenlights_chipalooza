@@ -45,7 +45,7 @@ XC2 vss slow vss vss sg13_hv_nmos w=40u l=10u ng=4 m=1
 * b0..b3 are 1.2 V logic on NMOS switches whose sources sit at vss.
 .subckt bbl_dac vdd vss vin vbnl b0 b1 b2 b3
 XMD vin vin vdd vdd sg13_hv_pmos w=3u l=3u ng=1 m=1
-XMH vin vbnl vss vss sg13_hv_nmos w=0.3u l=4.5u ng=1 m=1
+XMH vin vbnl vss vss sg13_hv_nmos w=0.3u l=9u ng=1 m=1
 XMU0 vin vbnl s0 vss sg13_hv_nmos w=0.3u l=2u ng=1 m=1
 XMS0 s0 b0 vss vss sg13_hv_nmos w=0.3u l=0.45u ng=1 m=1
 XMU1 vin vbnl s1 vss sg13_hv_nmos w=0.6u l=2u ng=2 m=1

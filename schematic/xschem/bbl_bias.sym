@@ -1,0 +1,40 @@
+v {xschem version=3.4.5 file_version=1.2}
+G {}
+K {type=subcircuit
+format="@name @pinlist @symname"
+template="name=x1"
+}
+V {}
+S {}
+E {}
+L 4 -80 -40 80 -40 {}
+L 4 80 -40 80 40 {}
+L 4 80 40 -80 40 {}
+L 4 -80 40 -80 -40 {}
+T {@symname} -75 -65 0 0 0.3 0.3 {}
+T {@name} -75 45 0 0 0.3 0.3 {}
+T {reference} -70 -10 0 0 0.25 0.25 {}
+B 5 -42.5 -62.5 -37.5 -57.5 {name=vdd dir=inout sim_pinnumber=1}
+L 4 -40 -60 -40 -40 {}
+T {vdd} -46 -35 1 0 0.2 0.2 {}
+B 5 -42.5 57.5 -37.5 62.5 {name=vss dir=inout sim_pinnumber=2}
+L 4 -40 40 -40 60 {}
+T {vss} -46 35 3 0 0.2 0.2 {}
+B 5 -2.5 -62.5 2.5 -57.5 {name=vddl dir=inout sim_pinnumber=3}
+L 4 0 -60 0 -40 {}
+T {vddl} -6 -35 1 0 0.2 0.2 {}
+B 5 -2.5 57.5 2.5 62.5 {name=vssl dir=inout sim_pinnumber=4}
+L 4 0 40 0 60 {}
+T {vssl} -6 35 3 0 0.2 0.2 {}
+B 5 -102.5 -22.5 -97.5 -17.5 {name=ena dir=inout sim_pinnumber=5}
+L 4 -100 -20 -80 -20 {}
+T {ena} -75 -26 0 0 0.2 0.2 {}
+B 5 97.5 -22.5 102.5 -17.5 {name=vbnl dir=inout sim_pinnumber=6}
+L 4 80 -20 100 -20 {}
+T {vbnl} 75 -26 0 1 0.2 0.2 {}
+B 5 97.5 -2.5 102.5 2.5 {name=vcpla dir=inout sim_pinnumber=7}
+L 4 80 0 100 0 {}
+T {vcpla} 75 -6 0 1 0.2 0.2 {}
+B 5 97.5 17.5 102.5 22.5 {name=vcplb dir=inout sim_pinnumber=8}
+L 4 80 20 100 20 {}
+T {vcplb} 75 14 0 1 0.2 0.2 {}

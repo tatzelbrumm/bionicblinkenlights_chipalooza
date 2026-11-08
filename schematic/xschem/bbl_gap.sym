@@ -1,0 +1,34 @@
+v {xschem version=3.4.5 file_version=1.2}
+G {}
+K {type=subcircuit
+format="@name @pinlist @symname"
+template="name=x1"
+}
+V {}
+S {}
+E {}
+L 4 -80 -50 80 -50 {}
+L 4 80 -50 80 50 {}
+L 4 80 50 -80 50 {}
+L 4 -80 50 -80 -50 {}
+T {@symname} -75 -75 0 0 0.3 0.3 {}
+T {@name} -75 55 0 0 0.3 0.3 {}
+T {gap junction} -70 -10 0 0 0.25 0.25 {}
+B 5 -42.5 67.5 -37.5 72.5 {name=vss dir=inout sim_pinnumber=1}
+L 4 -40 50 -40 70 {}
+T {vss} -46 45 3 0 0.2 0.2 {}
+B 5 -102.5 -32.5 -97.5 -27.5 {name=a dir=inout sim_pinnumber=2}
+L 4 -100 -30 -80 -30 {}
+T {a} -75 -36 0 0 0.2 0.2 {}
+B 5 97.5 -32.5 102.5 -27.5 {name=b dir=inout sim_pinnumber=3}
+L 4 80 -30 100 -30 {}
+T {b} 75 -36 0 1 0.2 0.2 {}
+B 5 -102.5 -12.5 -97.5 -7.5 {name=vc dir=inout sim_pinnumber=4}
+L 4 -100 -10 -80 -10 {}
+T {vc} -75 -16 0 0 0.2 0.2 {}
+B 5 -102.5 7.5 -97.5 12.5 {name=enw dir=inout sim_pinnumber=5}
+L 4 -100 10 -80 10 {}
+T {enw} -75 4 0 0 0.2 0.2 {}
+B 5 -102.5 27.5 -97.5 32.5 {name=ens dir=inout sim_pinnumber=6}
+L 4 -100 30 -80 30 {}
+T {ens} -75 24 0 0 0.2 0.2 {}

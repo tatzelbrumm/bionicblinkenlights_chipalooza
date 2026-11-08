@@ -1,0 +1,60 @@
+v {xschem version=3.4.5 file_version=1.2}
+G {}
+K {type=subcircuit
+format="@name @pinlist @symname"
+template="name=x1"
+}
+V {}
+S {}
+E {}
+L 4 -80 -130 80 -130 {}
+L 4 80 -130 80 130 {}
+L 4 80 130 -80 130 {}
+L 4 -80 130 -80 -130 {}
+T {@symname} -75 -155 0 0 0.3 0.3 {}
+T {@name} -75 135 0 0 0.3 0.3 {}
+B 5 -102.5 -112.5 -97.5 -107.5 {name=vddl dir=inout sim_pinnumber=1}
+L 4 -100 -110 -80 -110 {}
+T {vddl} -75 -116 0 0 0.2 0.2 {}
+B 5 -102.5 -92.5 -97.5 -87.5 {name=vssl dir=inout sim_pinnumber=2}
+L 4 -100 -90 -80 -90 {}
+T {vssl} -75 -96 0 0 0.2 0.2 {}
+B 5 -102.5 -72.5 -97.5 -67.5 {name=vss dir=inout sim_pinnumber=3}
+L 4 -100 -70 -80 -70 {}
+T {vss} -75 -76 0 0 0.2 0.2 {}
+B 5 97.5 -112.5 102.5 -107.5 {name=q0 dir=inout sim_pinnumber=4}
+L 4 80 -110 100 -110 {}
+T {q0} 75 -116 0 1 0.2 0.2 {}
+B 5 97.5 -92.5 102.5 -87.5 {name=q1 dir=inout sim_pinnumber=5}
+L 4 80 -90 100 -90 {}
+T {q1} 75 -96 0 1 0.2 0.2 {}
+B 5 97.5 -72.5 102.5 -67.5 {name=q2 dir=inout sim_pinnumber=6}
+L 4 80 -70 100 -70 {}
+T {q2} 75 -76 0 1 0.2 0.2 {}
+B 5 97.5 -52.5 102.5 -47.5 {name=q3 dir=inout sim_pinnumber=7}
+L 4 80 -50 100 -50 {}
+T {q3} 75 -56 0 1 0.2 0.2 {}
+B 5 97.5 -32.5 102.5 -27.5 {name=q4 dir=inout sim_pinnumber=8}
+L 4 80 -30 100 -30 {}
+T {q4} 75 -36 0 1 0.2 0.2 {}
+B 5 97.5 -12.5 102.5 -7.5 {name=q5 dir=inout sim_pinnumber=9}
+L 4 80 -10 100 -10 {}
+T {q5} 75 -16 0 1 0.2 0.2 {}
+B 5 97.5 7.5 102.5 12.5 {name=q6 dir=inout sim_pinnumber=10}
+L 4 80 10 100 10 {}
+T {q6} 75 4 0 1 0.2 0.2 {}
+B 5 97.5 27.5 102.5 32.5 {name=q7 dir=inout sim_pinnumber=11}
+L 4 80 30 100 30 {}
+T {q7} 75 24 0 1 0.2 0.2 {}
+B 5 97.5 47.5 102.5 52.5 {name=q8 dir=inout sim_pinnumber=12}
+L 4 80 50 100 50 {}
+T {q8} 75 44 0 1 0.2 0.2 {}
+B 5 97.5 67.5 102.5 72.5 {name=q9 dir=inout sim_pinnumber=13}
+L 4 80 70 100 70 {}
+T {q9} 75 64 0 1 0.2 0.2 {}
+B 5 97.5 87.5 102.5 92.5 {name=q10 dir=inout sim_pinnumber=14}
+L 4 80 90 100 90 {}
+T {q10} 75 84 0 1 0.2 0.2 {}
+B 5 97.5 107.5 102.5 112.5 {name=q11 dir=inout sim_pinnumber=15}
+L 4 80 110 100 110 {}
+T {q11} 75 104 0 1 0.2 0.2 {}

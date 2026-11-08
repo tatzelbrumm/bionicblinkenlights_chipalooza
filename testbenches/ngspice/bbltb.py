@@ -110,3 +110,46 @@ def phase_locking(spA, spB, t0=0.5):
     ph = np.array(ph)
     vs = abs(np.mean(np.exp(2j * np.pi * ph))) if len(ph) else np.nan
     return dict(ratio=len(A) / max(len(B), 1), vs=vs, phases=ph)
+
+
+# ---- post-layout (kpex) support --------------------------------------------------------------------
+def slot_dut(pex, cell):
+    """X line for an extracted slot (kpex netlist): harness pin names mapped to the testbench nodes,
+    extra ports (internal nets kpex exports) to private nodes."""
+    txt = open(pex).read()
+    i = txt.index('.SUBCKT ' + cell)
+    hdr = []
+    for line in txt[i:].splitlines():
+        if hdr and not line.startswith('+'):
+            break
+        hdr.append(line.lstrip('+'))
+    ports = ' '.join(hdr).split()[2:]
+    m = {'analog_bus%d' % k: 'bus%d' % k for k in range(4)}
+    m.update({'dig_in[%d]' % k: 'd%d' % k for k in range(24)})
+    m.update({'enable': 'ena', 'sub!': '0', 'vdd_3v3': 'vdd', 'vss_3v3': '0', 'vdd_1v2': 'vddl', 'vss_1v2': '0',
+              'vbias': 'vcpla', 's1_an_0_esd': 'vcpla', 's1_an[1]': 'vcplb'})
+    nodes = [m.get(p, 'nc_' + re.sub(r'[^A-Za-z0-9_]', '_', p)) for p in ports]
+    return 'X1 ' + ' '.join(nodes) + ' ' + cell
+
+
+BUSVECS = ['v(bus0)', 'v(bus1)', 'v(bus2)', 'v(bus3)', 'i(vdd)']
+
+
+def bus_spikes(t, v, th=1.5, dead=2e-3):
+    """Spike times from an analog bus (high while the neuron fires): rising edges through th."""
+    s = v > th
+    e = t[np.where(~s[:-1] & s[1:])[0]]
+    keep = []
+    for x in e:
+        if not keep or x - keep[-1] > dead:
+            keep.append(x)
+    return np.array(keep)
+
+
+def summary_bus(d, t0=0.3):
+    t = d['time']
+    res = {}
+    for k in range(4):
+        sp = bus_spikes(t, d[f'vbus{k}'])
+        res[k] = dict(spikes=sp, f=rate(sp, t0))
+    return res

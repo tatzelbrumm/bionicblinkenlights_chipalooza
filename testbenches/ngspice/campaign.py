@@ -22,26 +22,26 @@ C3 = 3e-12        # analog bus line on chip + pad, no external load (estimate, s
 CASES = {}
 # 1. tuning: all four neurons, four codes per run (N2, N3 on their 3 pF buses)
 for codes in [(0, 1, 2, 3), (4, 5, 6, 7), (8, 9, 10, 11), (12, 13, 14, 15)]:
-    CASES['tune_' + '_'.join(map(str, codes))] = dict(dig=dig(*codes), tstop=3.0)
+    CASES['tune_' + '_'.join(map(str, codes))] = dict(dig=dig(*codes), tstop=2.5)
 # 2. bus load: N2 and N3 at code 6, external load added to analog_bus2 / analog_bus3
-for c in [0, 3e-12, 10e-12, 30e-12, 100e-12]:
-    CASES[f'busload_{int(round(c * 1e12))}p'] = dict(dig=dig(6, 6, 6, 6), cbus=(C3, C3, C3 + c, C3 + c), tstop=3.0)
+for c in [0, 10e-12, 30e-12, 100e-12]:
+    CASES[f'busload_{int(round(c * 1e12))}p'] = dict(dig=dig(6, 6, 6, 6), cbus=(C3, C3, C3 + c, C3 + c), tstop=2.5)
 # 3. analog coupling to the bus: vcplb swept with 30 pF on the buses
-for v in [0.0, 0.7, 0.9, 1.2, 3.3]:
-    CASES[f'vcplb_{v:.1f}'] = dict(dig=dig(6, 6, 6, 6), cbus=(C3, C3, C3 + 30e-12, C3 + 30e-12), vcplb=v, tstop=3.0)
+for v in [0.0, 0.8, 1.2, 3.3]:
+    CASES[f'vcplb_{v:.1f}'] = dict(dig=dig(6, 6, 6, 6), cbus=(C3, C3, C3 + 30e-12, C3 + 30e-12), vcplb=v, tstop=2.5)
 # 4. demo img11: N0 fast, N1 slow, excitatory synapse N0 -> N1 at four weights
 for name, bits in [('none', ()), ('weak', (16,)), ('strong', (17,)), ('both', (16, 17))]:
-    CASES[f'syn01_{name}'] = dict(dig=dig(9, 1, 0, 0, bits), tstop=3.0)
+    CASES[f'syn01_{name}'] = dict(dig=dig(9, 1, 0, 0, bits), tstop=2.5)
 # 5. demo img12: mutual excitation, N0 and N1 slow and detuned
 for name, bits in [('none', ()), ('mutual_weak', (16, 18)), ('mutual_strong', (17, 19))]:
     CASES[f'mutual_{name}'] = dict(dig=dig(3, 1, 0, 0, bits), tstop=4.0)
 # 6. gap junction N0 <-> N1: detuned pair (codes 5 and 7), digital legs and analog vcpla
 for name, bits, v in [('off', (), None), ('weak', (20,), None), ('strong', (21,), None), ('both', (20, 21), None),
-                      ('both_v0.6', (20, 21), 0.6), ('both_v0.8', (20, 21), 0.8), ('both_v1.0', (20, 21), 1.0)]:
-    CASES[f'gap_{name}'] = dict(dig=dig(5, 7, 0, 0, bits), vcpla=v, tstop=3.0)
+                      ('both_v0.6', (20, 21), 0.6), ('both_v0.9', (20, 21), 0.9)]:
+    CASES[f'gap_{name}'] = dict(dig=dig(5, 7, 0, 0, bits), vcpla=v, tstop=2.5)
 # 7. N2 and N3 coupled through analog_bus2 (detuned, codes 5 and 7), with and without bus load
 for name, bits, c in [('off', (), 0), ('weak', (22,), 0), ('strong', (23,), 0), ('strong_30p', (23,), 30e-12)]:
-    CASES[f'bus23_{name}'] = dict(dig=dig(0, 0, 5, 7, bits), cbus=(C3, C3, C3 + c, C3), tstop=3.0)
+    CASES[f'bus23_{name}'] = dict(dig=dig(0, 0, 5, 7, bits), cbus=(C3, C3, C3 + c, C3), tstop=2.5)
 
 
 def one(args):

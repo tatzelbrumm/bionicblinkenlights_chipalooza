@@ -1,0 +1,4 @@
+# SPDX-FileCopyrightText: 2026 Christoph Maier
+# SPDX-License-Identifier: Apache-2.0
+source $env(PDK_ROOT)/$env(PDK)/libs.tech/xschem/xschemrc
+append XSCHEM_LIBRARY_PATH :[file dirname [info script]]

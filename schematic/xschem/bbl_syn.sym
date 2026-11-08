@@ -1,0 +1,34 @@
+v {xschem version=3.4.5 file_version=1.2}
+G {}
+K {type=subcircuit
+format="@name @pinlist @symname"
+template="name=x1"
+}
+V {}
+S {}
+E {}
+L 4 -80 -40 80 -40 {}
+L 4 80 -40 80 40 {}
+L 4 80 40 -80 40 {}
+L 4 -80 40 -80 -40 {}
+T {@symname} -75 -65 0 0 0.3 0.3 {}
+T {@name} -75 45 0 0 0.3 0.3 {}
+T {pulse synapse} -70 -10 0 0 0.25 0.25 {}
+B 5 -42.5 -62.5 -37.5 -57.5 {name=vdd dir=inout sim_pinnumber=1}
+L 4 -40 -60 -40 -40 {}
+T {vdd} -46 -35 1 0 0.2 0.2 {}
+B 5 -42.5 57.5 -37.5 62.5 {name=vss dir=inout sim_pinnumber=2}
+L 4 -40 40 -40 60 {}
+T {vss} -46 35 3 0 0.2 0.2 {}
+B 5 -102.5 -22.5 -97.5 -17.5 {name=spk dir=inout sim_pinnumber=3}
+L 4 -100 -20 -80 -20 {}
+T {spk} -75 -26 0 0 0.2 0.2 {}
+B 5 97.5 -22.5 102.5 -17.5 {name=post dir=inout sim_pinnumber=4}
+L 4 80 -20 100 -20 {}
+T {post} 75 -26 0 1 0.2 0.2 {}
+B 5 -102.5 -2.5 -97.5 2.5 {name=enw dir=inout sim_pinnumber=5}
+L 4 -100 0 -80 0 {}
+T {enw} -75 -6 0 0 0.2 0.2 {}
+B 5 -102.5 17.5 -97.5 22.5 {name=ens dir=inout sim_pinnumber=6}
+L 4 -100 20 -80 20 {}
+T {ens} -75 14 0 0 0.2 0.2 {}

@@ -3,3 +3,4 @@ testbenches/ngspice/out/
 __pycache__/
 *.pyc
 *.raw
+schematic/xschem/netlist_check/
