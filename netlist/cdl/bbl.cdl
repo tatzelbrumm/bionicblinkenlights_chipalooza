@@ -11,8 +11,12 @@
 *
 * CMOS translation, 3.3 V thick-oxide devices (sg13_hv_*) only, same four transistors in the same
 * roles. Each resistor becomes one MOSFET:
-*   R1, R5  long PMOS, gate tied to vss       (self-biased, about 1 uA when conducting)
+*   R1      long PMOS, gate tied to vss       (self-biased, about 1 uA when conducting)
 *   R2      long NMOS, gate tied to vdd       (self-biased)
+*   R5      split in two, as the R5 C2 recovery of the original needs: a long NMOS, gate tied to vdd
+*           (self-biased), discharges the slow node fast when out falls and recharges it only to about
+*           vdd - Vt; a PMOS on the DAC bias vin finishes the recharge slowly (the refractory time, about
+*           1..25 ms, shorter for faster tuning), so the membrane and the bus are always reset completely
 *   R3      long PMOS, gate = vin             (the only biased one: 10 pA .. 300 pA from the tuning DAC)
 *   R4      merged into Q3: M3 is long (0.3/4 um), so it limits its own current to about 8 uA, like R4
 * All timing capacitors are on-chip MOS gate capacitors. On the bus-coupled neurons the analog bus
@@ -22,12 +26,13 @@
 * in the simulator's implicit time steps (see README, Simulation).
 
 * ---------------------------------------------------------------------------------------------------
-* The neuron: 8 transistors, 2 MOS capacitors.
+* The neuron: 9 transistors, 2 MOS capacitors.
 *   XM1 [Q1]  fires when vm reaches about 0.7 V (where M1 out-sinks the R1 stand-in)
 *   XM3 [Q3]  out low -> about 8 uA into the membrane (regenerative upstroke; current-limited like Q3 + R4)
 *   XM4 [Q4]  slow low -> rst high
 *   XM2 [Q2]  rst high -> membrane discharged (stronger than M3)
-*   XMR1 [R1], XMR2 [R2], XMR3 [R3], XMR5 [R5], XC1 [C1] 10 pF (18 fingers of 12.5 x 10 um), XC2 [C2] 2.6 pF
+*   XMR1 [R1], XMR2 [R2], XMR3 [R3], XMR5A / XMR5B [R5], XC1 [C1] 10 pF (18 fingers of 12.5 x 10 um),
+*   XC2 [C2] 2.6 pF
 .subckt bbl_neuron vdd vss vm out vin
 MM1 out vm vss vss sg13_hv_nmos w=1u l=1u ng=1 m=1
 MM2 vm rst vss vss sg13_hv_nmos w=2u l=0.45u ng=1 m=1
@@ -36,7 +41,8 @@ MM4 rst slow vdd vdd sg13_hv_pmos w=1u l=0.45u ng=1 m=1
 MMR1 out vss vdd vdd sg13_hv_pmos w=0.3u l=20u ng=1 m=1
 MMR2 rst vdd vss vss sg13_hv_nmos w=0.3u l=20u ng=1 m=1
 MMR3 vm vin vdd vdd sg13_hv_pmos w=0.3u l=30u ng=1 m=1
-MMR5 slow vss out vdd sg13_hv_pmos w=0.3u l=100u ng=1 m=1
+MMR5A slow vdd out vss sg13_hv_nmos w=0.3u l=100u ng=1 m=1
+MMR5B slow vin vdd vdd sg13_hv_pmos w=0.3u l=4u ng=1 m=1
 MC1 vdd vm vdd vdd sg13_hv_pmos w=225u l=10u ng=18 m=1
 MC2 vss slow vss vss sg13_hv_nmos w=60u l=10u ng=6 m=1
 .ends bbl_neuron

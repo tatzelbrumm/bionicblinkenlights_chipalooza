@@ -119,10 +119,11 @@ def unit(ly):
             ('XM3', 'p', 0.3, 4, 1, 'vdd', 'vm', 'out'),
             ('XMR1', 'p', 0.3, 20, 1, 'vdd', 'out', 'vss'),
             ('XM4', 'p', 1, 0.45, 1, 'vdd', 'rst', 'slow'),
-            ('XMR5', 'p', 0.3, 100, 1, 'out', 'slow', 'vss')]
+            ('XMR5B', 'p', 0.3, 4, 1, 'vdd', 'slow', 'vin')]
     ndev = [('XM1', 'n', 1, 1, 1, 'vss', 'out', 'vm'),
             ('XM2', 'n', 2, 0.45, 1, 'vss', 'vm', 'rst'),
             ('XMR2', 'n', 0.3, 20, 1, 'vss', 'rst', 'vdd'),
+            ('XMR5A', 'n', 0.3, 100, 1, 'out', 'slow', 'vdd'),
             ('XC2', 'n', 60, 10, 6, 'vss', 'vss', 'slow'),
             ('XMH', 'n', 0.3, 9, 1, 'vss', 'vin', 'vbnl'),
             ('XMU0', 'n', 0.3, 2, 1, 's0', 'vin', 'vbnl'),

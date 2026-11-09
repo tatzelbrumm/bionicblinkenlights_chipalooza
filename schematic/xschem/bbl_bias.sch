@@ -4,9 +4,9 @@ K {}
 V {}
 S {}
 E {}
-T {bbl_bias: self-biased subthreshold beta multiplier (K = 8, rhigh), enable, pull-ups} -120 -540 0 0 0.6 0.6 {}
-T {about 45 nA per branch; start-up by the Vgs = 0 leakage of XMSU} -120 -490 0 0 0.3 0.3 {}
-T {vbnl: about 2.5 nA reference of the tuning DACs; vcpla / vcplb pulled up by about 1 nA} -120 -460 0 0 0.3 0.3 {}
+T {bbl_bias: self-biased subthreshold beta multiplier (K = 8, rhigh), enable, pull-ups} -120 -570 0 0 0.6 0.6 {}
+T {about 45 nA per branch; start-up by the Vgs = 0 leakage of XMSU} -120 -500 0 0 0.3 0.3 {}
+T {vbnl: about 2.5 nA reference of the tuning DACs; vcpla / vcplb pulled up by about 1 nA} -120 -470 0 0 0.3 0.3 {}
 N -120 -380 1220 -380 {lab=vdd}
 N -120 510 1220 510 {lab=vss}
 N 340 250 340 320 {lab=sa}

@@ -278,9 +278,9 @@ def leaf_sheet(sub, rows, title, rails=('vdd', 'vss'), pitch=140, notes=()):
             S.port('iopin', XP, YS, n)
         elif n in ty:
             S.port('iopin', XP, ty[n], n)
-    S.text(XP, YV - 160, title, 0.6)  # title above the notes
+    S.text(XP, YV - 80 - 30 * len(notes) - 50, title, 0.6)  # title above the notes
     for k, s in enumerate(notes):
-        S.text(XP, YV - 110 + 30 * k, s, 0.3)
+        S.text(XP, YV - 60 - 30 * (len(notes) - k), s, 0.3)
     return S
 
 
@@ -388,11 +388,12 @@ if __name__ == '__main__':
     out = HERE
     I = lambda sub: [i['name'] for i in subs[sub]['insts']]
     sheets = {
-        'bbl_neuron': ([['XMR3', 'XC1', 'XM3', 'XMR1', 'XM4', 'XMR5'], ['XM2', 'XM1', 'XMR2', 'XC2']],
+        'bbl_neuron': ([['XMR3', 'XC1', 'XM3', 'XMR1', 'XM4', 'XMR5B'], ['XM2', 'XM1', 'XMR2', 'XMR5A', 'XC2']],
                        'bbl_neuron: Bionic Blinkenlight integrate-and-fire neuron (CMOS translation)',
-                       ['Q1..Q4 of the discrete circuit = XM1..XM4; resistors = XMR1..XMR5 (R4 merged into XM3)',
-                        'XC1 membrane capacitor 10 pF (PMOS gate cap), XC2 slow-node capacitor 1.8 pF',
-                        'self-biased: gates of XMR1, XMR5 on vss, XMR2 on vdd; only XMR3 (vin) is biased']),
+                       ['Q1..Q4 of the discrete circuit = XM1..XM4; resistors = XMR1..XMR5B (R4 = the length of XM3)',
+                        'XC1 membrane capacitor 10 pF (PMOS gate cap), XC2 slow-node capacitor 2.6 pF',
+                        'self-biased: XMR1 gate on vss, XMR2 and XMR5A gates on vdd; XMR3 and XMR5B on the DAC bias vin',
+                        'R5 = XMR5A (fast discharge of slow) + XMR5B (slow recharge: refractory time, complete reset)']),
         'bbl_dac': ([['XMD'], ['XMH', 'XMU0', 'XMU1', 'XMU2', 'XMU3'], [None, 'XMS0', 'XMS1', 'XMS2', 'XMS3']],
                     'bbl_dac: tuning DAC, diode XMD carries (0.5 + code) x unit, code = b3..b0',
                     ['b0..b3 are 1.2 V logic (dig_in); the half-unit leg XMH is always on']),

@@ -4,7 +4,7 @@ K {}
 V {}
 S {}
 E {}
-T {bbl_tielo: dig_out[11:0] held low (1.2 V NMOS)} -120 -550 0 0 0.6 0.6 {}
+T {bbl_tielo: dig_out[11:0] held low (1.2 V NMOS)} -120 -520 0 0 0.6 0.6 {}
 N -120 -390 1920 -390 {lab=vddl}
 N -120 390 1920 390 {lab=vss}
 N 200 230 220 230 {lab=vss}

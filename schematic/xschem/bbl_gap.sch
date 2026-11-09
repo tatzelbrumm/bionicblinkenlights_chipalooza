@@ -5,7 +5,7 @@ V {}
 S {}
 E {}
 T {bbl_gap: gap junction (electrical synapse) a <-> b} -120 -480 0 0 0.6 0.6 {}
-T {pass gates at the analog coupling voltage vc in series with 1.2 V enables} -120 -430 0 0 0.3 0.3 {}
+T {pass gates at the analog coupling voltage vc in series with 1.2 V enables} -120 -410 0 0 0.3 0.3 {}
 N -120 -320 520 -320 {lab=vdd}
 N -120 450 520 450 {lab=vss}
 N 200 190 200 260 {lab=gw}

@@ -4,9 +4,9 @@ K {}
 V {}
 S {}
 E {}
-T {bbl_syn: pulse synapse (stand-in for the photoresistor of the demos)} -120 -500 0 0 0.6 0.6 {}
-T {g = NAND(spk, en): XMN/XMB stack, pull-ups XMP (spk) and XMR (self-biased, en)} -120 -450 0 0 0.3 0.3 {}
-T {XMSW weak leg (0.3/100), XMSS strong leg (0.3/20) into the postsynaptic membrane} -120 -420 0 0 0.3 0.3 {}
+T {bbl_syn: pulse synapse (stand-in for the photoresistor of the demos)} -120 -530 0 0 0.6 0.6 {}
+T {g = NAND(spk, en): XMN/XMB stack, pull-ups XMP (spk) and XMR (self-biased, en)} -120 -460 0 0 0.3 0.3 {}
+T {XMSW weak leg (0.3/100), XMSS strong leg (0.3/20) into the postsynaptic membrane} -120 -430 0 0 0.3 0.3 {}
 N -120 -340 1020 -340 {lab=vdd}
 N -120 470 1020 470 {lab=vss}
 N 200 210 200 280 {lab=bw}

@@ -5,7 +5,7 @@ V {}
 S {}
 E {}
 T {bbl_dac: tuning DAC, diode XMD carries (0.5 + code) x unit, code = b3..b0} -120 -520 0 0 0.6 0.6 {}
-T {b0..b3 are 1.2 V logic (dig_in); the half-unit leg XMH is always on} -120 -470 0 0 0.3 0.3 {}
+T {b0..b3 are 1.2 V logic (dig_in); the half-unit leg XMH is always on} -120 -450 0 0 0.3 0.3 {}
 N -120 -360 940 -360 {lab=vdd}
 N -120 490 940 490 {lab=vss}
 N 340 230 340 300 {lab=s0}

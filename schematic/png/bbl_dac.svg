@@ -588,5 +588,5 @@ text {font-family: Sans-Serif;}
 <circle class="l1" cx="603.756" cy="675.93" r="2.43804"/>
 <circle class="l1" cx="788.257" cy="675.93" r="2.43804"/>
 <text fill="#cccccc"  xml:space="preserve" font-size="20.5586" transform="translate(195.219, 29.0772)" >bbl_dac: tuning DAC, diode XMD carries (0.5 + code) x unit, code = b3..b0</text>
-<text fill="#cccccc"  xml:space="preserve" font-size="10.2793" transform="translate(195.219, 52.6902)" >b0..b3 are 1.2 V logic (dig_in); the half-unit leg XMH is always on</text>
+<text fill="#cccccc"  xml:space="preserve" font-size="10.2793" transform="translate(195.219, 65.8688)" >b0..b3 are 1.2 V logic (dig_in); the half-unit leg XMH is always on</text>
 </svg>

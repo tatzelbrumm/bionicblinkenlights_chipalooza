@@ -4,10 +4,11 @@ K {}
 V {}
 S {}
 E {}
-T {bbl_neuron: Bionic Blinkenlight integrate-and-fire neuron (CMOS translation)} -120 -470 0 0 0.6 0.6 {}
-T {Q1..Q4 of the discrete circuit = XM1..XM4; resistors = XMR1..XMR5 (R4 merged into XM3)} -120 -420 0 0 0.3 0.3 {}
-T {XC1 membrane capacitor 10 pF (PMOS gate cap), XC2 slow-node capacitor 1.8 pF} -120 -390 0 0 0.3 0.3 {}
-T {self-biased: gates of XMR1, XMR5 on vss, XMR2 on vdd; only XMR3 (vin) is biased} -120 -360 0 0 0.3 0.3 {}
+T {bbl_neuron: Bionic Blinkenlight integrate-and-fire neuron (CMOS translation)} -120 -560 0 0 0.6 0.6 {}
+T {Q1..Q4 of the discrete circuit = XM1..XM4; resistors = XMR1..XMR5B (R4 = the length of XM3)} -120 -490 0 0 0.3 0.3 {}
+T {XC1 membrane capacitor 10 pF (PMOS gate cap), XC2 slow-node capacitor 2.6 pF} -120 -460 0 0 0.3 0.3 {}
+T {self-biased: XMR1 gate on vss, XMR2 and XMR5A gates on vdd; XMR3 and XMR5B on the DAC bias vin} -120 -430 0 0 0.3 0.3 {}
+T {R5 = XMR5A (fast discharge of slow) + XMR5B (slow recharge: refractory time, complete reset)} -120 -400 0 0 0.3 0.3 {}
 N -120 -310 1020 -310 {lab=vdd}
 N -120 310 1020 310 {lab=vss}
 N 140 -150 160 -150 {lab=vdd}
@@ -29,6 +30,7 @@ N 720 -150 720 -310 {lab=vdd}
 N 700 -180 700 -310 {lab=vdd}
 N 840 -150 860 -150 {lab=vdd}
 N 860 -150 860 -310 {lab=vdd}
+N 840 -180 840 -310 {lab=vdd}
 N 200 150 220 150 {lab=vss}
 N 220 150 220 310 {lab=vss}
 N 200 180 200 310 {lab=vss}
@@ -40,35 +42,39 @@ N 500 150 500 310 {lab=vss}
 N 480 180 480 310 {lab=vss}
 N 620 150 640 150 {lab=vss}
 N 640 150 640 310 {lab=vss}
-N 620 120 650 120 {lab=vss}
-N 650 120 650 310 {lab=vss}
-N 620 180 620 310 {lab=vss}
-N 100 -150 100 -30 {lab=vin}
-N 140 -120 140 -10 {lab=vm}
-N 240 -150 240 -10 {lab=vm}
-N 380 -150 380 -70 {lab=out}
-N 420 -120 420 -10 {lab=vm}
-N 520 -150 520 -50 {lab=vss}
-N 560 -120 560 -70 {lab=out}
+N 760 150 780 150 {lab=vss}
+N 780 150 780 310 {lab=vss}
+N 760 120 790 120 {lab=vss}
+N 790 120 790 310 {lab=vss}
+N 760 180 760 310 {lab=vss}
+N 100 -150 100 -70 {lab=vin}
+N 140 -120 140 -50 {lab=vm}
+N 240 -150 240 -50 {lab=vm}
+N 380 -150 380 -10 {lab=out}
+N 420 -120 420 -50 {lab=vm}
+N 520 -150 520 -30 {lab=vss}
+N 560 -120 560 -10 {lab=out}
 N 660 -150 660 10 {lab=slow}
 N 700 -120 700 30 {lab=rst}
-N 800 -150 800 -50 {lab=vss}
+N 800 -150 800 -70 {lab=vin}
 N 840 -120 840 10 {lab=slow}
 N 160 150 160 30 {lab=rst}
-N 200 120 200 -10 {lab=vm}
-N 300 150 300 -10 {lab=vm}
-N 340 120 340 -70 {lab=out}
+N 200 120 200 -50 {lab=vm}
+N 300 150 300 -50 {lab=vm}
+N 340 120 340 -10 {lab=out}
 N 440 150 440 50 {lab=vdd}
 N 480 120 480 30 {lab=rst}
-N 580 150 580 10 {lab=slow}
-N 840 -180 870 -180 {lab=out}
-N 870 -180 870 -70 {lab=out}
-N -120 -70 870 -70 {lab=out}
-N 520 -50 1000 -50 {lab=vss}
-N 1000 -50 1000 310 {lab=vss}
-N -120 -30 100 -30 {lab=vin}
-N -120 -10 420 -10 {lab=vm}
-N 580 10 840 10 {lab=slow}
+N 580 150 580 50 {lab=vdd}
+N 620 120 620 10 {lab=slow}
+N 720 150 720 10 {lab=slow}
+N 620 180 650 180 {lab=out}
+N 650 180 650 -10 {lab=out}
+N -120 -70 800 -70 {lab=vin}
+N -120 -50 420 -50 {lab=vm}
+N 520 -30 1000 -30 {lab=vss}
+N 1000 -30 1000 310 {lab=vss}
+N -120 -10 650 -10 {lab=out}
+N 620 10 840 10 {lab=slow}
 N 160 30 700 30 {lab=rst}
 N 440 50 980 50 {lab=vdd}
 N 980 50 980 -310 {lab=vdd}
@@ -77,15 +83,16 @@ C {sg13cmos5l_pr/sg13_hv_pmos.sym} 260 -150 0 0 {name=C1 l=10u w=225u ng=18 m=1 
 C {sg13cmos5l_pr/sg13_hv_pmos.sym} 400 -150 0 0 {name=M3 l=4u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
 C {sg13cmos5l_pr/sg13_hv_pmos.sym} 540 -150 0 0 {name=MR1 l=20u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
 C {sg13cmos5l_pr/sg13_hv_pmos.sym} 680 -150 0 0 {name=M4 l=0.45u w=1u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
-C {sg13cmos5l_pr/sg13_hv_pmos.sym} 820 -150 0 0 {name=MR5 l=100u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
+C {sg13cmos5l_pr/sg13_hv_pmos.sym} 820 -150 0 0 {name=MR5B l=4u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
 C {sg13cmos5l_pr/sg13_hv_nmos.sym} 180 150 0 0 {name=M2 l=0.45u w=2u ng=1 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
 C {sg13cmos5l_pr/sg13_hv_nmos.sym} 320 150 0 0 {name=M1 l=1u w=1u ng=1 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
 C {sg13cmos5l_pr/sg13_hv_nmos.sym} 460 150 0 0 {name=MR2 l=20u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
-C {sg13cmos5l_pr/sg13_hv_nmos.sym} 600 150 0 0 {name=C2 l=10u w=60u ng=6 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
-C {lab_pin.sym} 580 10 0 0 {name=l10 sig_type=std_logic lab=slow}
-C {lab_pin.sym} 160 30 0 0 {name=l11 sig_type=std_logic lab=rst}
-C {iopin.sym} -120 -310 0 0 {name=p12 lab=vdd}
-C {iopin.sym} -120 310 0 0 {name=p13 lab=vss}
-C {iopin.sym} -120 -10 0 0 {name=p14 lab=vm}
-C {iopin.sym} -120 -70 0 0 {name=p15 lab=out}
-C {iopin.sym} -120 -30 0 0 {name=p16 lab=vin}
+C {sg13cmos5l_pr/sg13_hv_nmos.sym} 600 150 0 0 {name=MR5A l=100u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
+C {sg13cmos5l_pr/sg13_hv_nmos.sym} 740 150 0 0 {name=C2 l=10u w=60u ng=6 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
+C {lab_pin.sym} 620 10 0 0 {name=l11 sig_type=std_logic lab=slow}
+C {lab_pin.sym} 160 30 0 0 {name=l12 sig_type=std_logic lab=rst}
+C {iopin.sym} -120 -310 0 0 {name=p13 lab=vdd}
+C {iopin.sym} -120 310 0 0 {name=p14 lab=vss}
+C {iopin.sym} -120 -50 0 0 {name=p15 lab=vm}
+C {iopin.sym} -120 -10 0 0 {name=p16 lab=out}
+C {iopin.sym} -120 -70 0 0 {name=p17 lab=vin}

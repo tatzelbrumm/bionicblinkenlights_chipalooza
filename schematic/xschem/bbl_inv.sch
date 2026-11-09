@@ -4,7 +4,7 @@ K {}
 V {}
 S {}
 E {}
-T {bbl_inv: 3.3 V inverter (LED bus driver, spike output)} -120 -440 0 0 0.6 0.6 {}
+T {bbl_inv: 3.3 V inverter (LED bus driver, spike output)} -120 -410 0 0 0.6 0.6 {}
 N -120 -280 380 -280 {lab=vdd}
 N -120 280 380 280 {lab=vss}
 N 140 -120 160 -120 {lab=vdd}

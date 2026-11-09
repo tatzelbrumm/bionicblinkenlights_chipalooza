@@ -333,5 +333,5 @@ text {font-family: Sans-Serif;}
 <circle class="l1" cx="633.481" cy="675.279" r="2.64518"/>
 <circle class="l1" cx="633.481" cy="675.279" r="2.64518"/>
 <text fill="#cccccc"  xml:space="preserve" font-size="22.3053" transform="translate(290.323, 30.6632)" >bbl_gap: gap junction (electrical synapse) a &lt;-&gt; b</text>
-<text fill="#cccccc"  xml:space="preserve" font-size="11.1526" transform="translate(290.323, 56.2823)" >pass gates at the analog coupling voltage vc in series with 1.2 V enables</text>
+<text fill="#cccccc"  xml:space="preserve" font-size="11.1526" transform="translate(290.323, 70.5805)" >pass gates at the analog coupling voltage vc in series with 1.2 V enables</text>
 </svg>

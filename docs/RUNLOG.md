@@ -64,5 +64,12 @@ Scratch work in the session scratchpad (not committed); `S` below is that scratc
 | 37 | 00:10–00:14 | `testbenches/ngspice` | XM3 current-limited (0.3/4 um, R4 back), C2 2.6 pF | 0 | `out/m3*` | N1/N0 1.117 (expected 1.118), N3/N2 1.094 (1.095); bus pulse 2.4 V |
 | 38 | 00:18 | repo | netlist and layout updated, layouts rebuilt; LVS both slots; sheets regenerated and checked | 0 | — | match, match; 0 mismatches |
 | 39 | 00:18–00:22 | repo | final DRC both slots; kpex both slots | 0 | — | 0 / 0 violations, 0 exceptions; 2245 / 2253 capacitors |
-| 40 | 00:18 | `testbenches/ngspice` | `campaign.py --tag sch --jobs 3` (29 cases) | — | `out/sch/` | see below |
-| 41 | 00:22 | `testbenches/ngspice` | `campaign.py --include netlist/pex/bbl_slot_pads.pex.spice --tag pex --jobs 1 --tstop 1.5` (12 cases) | — | `out/pex/` | see below |
+| 40 | 00:18 | `testbenches/ngspice` | `campaign.py --tag sch --jobs 3` (29 cases) | — | `out/sch/` | first results consistent (tuning, 3 / 10 pF bus load) |
+| 41 | 00:22 | `testbenches/ngspice` | `campaign.py --include netlist/pex/bbl_slot_pads.pex.spice --tag pex --jobs 1 --tstop 1.5` (12 cases) | — | `out/pex/` | tune_0_1_2_3: 1.52, 2.06, 2.98 Hz (schematic 1.58, 2.14, 3.07) |
+| 42 | 00:24 | repo | commit `52a174b` (current-limited M3, reports, README, run log), push | 0 | — | — |
+| 43 | 00:44 | `testbenches/ngspice` | busload_30p: N2, N3 stuck at vm 0.7 V, out 2.5 V | — | `out/sch/busload_30p.dat` | with the current-limited M3 the upstroke is slow, and the reset path (slow follows out) engages at the same out level: a stable intermediate state. Both campaigns stopped |
+| 44 | 00:45–00:50 | `S/sim/n1` | `run7.py`: M4, R2 sizes vs bus load 3 / 33 / 103 pF | 0 | — | strong R2: no stuck state but incomplete resets (f does not scale with C); no size fixes it |
+| 45 | 00:50 | `S/sim/n1` | `run8.py`: R5 split (XMR5A nmos 0.3/100 gate vdd: fast discharge; XMR5B pmos 0.3/4 gate vin: slow recharge = refractory time) | 0 | — | complete resets at every load; 10 nA: 21.25 / 6.48 / 2.47 Hz for 3 / 33 / 103 pF (1/C prediction 6.42, 2.44) |
+| 46 | 00:52 | repo | netlist, layout, sheets updated; slots rebuilt; LVS both; `check_sheets.py` | 0 | — | match, match; 0 mismatches |
+| 47 | 00:53 | `testbenches/ngspice` | `campaign.py --tag sch --jobs 3` (30 cases, with tune_low 5 s) | — | `out/sch/` | see SUMMARY |
+| 48 | 00:54 | repo | final DRC and kpex both slots, then the post-layout campaign (12 cases, 1.5 s) | — | `verification/`, `out/pex/` | see SUMMARY |

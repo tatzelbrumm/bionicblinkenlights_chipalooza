@@ -23,6 +23,7 @@ CASES = {}
 # 1. tuning: all four neurons, four codes per run (N2, N3 on their 3 pF buses)
 for codes in [(0, 1, 2, 3), (4, 5, 6, 7), (8, 9, 10, 11), (12, 13, 14, 15)]:
     CASES['tune_' + '_'.join(map(str, codes))] = dict(dig=dig(*codes), tstop=2.5)
+CASES['tune_low'] = dict(dig=dig(0, 0, 0, 0), tstop=5.0)
 # 2. bus load: N2 and N3 at code 6, external load added to analog_bus2 / analog_bus3
 for c in [0, 10e-12, 30e-12, 100e-12]:
     CASES[f'busload_{int(round(c * 1e12))}p'] = dict(dig=dig(6, 6, 6, 6), cbus=(C3, C3, C3 + c, C3 + c), tstop=2.5)

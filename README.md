@@ -22,7 +22,8 @@ collector lights; the collector node also discharges C2 through R5 ("slowout"), 
 collector (reset) turns on Q2 (npn), which discharges the membrane.
 
 The CMOS version (`bbl_neuron`, sheet [`schematic/png/bbl_neuron.png`](schematic/png/bbl_neuron.png)) keeps the
-four transistors in the same roles and replaces every resistor by one MOSFET:
+four transistors in the same roles and replaces every resistor by a MOSFET (R5 by two): 9 transistors and two
+MOS capacitors.
 
 | original | here | how |
 |---|---|---|
@@ -32,13 +33,13 @@ four transistors in the same roles and replaces every resistor by one MOSFET:
 | Q2 npn | XM2 nmos 2/0.45 | rst high -> membrane discharged |
 | R1 | XMR1 pmos 0.3/20, gate on vss | self-biased pull-up of out |
 | R2 | XMR2 nmos 0.3/20, gate on vdd | self-biased pull-down of rst |
-| R5 | XMR5 pmos 0.3/100, gate on vss | self-biased delay out -> slow |
+| R5 | XMR5A nmos 0.3/100, gate on vdd; XMR5B pmos 0.3/4, gate on vin | XMR5A discharges the slow node fast when out falls and recharges it only to vdd - Vt; XMR5B finishes the recharge slowly (refractory time 1..25 ms, from the DAC bias): the long R5 C2 recovery of the original, which keeps Q2 on until the membrane, and the bus with it, is empty |
 | R3 | XMR3 pmos 0.3/30, gate on vin | the only biased one: 4..150 pA from the tuning DAC |
 | C1 | XC1 pmos gate capacitor, 10 pF | membrane |
 | C2 | XC2 nmos gate capacitor, 2.6 pF | slow node |
 
-The spike is about 10 us long (fast spikes; the LED amplifier stretches them). The membrane, and with it the
-bus of a bus-coupled neuron, rises by about 2.5 V during the spike. Between spikes the neuron draws no static
+The spike is a few microseconds long (fast spikes; the LED amplifier stretches them). The membrane, and with
+it the bus of a bus-coupled neuron, rises by up to about 2 V during the spike (less with a heavily loaded bus). Between spikes the neuron draws no static
 current; the slot draws about 0.2 uA in total (reference, DACs).
 
 ## The slot (`bbl_core`)
