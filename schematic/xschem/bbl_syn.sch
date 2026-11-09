@@ -4,86 +4,69 @@ K {}
 V {}
 S {}
 E {}
-T {bbl_syn: pulse synapse (stand-in for the photoresistor of the demos)} -120 -530 0 0 0.6 0.6 {}
-T {g = NAND(spk, en): XMN/XMB stack, pull-ups XMP (spk) and XMR (self-biased, en)} -120 -460 0 0 0.3 0.3 {}
-T {XMSW weak leg (0.3/100), XMSS strong leg (0.3/20) into the postsynaptic membrane} -120 -430 0 0 0.3 0.3 {}
-N -120 -340 1020 -340 {lab=vdd}
-N -120 470 1020 470 {lab=vss}
-N 200 210 200 280 {lab=bw}
-N 340 210 340 280 {lab=bs}
-N 140 -180 160 -180 {lab=vdd}
-N 160 -180 160 -340 {lab=vdd}
-N 140 -210 140 -340 {lab=vdd}
-N 280 -180 300 -180 {lab=vdd}
-N 300 -180 300 -340 {lab=vdd}
-N 280 -210 280 -340 {lab=vdd}
-N 420 -180 440 -180 {lab=vdd}
-N 440 -180 440 -340 {lab=vdd}
-N 420 -210 420 -340 {lab=vdd}
-N 560 -180 580 -180 {lab=vdd}
-N 580 -180 580 -340 {lab=vdd}
-N 560 -210 560 -340 {lab=vdd}
-N 700 -180 720 -180 {lab=vdd}
-N 720 -180 720 -340 {lab=vdd}
-N 700 -210 700 -340 {lab=vdd}
-N 840 -180 860 -180 {lab=vdd}
-N 860 -180 860 -340 {lab=vdd}
-N 840 -210 840 -340 {lab=vdd}
-N 200 180 220 180 {lab=vss}
-N 220 180 220 470 {lab=vss}
-N 340 180 360 180 {lab=vss}
-N 360 180 360 470 {lab=vss}
-N 200 310 220 310 {lab=vss}
-N 220 310 220 470 {lab=vss}
-N 200 340 200 470 {lab=vss}
-N 340 310 360 310 {lab=vss}
-N 360 310 360 470 {lab=vss}
-N 340 340 340 470 {lab=vss}
-N 100 -180 100 -20 {lab=spk}
-N 140 -150 140 -100 {lab=gw}
-N 240 -180 240 -80 {lab=vss}
-N 280 -150 280 -100 {lab=gw}
-N 380 -180 380 -100 {lab=gw}
-N 420 -150 420 -60 {lab=post}
-N 520 -180 520 -20 {lab=spk}
-N 560 -150 560 -40 {lab=gs}
-N 660 -180 660 -80 {lab=vss}
-N 700 -150 700 -40 {lab=gs}
-N 800 -180 800 -40 {lab=gs}
-N 840 -150 840 -60 {lab=post}
-N 160 180 160 0 {lab=enw}
-N 200 150 200 -100 {lab=gw}
-N 300 180 300 20 {lab=ens}
-N 340 150 340 -40 {lab=gs}
-N 160 310 170 310 {lab=spk}
-N 170 310 170 -20 {lab=spk}
-N 300 310 310 310 {lab=spk}
-N 310 310 310 -20 {lab=spk}
-N 140 -100 380 -100 {lab=gw}
-N 240 -80 1000 -80 {lab=vss}
-N 1000 -80 1000 470 {lab=vss}
-N -120 -60 840 -60 {lab=post}
-N 340 -40 800 -40 {lab=gs}
-N -120 -20 520 -20 {lab=spk}
-N -120 0 160 0 {lab=enw}
-N -120 20 300 20 {lab=ens}
-C {lab_pin.sym} 200 280 0 1 {name=l0 sig_type=std_logic lab=bw}
-C {lab_pin.sym} 340 280 0 1 {name=l1 sig_type=std_logic lab=bs}
-C {sg13cmos5l_pr/sg13_hv_pmos.sym} 120 -180 0 0 {name=MPW l=0.45u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
-C {sg13cmos5l_pr/sg13_hv_pmos.sym} 260 -180 0 0 {name=MRW l=20u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
-C {sg13cmos5l_pr/sg13_hv_pmos.sym} 400 -180 0 0 {name=MSW l=100u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
-C {sg13cmos5l_pr/sg13_hv_pmos.sym} 540 -180 0 0 {name=MPS l=0.45u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
-C {sg13cmos5l_pr/sg13_hv_pmos.sym} 680 -180 0 0 {name=MRS l=20u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
-C {sg13cmos5l_pr/sg13_hv_pmos.sym} 820 -180 0 0 {name=MSS l=20u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
-C {sg13cmos5l_pr/sg13_hv_nmos.sym} 180 180 0 0 {name=MNW l=0.45u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
-C {sg13cmos5l_pr/sg13_hv_nmos.sym} 320 180 0 0 {name=MNS l=0.45u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
-C {sg13cmos5l_pr/sg13_hv_nmos.sym} 180 310 0 0 {name=MBW l=0.45u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
-C {sg13cmos5l_pr/sg13_hv_nmos.sym} 320 310 0 0 {name=MBS l=0.45u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
-C {lab_pin.sym} 140 -100 0 0 {name=l12 sig_type=std_logic lab=gw}
-C {lab_pin.sym} 340 -40 0 0 {name=l13 sig_type=std_logic lab=gs}
-C {iopin.sym} -120 -340 0 0 {name=p14 lab=vdd}
-C {iopin.sym} -120 470 0 0 {name=p15 lab=vss}
-C {iopin.sym} -120 -20 0 0 {name=p16 lab=spk}
-C {iopin.sym} -120 -60 0 0 {name=p17 lab=post}
-C {iopin.sym} -120 0 0 0 {name=p18 lab=enw}
-C {iopin.sym} -120 20 0 0 {name=p19 lab=ens}
+T {bbl_syn: pulse synapse (stand-in for the photoresistor of the demos)} 0 -600 0 0 0.6 0.6 {}
+T {g = NAND(spk, en): XMN/XMB stack, pull-ups XMP (spk) and XMR (self-biased, en)} 0 -540 0 0 0.3 0.3 {}
+T {XMSW weak leg (0.3/100), XMSS strong leg (0.3/20) into the postsynaptic membrane} 0 -510 0 0 0.3 0.3 {}
+T {weak leg: gw = NAND(spk, enw)} 100 -450 0 0 0.35 0.35 {layer=8}
+T {strong leg: gs = NAND(spk, ens)} 660 -450 0 0 0.35 0.35 {layer=8}
+N 180 -300 180 -400 {lab=vdd}
+N 400 -300 400 -400 {lab=vdd}
+N 540 -300 540 -400 {lab=vdd}
+N 180 40 180 180 {lab=vss}
+N 180 -80 280 -80 {lab=vss}
+N 280 -80 280 180 {lab=vss}
+N 180 -270 180 -110 {lab=gw}
+N 400 -270 400 -200 {lab=gw}
+N 180 -200 500 -200 {lab=gw}
+N 500 -200 500 -300 {lab=gw}
+N 180 -50 180 10 {lab=bw}
+N 140 -300 100 -300 {lab=spk}
+N 100 -300 100 40 {lab=spk}
+N 0 40 140 40 {lab=spk}
+N 0 -80 140 -80 {lab=enw}
+N 330 -300 360 -300 {lab=vss}
+N 540 -270 540 120 {lab=post}
+N 740 -300 740 -400 {lab=vdd}
+N 960 -300 960 -400 {lab=vdd}
+N 1100 -300 1100 -400 {lab=vdd}
+N 740 40 740 180 {lab=vss}
+N 740 -80 840 -80 {lab=vss}
+N 840 -80 840 180 {lab=vss}
+N 740 -270 740 -110 {lab=gs}
+N 960 -270 960 -200 {lab=gs}
+N 740 -200 1060 -200 {lab=gs}
+N 1060 -200 1060 -300 {lab=gs}
+N 740 -50 740 10 {lab=bs}
+N 700 -300 660 -300 {lab=spk}
+N 660 -300 660 40 {lab=spk}
+N 630 40 700 40 {lab=spk}
+N 630 -80 700 -80 {lab=ens}
+N 890 -300 920 -300 {lab=vss}
+N 1100 -270 1100 120 {lab=post}
+N 0 -400 1100 -400 {lab=vdd}
+N 0 180 840 180 {lab=vss}
+N 540 120 1160 120 {lab=post}
+C {sg13cmos5l_pr/sg13_hv_pmos.sym} 160 -300 0 0 {name=MPW l=0.45u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
+C {sg13cmos5l_pr/sg13_hv_nmos.sym} 160 -80 0 0 {name=MNW l=0.45u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
+C {sg13cmos5l_pr/sg13_hv_nmos.sym} 160 40 0 0 {name=MBW l=0.45u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
+C {sg13cmos5l_pr/sg13_hv_pmos.sym} 380 -300 0 0 {name=MRW l=20u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
+C {sg13cmos5l_pr/sg13_hv_pmos.sym} 520 -300 0 0 {name=MSW l=100u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
+C {sg13cmos5l_pr/sg13_hv_pmos.sym} 720 -300 0 0 {name=MPS l=0.45u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
+C {sg13cmos5l_pr/sg13_hv_nmos.sym} 720 -80 0 0 {name=MNS l=0.45u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
+C {sg13cmos5l_pr/sg13_hv_nmos.sym} 720 40 0 0 {name=MBS l=0.45u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
+C {sg13cmos5l_pr/sg13_hv_pmos.sym} 940 -300 0 0 {name=MRS l=20u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
+C {sg13cmos5l_pr/sg13_hv_pmos.sym} 1080 -300 0 0 {name=MSS l=20u w=0.3u ng=1 m=1 mm_ok=1 model=sg13_hv_pmos spiceprefix=X}
+C {lab_pin.sym} 330 -300 0 0 {name=l1 sig_type=std_logic lab=vss}
+C {lab_wire.sym} 420 -200 0 1 {name=l2 sig_type=std_logic lab=gw}
+C {lab_wire.sym} 180 -20 0 0 {name=l3 sig_type=std_logic lab=bw}
+C {lab_pin.sym} 890 -300 0 0 {name=l4 sig_type=std_logic lab=vss}
+C {lab_wire.sym} 980 -200 0 1 {name=l5 sig_type=std_logic lab=gs}
+C {lab_wire.sym} 740 -20 0 0 {name=l6 sig_type=std_logic lab=bs}
+C {lab_pin.sym} 630 40 0 0 {name=l7 sig_type=std_logic lab=spk}
+C {lab_pin.sym} 630 -80 0 0 {name=l8 sig_type=std_logic lab=ens}
+C {iopin.sym} 0 -400 0 1 {name=p14 lab=vdd}
+C {iopin.sym} 0 180 0 1 {name=p15 lab=vss}
+C {iopin.sym} 0 40 0 1 {name=p16 lab=spk}
+C {iopin.sym} 1160 120 0 0 {name=p17 lab=post}
+C {iopin.sym} 0 -80 0 1 {name=p18 lab=enw}
+C {iopin.sym} 0 -20 0 1 {name=p19 lab=ens}
