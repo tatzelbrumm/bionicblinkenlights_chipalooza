@@ -21,17 +21,17 @@ T {XC1 membrane capacitor 10 pF (PMOS gate cap), XC2 slow-node capacitor 2.6 pF}
 T {self-biased: XMR1 gate on vss, XMR2 and XMR5A gates on vdd; XMR3 and XMR5B on the DAC bias vin} 0 -590 0 0 0.3 0.3 {}
 T {R5 = XMR5A (fast discharge of slow) + XMR5B (slow recharge: refractory time, complete reset)} 0 -560 0 0 0.3 0.3 {}
 N 0 -480 1180 -480 {lab=vdd}
-N 0 280 1060 280 {lab=vss}
+N 0 250 1060 250 {lab=vss}
 N 200 -380 200 -480 {lab=vdd}
 N 680 -380 680 -480 {lab=vdd}
 N 1060 -220 1060 -480 {lab=vdd}
 N 900 -380 900 -480 {lab=vdd}
 N 520 -220 520 -480 {lab=vdd}
 N 350 -350 350 -480 {lab=vdd}
-N 420 80 420 280 {lab=vss}
-N 680 -40 680 280 {lab=vss}
-N 1060 170 1060 280 {lab=vss}
-N 940 -70 940 280 {lab=vss}
+N 420 80 420 250 {lab=vss}
+N 680 -40 680 250 {lab=vss}
+N 1060 170 1060 250 {lab=vss}
+N 940 -70 940 250 {lab=vss}
 N 790 -180 790 40 {lab=vss}
 N 790 40 940 40 {lab=vss}
 N 0 -380 160 -380 {lab=vin}
@@ -70,7 +70,7 @@ C {lab_wire.sym} 600 -220 0 1 {name=l3 sig_type=std_logic lab=out}
 C {lab_wire.sym} 950 -220 0 1 {name=l4 sig_type=std_logic lab=slow}
 C {lab_wire.sym} 560 80 0 1 {name=l5 sig_type=std_logic lab=rst}
 C {iopin.sym} 0 -480 0 1 {name=p13 lab=vdd}
-C {iopin.sym} 0 280 0 1 {name=p14 lab=vss}
+C {iopin.sym} 0 250 0 1 {name=p14 lab=vss}
 C {iopin.sym} 0 -40 0 1 {name=p15 lab=vm}
 C {iopin.sym} 0 -220 0 1 {name=p16 lab=out}
 C {iopin.sym} 0 -380 0 1 {name=p17 lab=vin}
