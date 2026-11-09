@@ -128,7 +128,9 @@ def slot_dut(pex, cell):
     m = {'analog_bus%d' % k: 'bus%d' % k for k in range(4)}
     m.update({'dig_in[%d]' % k: 'd%d' % k for k in range(24)})
     m.update({'enable': 'ena', 'sub!': '0', 'vdd_3v3': 'vdd', 'vss_3v3': '0', 'vdd_1v2': 'vddl', 'vss_1v2': '0',
-              'vbias': 'vcpla', 's1_an_0_esd': 'vcpla', 's1_an[1]': 'vcplb'})
+              'vbias': 'vcpla'})
+    for n in range(1, 19):         # pads variant in any slot (slot_<N>.gds)
+        m.update({f's{n}_an_0_esd': 'vcpla', f's{n}_an[1]': 'vcplb'})
     nodes = [m.get(p, 'nc_' + re.sub(r'[^A-Za-z0-9_]', '_', p)) for p in ports]
     return 'X1 ' + ' '.join(nodes) + ' ' + cell
 

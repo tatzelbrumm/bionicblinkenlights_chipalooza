@@ -1,0 +1,107 @@
+[
+ {
+  "case": "leak_c6_3p",
+  "code": 6,
+  "cbus": 3e-12,
+  "leak": true,
+  "temp": 27,
+  "N2": {
+   "rate": 0.0,
+   "n_spikes": 0,
+   "vm_min": 0.093662505,
+   "vm_max": 0.093662519,
+   "vm_end": 0.093662513
+  },
+  "N3": {
+   "rate": 0.0,
+   "n_spikes": 0,
+   "vm_min": 0.093662972,
+   "vm_max": 0.093662986,
+   "vm_end": 0.09366298
+  }
+ },
+ {
+  "case": "leak_c10_3p",
+  "code": 10,
+  "cbus": 3e-12,
+  "leak": true,
+  "temp": 27,
+  "N2": {
+   "rate": 0.0,
+   "n_spikes": 0,
+   "vm_min": 0.2496752,
+   "vm_max": 0.24997569,
+   "vm_end": 0.24997569
+  },
+  "N3": {
+   "rate": 0.0,
+   "n_spikes": 0,
+   "vm_min": 0.24968492,
+   "vm_max": 0.24998403,
+   "vm_end": 0.24998403
+  }
+ },
+ {
+  "case": "leak_c15_3p",
+  "code": 15,
+  "cbus": 3e-12,
+  "leak": true,
+  "temp": 27,
+  "N2": {
+   "rate": 0.0,
+   "n_spikes": 0,
+   "vm_min": 0.50728281,
+   "vm_max": 0.50843578,
+   "vm_end": 0.50843577
+  },
+  "N3": {
+   "rate": 0.0,
+   "n_spikes": 0,
+   "vm_min": 0.50730557,
+   "vm_max": 0.50845295,
+   "vm_end": 0.50845294
+  }
+ },
+ {
+  "case": "leak_c15_10p",
+  "code": 15,
+  "cbus": 1e-11,
+  "leak": true,
+  "temp": 27,
+  "N2": {
+   "rate": 0.0,
+   "n_spikes": 0,
+   "vm_min": 0.49942349,
+   "vm_max": 0.50843575,
+   "vm_end": 0.50843575
+  },
+  "N3": {
+   "rate": 0.0,
+   "n_spikes": 0,
+   "vm_min": 0.49945453,
+   "vm_max": 0.50845293,
+   "vm_end": 0.50845292
+  }
+ },
+ {
+  "case": "leak_c15_3p_60C",
+  "code": 15,
+  "cbus": 3e-12,
+  "leak": true,
+  "temp": 60,
+  "N2": {
+   "rate": 0.0,
+   "n_spikes": 0,
+   "vm_min": 0.22147371,
+   "vm_max": 0.22147375,
+   "vm_end": 0.22147374
+  },
+  "N3": {
+   "rate": 0.0,
+   "n_spikes": 0,
+   "vm_min": 0.22147899,
+   "vm_max": 0.22147903,
+   "vm_end": 0.22147902
+  }
+ }
+]

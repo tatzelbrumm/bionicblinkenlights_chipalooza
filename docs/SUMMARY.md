@@ -32,7 +32,7 @@ membrane: post-layout rates are 3 % lower at 3 pF (the buffered N0, N1 as well),
 1.2 V at 30 pF, 0.9 V at 100 pF, post-layout), and the spike reaches the bus only with `vcplb` high (pulled up on chip
 to 3.3 V when left open); at 0.8 / 1.2 V the pass gate clips it, while the bus still loads the membrane.
 
-## Checks (both variants: `bbl_slot_shared`, `bbl_slot_pads`)
+## Checks (both variants: `bbl_slot_shared`, `bbl_slot_pads`; and `slot_3`)
 
 | check | result |
 |---|---|
@@ -63,23 +63,36 @@ bus coupling demonstrate suppression and desynchronization. Figures and the full
 
 | file | sha256 |
 |---|---|
-| `final/gds/bbl_slot_shared.gds` (= `layout/gds/`) | `b3ea7c8bfaa29aecc88830512442f58a8eaa8b95147ca9320e023468758c8738` |
-| `final/gds/bbl_slot_pads.gds` (= `layout/gds/`) | `333b2ae429301398d2ee841d43c490152d8ed917d2e4fc7a9cb7c051c884c7a4` |
+| `final/gds/slot_3.gds` (for the harness: pads variant in the slot 3 frame) | `c20d7392addf10d060d7ff02a3cf58db5c0a6bd2aa2b3aaf05600c3652717045` |
+| `layout/gds/bbl_slot_shared.gds` | `b3ea7c8bfaa29aecc88830512442f58a8eaa8b95147ca9320e023468758c8738` |
+| `layout/gds/bbl_slot_pads.gds` | `333b2ae429301398d2ee841d43c490152d8ed917d2e4fc7a9cb7c051c884c7a4` |
 | `layout/gds/bbl_cells.gds` | `eadc7b38263c6c06f0ae1d790bfc89a7c9fe6bdb785c1425a3729d181da511ff` |
-| `netlist/cdl/bbl.cdl` (LVS) | `14edeff7393ec994b9d44e2c1dcac51401bd3152d3db2fffbeaca65e31272441` |
+| `netlist/cdl/bbl.cdl` (LVS, with `slot_3`) | `093d8ebfcde350d5299b015cae7f1700da703a00ef7a6b09639117849be4a2be` |
 | `netlist/source/bbl.spice` | `9fa234c9592e96d4d1ac57378383f9c3c4a08e3ca2fc786fcc3cb9f7980201d7` |
 | `netlist/source/bbl_slot.spice` | `9353d7e297f5c200e3b6ef6ab3feb34e48d7b1c2c92c255f5ae9332fcc022b35` |
 | `netlist/pex/bbl_slot_shared.pex.spice` | `a9de7b9856362602bf2671b3887535ffd9539927c98e901e06e3b565e7c6e453` |
 | `netlist/pex/bbl_slot_pads.pex.spice` | `f855451d8a8f757c785883c8742465c17ea46ee06ff72e4fd5c1851edd2d0b90` |
 
-DRC (01:20) and LVS (01:19, repeated on `final/gds/` at 06:08) ran on exactly these GDS files.
+DRC (01:20) and LVS (01:19, repeated at 06:08) ran on exactly the two generic variants; `slot_3.gds` has its
+own DRC (2026-11-09 10:35) and LVS (11:02, against the `bbl.cdl` above; `verification/drc/slot_3`,
+`verification/lvs/slot_3`): 0 violations,
+netlists match. XOR of `slot_3` against `bbl_slot_pads`: the
+frame shapes of `slot3_wrapper` (pin labels `s3_*`, its Metal2 `vss_3v3` pin; slot 1's Metal5 no-fill box
+is gone) and the via stack that ties that pin to the ground straps; nothing else differs.
 
 ## Open points
 
-1. Bus line capacitance: 3 pF assumed for trunk, pad and bond wire; the real value shifts the N2/N3 rates
-   (by the 1/C law above).
-2. The slot number for `final/gds/slot_<N>.gds` is not assigned yet; `build_slot.py` makes it for any slot
-   (the pads variant only for slots with two dedicated analog pads).
+1. Bus capacitance and leakage in the harness (`testbenches/harness_bus/results.md`): with the bus switch
+   closed, a slot bus carries about 9 pF on chip (own switch 2 pF, the 17 other slots' open switches 6.8 pF,
+   pad 0.2 pF) plus the shared wiring and the board, so 10..20 pF rather than 3 pF; the 1/C law covers that.
+   The PDK pad model leaks 0.1..0.36 nA to ground at 0.3..1.6 V (27 C), from the soft-breakdown term of its
+   antenna diode models; with it, N2 and N3 do not fire at any code (they need less than 9 pA at code 0,
+   139 pA at code 15). Whether real pads leak that much is open; the clamp transistors alone (PSP) push 6..27 pA
+   into the node at 27 C. The chip measures both: N2 rate against N0 rate over the codes gives C_bus (slope)
+   and the net leakage (offset).
+2. Slot 3 is assigned; the harness's `config.txt` still lists slot 3 for another project
+   (`s3_source` `sg13cmos5l_slot3_backup`), which its maintainer changes. Moving to another slot: README,
+   "Slot 3, and moving to another slot".
 3. kpex's built-in LVS reports a mismatch because it counts the well taps as devices (451 vs 68); the PDK LVS
    with tap extraction disabled matches. The extracted netlists keep the taps as `ntap1` / `ptap1`.
 4. The LED amplifier (off-chip) has to respond to 10 us pulses of 0.9 to 3.3 V with an input leakage well

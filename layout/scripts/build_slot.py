@@ -176,6 +176,27 @@ def build_variant(frame_gds, variant, outdir, slot=None):
     for net, straps in SUPPLY_STRAPS.items():
         for ys0, ys1 in straps:
             R.rect('TopMetal1', 0.0, ys0, 518.0, ys1)
+    # second supply pins of the frame on Metal2 (slots 3 and 12: a vss_3v3 strip on the right edge, the same
+    # port as the TopMetal1 pin on the left): Via2 + Via3 near the top of the strip, Metal4 up to the nearest
+    # strap of that supply, TopVia1, and the strap extended east over it
+    m2 = [s.dbbox() for s in ft.shapes(fl.find_layer(10, 0)).each()] if fl.find_layer(10, 0) is not None else []
+    for net, pin in SUPPLY_PIN.items():
+        for layer, px, py in frame_pins.get(pin, []):
+            if layer != 10:
+                continue
+            pr = [b for b in m2 if b.left <= px <= b.right and b.bottom <= py <= b.top][0]
+            ys0, ys1 = min(SUPPLY_STRAPS[net], key=lambda s: abs((s[0] + s[1]) / 2 - py))
+            ys, yl = (ys0 + ys1) / 2, pr.top - 1.0
+            c = R.pick(pr.left + 0.3, pr.right - 0.3, yl, ys, wide=(ys - 0.8, ys + 0.8))
+            x = R.vertical(c, yl, ys)
+            R.rect('Metal3', x - 0.3, yl - 0.3, x + 0.3, yl + 0.3)
+            R.via('Via2', x, yl)
+            R.via('Via3', x, yl)
+            R.rect('Metal4', x - 0.31, ys - 0.31, x + 0.31, ys + 0.31)
+            R.via('TopVia1', x, ys, 0.42)
+            R.rect('TopMetal1', 517.0, ys0, x + 1.0, ys1)
+            for cc in (c - 1, c + 1):
+                R.take(cc, ys - 0.8, ys + 0.8)
 
     # signal landings
     for net in order:
@@ -229,7 +250,15 @@ def build_variant(frame_gds, variant, outdir, slot=None):
     return out
 
 
-TWO_PAD_SLOTS = (1, 2, 3, 6, 7, 12, 13, 16, 17, 18)
+def pad_types(config, n):
+    """Pad types of slot n's dedicated pads, from the harness config.txt ("s<n>_an[k]: <type> <name>")."""
+    types = {}
+    for line in open(config):
+        f = line.split()
+        if f and f[0].startswith(f's{n}_an['):
+            types[int(f[0][len(f's{n}_an['):-2])] = f[1]
+    return types
+
 
 if __name__ == '__main__':
     # build_slot.py <harness>/gds <outdir>                    the two generic variants (slot 1 frame)
@@ -238,8 +267,12 @@ if __name__ == '__main__':
     outdir = sys.argv[2] if len(sys.argv) > 2 else os.path.join(os.path.dirname(__file__), '..', 'gds')
     if len(sys.argv) > 4:
         n, v = int(sys.argv[3]), sys.argv[4]
-        if v == 'pads' and n not in TWO_PAD_SLOTS:
-            sys.exit(f'slot {n} does not have two dedicated analog pads; use the shared variant')
+        # the pads variant takes vcpla from s<N>_an_0_esd and vcplb from s<N>_an[1]: both pads have to be
+        # analog pads (config.txt of the harness; in the 2026-11 config: slots 1, 2, 3, 5, 9, 10, 12, 14, 16, 18)
+        t = pad_types(os.path.join(hdir, '..', 'config.txt'), n)
+        if v == 'pads' and not (t.get(0) == t.get(1) == 'sg13cmos5l_IOPadAnalog'):
+            sys.exit(f'slot {n}: dedicated pads {t}; the pads variant needs s{n}_an[0] and s{n}_an[1] '
+                     f'to be sg13cmos5l_IOPadAnalog; use the shared variant')
         build_variant(os.path.join(hdir, f'slot{n}_wrapper.gds'), v, outdir, slot=n)
     else:
         for v in ('shared', 'pads'):

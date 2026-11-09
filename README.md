@@ -62,6 +62,12 @@ N0 and N1 stay at 9.3 Hz (post-layout 9.0 Hz).
 Figure: [`testbenches/ngspice/results/busload.png`](testbenches/ngspice/results/busload.png); all results in
 [`docs/SUMMARY.md`](docs/SUMMARY.md).
 
+In the harness the bus switch itself sets the load: open, a slot bus carries about 0.5 pF; closed, it carries
+about 9 pF on chip (its own switch, the 17 other slots' switches and the pad) plus the shared wiring and the
+board. The closed bus also carries the leakage of the pad and of the other switches, of the order of the
+membrane currents; with the PDK pad model as it is (0.1..0.36 nA), N2 and N3 stop. Details and how the chip
+measures both: [`testbenches/harness_bus/results.md`](testbenches/harness_bus/results.md).
+
 ### Controls
 
 `dig_in` (1.2 V, from the harness registers):
@@ -112,9 +118,10 @@ gap junction strength other than "full" is wanted.
 | `schematic/png/` | renders of all sheets |
 | `layout/scripts/` | layout generator (KLayout Python, IHP PCells): `build.py` (cells), `build_slot.py` (slots) |
 | `layout/gds/` | `bbl_cells.gds`, `bbl_slot_shared.gds`, `bbl_slot_pads.gds` |
-| `final/gds/` | the two slot variants as checked (`bbl_slot_shared.gds`, `bbl_slot_pads.gds`); a `slot_<N>.gds` for the slot assigned in the harness's `config.txt` is generated from them (see below) |
-| `verification/` | DRC reports (`drc/`), LVS logs, extracted netlists and lvsdb (`lvs/`), kpex logs (`pex/`) of both variants |
+| `final/gds/` | `slot_3.gds`, the file the harness takes (pads variant in the slot 3 frame, see below) |
+| `verification/` | DRC reports (`drc/`), LVS logs, extracted netlists and lvsdb (`lvs/`), kpex logs (`pex/`) of both variants and of `slot_3` (DRC, LVS) |
 | `testbenches/ngspice/` | `bbltb.py` (testbench builder), `campaign.py` (all simulation cases), `plots.py`; `results/` |
+| `testbenches/harness_bus/` | capacitance and leakage of the harness bus switch and pad (`buscap.py`, `padiv.py`), N2/N3 with the pad on their buses (`padtest.py`); `results.md` |
 | `docs/` | run log, summary, chat log |
 
 ### Rebuild and check
@@ -151,12 +158,43 @@ cd schematic/xschem && python3 gen_sheets.py && python3 check_sheets.py
 cd testbenches/ngspice && python3 campaign.py --tag sch && python3 plots.py sch
 ```
 
-### A slot for the harness
+### Slot 3, and moving to another slot
 
-The harness reads `slot_<N>.gds` with a top cell `slot_<N>`. `build_slot.py <harness>/gds <outdir> <N>
-shared|pads` builds it in the frame of slot N (the pads variant only for the slots with two dedicated
-analog pads: 1, 2, 3, 6, 7, 12, 13, 16, 17, 18), and `mkcdl.py ... --slot <N> shared|pads` writes its LVS
-netlist.
+The chip gets `final/gds/slot_3.gds`: top cell `slot_3`, the pads variant in the frame of
+`slot3_wrapper` (`vcpla` on `s3_an_0_esd`, `vcplb` on `s3_an[1]`). The harness (`scripts/get_project_gds.sh`)
+looks for `slot_<N>.gds` in `final/gds/`, then `gds/`, then anywhere in the repository, reads it read-only and
+renames every cell below the top cell, so only the top cell name has to match the slot. Slot 3's frame has a
+second `vss_3v3` pin (a Metal2 strip on the right edge, the same port as the TopMetal1 pin on the left;
+slot 12 has one too); `build_slot.py` ties it to the ground straps with a via stack.
+
+To move to slot N:
+
+1. Pads. The pads variant needs `s<N>_an[0]` and `s<N>_an[1]` to be `sg13cmos5l_IOPadAnalog` in the
+   harness's `config.txt` (in the 2026-11 config: slots 1, 2, 3, 5, 9, 10, 12, 14, 16, 18). `build_slot.py`
+   reads the pad types from `config.txt` and refuses other slots. Every slot can take the shared variant
+   (`vcpla` on `vbias`, `vcplb` on chip, pulled up).
+2. Build and check (from the repository root; `pads` or `shared`):
+   ```bash
+   python3 layout/scripts/build_slot.py <harness>/gds final/gds <N> pads
+   ```
+   ```bash
+   python3 netlist/cdl/mkcdl.py netlist/cdl/bbl.cdl netlist/source/bbl.spice netlist/source/bbl_slot.spice --slot <N> pads
+   ```
+   ```bash
+   python3 $KLAYOUT_PATH/tech/drc/run_drc.py --path=final/gds/slot_<N>.gds --topcell=slot_<N> --no_density --run_dir=verification/drc/slot_<N>
+   ```
+   ```bash
+   python3 $KLAYOUT_PATH/tech/lvs/run_lvs.py --layout=final/gds/slot_<N>.gds --netlist=netlist/cdl/bbl.cdl --topcell=slot_<N> --run_mode=deep --disable_tap_extraction --run_dir=verification/lvs/slot_<N>
+   ```
+3. Delete `final/gds/slot_3.gds` and `verification/*/slot_3/`, so that exactly one `slot_<N>.gds` is left;
+   update the slot number in this README and in `docs/SUMMARY.md` (file list with sha256).
+4. On the harness side (its maintainer; this repository does not change the harness): `s<N>_source` in
+   `config.txt` = this repository, `s<N>_version` = branch `main` and the commit to tape out, `slot_<N>` = the
+   designer. With the pad types unchanged, the padframe is not rebuilt.
+5. The slot frames differ only in pin names (`s<N>_...`), the positions of the dedicated pad pins on the
+   right edge and extra supply pins; `build_slot.py` takes all of them from `slot<N>_wrapper.gds`. Slots that
+   the chip places mirrored are mirrored by the harness. `bbltb.slot_dut` maps the pins of any slot for
+   post-layout simulation of an extracted `slot_<N>`.
 
 ## Simulation notes
 
