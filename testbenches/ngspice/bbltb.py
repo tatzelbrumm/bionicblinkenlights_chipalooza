@@ -135,14 +135,21 @@ def slot_dut(pex, cell):
 BUSVECS = ['v(bus0)', 'v(bus1)', 'v(bus2)', 'v(bus3)', 'i(vdd)']
 
 
-def bus_spikes(t, v, th=1.5, dead=2e-3):
-    """Spike times from an analog bus (high while the neuron fires): rising edges through th."""
-    s = v > th
-    e = t[np.where(~s[:-1] & s[1:])[0]]
+def bus_spikes(t, v, rise=0.15, win=100e-6, slope=500.0, dead=2e-3):
+    """Spike times from an analog bus: starts of the fast upstrokes. A candidate is a step faster than
+    `slope` (V/s); it counts if the bus then peaks more than `rise` volts higher within `win` seconds.
+    A level threshold misses spikes on a loaded bus: the pulse of a bus-coupled membrane peaks at 1.2 V
+    with 30 pF and 0.9 V with 100 pF, barely above the 0.7 V the membrane ramps to between spikes (the
+    ramp rises about 1 V/s, a spike more than 1e4 V/s)."""
+    k = np.r_[np.diff(t) > 0, True]       # wrdata (7 digits) repeats a time value at very small steps
+    t, v = t[k], v[k]
+    dv, dt = np.diff(v), np.diff(t)
     keep = []
-    for x in e:
-        if not keep or x - keep[-1] > dead:
-            keep.append(x)
+    for i in np.where((dv > 5e-3) & (dv > slope * dt))[0]:
+        if keep and t[i] - keep[-1] <= dead:
+            continue
+        if v[i:np.searchsorted(t, t[i] + win) + 1].max() - v[i] > rise:
+            keep.append(t[i])
     return np.array(keep)
 
 

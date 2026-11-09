@@ -102,7 +102,8 @@ def main():
     # 3. rasters of the coupling cases
     for group, names in [('syn01', ['syn01_none', 'syn01_weak', 'syn01_strong', 'syn01_both']),
                          ('mutual', ['mutual_none', 'mutual_mutual_weak', 'mutual_mutual_strong']),
-                         ('gap', ['gap_off', 'gap_weak', 'gap_strong', 'gap_both', 'gap_both_v0.6', 'gap_both_v0.9']),
+                         ('gap', ['gap_off', 'gap_weak', 'gap_strong', 'gap_both', 'gap_both_v0.3', 'gap_both_v0.4',
+                                  'gap_both_v0.5', 'gap_both_v0.6', 'gap_both_v0.9']),
                          ('bus23', ['bus23_off', 'bus23_weak', 'bus23_strong', 'bus23_strong_30p'])]:
         for t in tags:
             rs = [(n, R[t][n]) for n in names if n in R[t] and R[t][n].get('ok')]

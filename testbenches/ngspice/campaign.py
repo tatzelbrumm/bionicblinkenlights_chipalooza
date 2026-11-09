@@ -38,6 +38,7 @@ for name, bits in [('none', ()), ('mutual_weak', (16, 18)), ('mutual_strong', (1
     CASES[f'mutual_{name}'] = dict(dig=dig(3, 1, 0, 0, bits), tstop=4.0)
 # 6. gap junction N0 <-> N1: detuned pair (codes 5 and 7), digital legs and analog vcpla
 for name, bits, v in [('off', (), None), ('weak', (20,), None), ('strong', (21,), None), ('both', (20, 21), None),
+                      ('both_v0.3', (20, 21), 0.3), ('both_v0.4', (20, 21), 0.4), ('both_v0.5', (20, 21), 0.5),
                       ('both_v0.6', (20, 21), 0.6), ('both_v0.9', (20, 21), 0.9)]:
     CASES[f'gap_{name}'] = dict(dig=dig(5, 7, 0, 0, bits), vcpla=v, tstop=2.5)
 # 7. N2 and N3 coupled through analog_bus2 (detuned, codes 5 and 7), with and without bus load
@@ -51,7 +52,7 @@ PEX_CASES = ['tune_0_1_2_3', 'tune_4_5_6_7', 'tune_8_9_10_11', 'tune_12_13_14_15
 
 
 def one(args):
-    name, case, include, tag = args
+    name, case, include, tag, reuse = args
     outdir = os.path.join(bbltb.OUT, tag)
     os.makedirs(outdir, exist_ok=True)
     kw = {k: v for k, v in case.items() if k in ('dig', 'cbus', 'vcpla', 'vcplb')}
@@ -62,7 +63,10 @@ def one(args):
     net = netlist(include=include, **kw)
     res = dict(case=name, **{k: (list(v) if isinstance(v, tuple) else v) for k, v in case.items()})
     try:
-        d = run(net, os.path.join(tag, name), tstop=case['tstop'], vecs=bbltb.BUSVECS if pex else bbltb.VECS + ['v(busx0)'])
+        if reuse:    # --reanalyze: the saved waveforms of an earlier run
+            d = np.genfromtxt(os.path.join(outdir, name + '.dat'), names=True)
+        else:
+            d = run(net, os.path.join(tag, name), tstop=case['tstop'], vecs=bbltb.BUSVECS if pex else bbltb.VECS + ['v(busx0)'])
         s = bbltb.summary_bus(d, t0=0.3) if pex else summary(d, t0=0.3)
         sb = bbltb.summary_bus(d, t0=0.3)
         res['f_bus'] = [float(sb[k]['f']) for k in range(4)]
@@ -89,10 +93,12 @@ if __name__ == '__main__':
     ap.add_argument('--jobs', type=int, default=3)
     ap.add_argument('cases', nargs='*')
     ap.add_argument('--tstop', type=float, default=None)
+    ap.add_argument('--reanalyze', action='store_true',
+                    help='recompute the results from the saved waveforms out/<tag>/<case>.dat, no simulation')
     a = ap.parse_args()
     names = a.cases or list(CASES)
     if a.tstop:
         for n in names:
             CASES[n] = dict(CASES[n], tstop=a.tstop)
     with Pool(a.jobs) as p:
-        p.map(one, [(n, CASES[n], a.include, a.tag) for n in names], chunksize=1)
+        p.map(one, [(n, CASES[n], a.include, a.tag, a.reanalyze) for n in names], chunksize=1)
