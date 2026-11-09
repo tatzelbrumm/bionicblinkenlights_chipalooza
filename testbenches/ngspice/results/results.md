@@ -36,7 +36,8 @@
 | bus23_off | pex | < 2 spikes in 1.5 s | < 2 spikes in 1.5 s | 5.96 | 7.95 | nan | nan | 0.78 | 0.02 | 382 nA |
 | bus23_strong | pex | < 2 spikes in 1.5 s | < 2 spikes in 1.5 s | < 2 spikes in 1.5 s | 7.03 | nan | nan | nan | nan | 347 nA |
 | busload_0p | pex | 9.02 | 9.03 | 6.95 | 6.98 | 1.00 | 1.00 | 1.00 | 1.00 | 452 nA |
-| busload_100p | pex | failed: pex/busload_100p: no output, see pex/busload_100p.log | | | | | | | | |
+| busload_100p | pex | 8.99 | 9.00 | 0.83 | 0.83 | 1.00 | 1.00 | 1.00 | 1.00 | 398 nA |
+| busload_10p | pex | 9.01 | 9.03 | 4.02 | 4.02 | 1.00 | 1.00 | 1.00 | 1.00 | 438 nA |
 | busload_30p | pex | 9.02 | 9.02 | 2.18 | 2.18 | 1.00 | 1.00 | 1.00 | 1.00 | 431 nA |
 | gap_both | pex | < 2 spikes in 1.5 s | 9.05 | < 2 spikes in 1.5 s | < 2 spikes in 1.5 s | nan | nan | nan | nan | 383 nA |
 | gap_off | pex | 7.69 | 10.24 | < 2 spikes in 1.5 s | < 2 spikes in 1.5 s | 0.75 | 0.09 | nan | nan | 415 nA |
@@ -53,5 +54,5 @@ Bus-capacitance sensitivity (N2, N3 at code 6; C_bus = 3 pF line + external load
 |---|---|---|---|
 | sch | N2 | 7.19 @ 3, 4.09 @ 13, 2.19 @ 33, 0.84 @ 103 | -0.99 |
 | sch | N3 | 7.20 @ 3, 4.09 @ 13, 2.20 @ 33, 0.84 @ 103 | -1.00 |
-| pex | N2 | 6.95 @ 3, 2.18 @ 33 | -0.97 |
-| pex | N3 | 6.98 @ 3, 2.18 @ 33 | -0.97 |
+| pex | N2 | 6.95 @ 3, 4.02 @ 13, 2.18 @ 33, 0.83 @ 103 | -0.98 |
+| pex | N3 | 6.98 @ 3, 4.02 @ 13, 2.18 @ 33, 0.83 @ 103 | -0.98 |

@@ -1781,7 +1781,89 @@ LVS on the files in `final/gds/` matches for both slots (06:08 UTC). Checking th
 *[Bash: Show schematic spike times at 30 and 100 pF bus load.]*  
 *[Bash: Show how long the 100 pF task has been running.]*  
 *[Bash: Create the chat log directory.]*  
+*[Bash: Build the verbatim chat log from the session transcript.]*  
+*[Bash: Verify the chat log against the transcript.]*  
+*[Bash: Show the start of the chat log.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/RUNLOG.md`.]*  
+
+**Assistant:**
+
+The times in rows 65 and 66 were estimates. Checking the actual file times:
+
+*[Bash: Show the times of the code-0 and 100 pF result files.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/RUNLOG.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/RUNLOG.md`.]*  
+
+**Assistant:**
+
+Committing the current state: memory fix, summary, run log, chat log and figures. The figures and summary get one more update when the 100 pF run is in.
+
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/commitmsg.txt`.]*  
+*[Bash: Stage testbench, results, summary, run log and chat log.]*  
+*[Bash: Commit, message read from a file.]*  
+*[Bash: Push main to GitHub.]*  
+
+**Assistant:**
+
+Everything is committed and pushed except the 100 pF post-layout re-run, which should finish around 06:40 UTC.
+
+- **LVS on the delivered GDS:** I re-ran it on `final/gds/`; both slots match at 06:08. DRC had already run on the same files.
+- **100 pF run:** the first 4 s attempt died for lack of memory, not because of the circuit. ngspice needed 15 GB with 7 GB available. The testbench now keeps only the bus voltages and supply current. The first spike from start-up already gives a post-layout rate of **0.834 Hz**, against 0.837 Hz in the schematic; in the schematic that method matches the true period to 0.2 %. The re-run is to confirm it.
+- **Post-layout code 0:** N0/N1 1.14 Hz, N2/N3 0.88 Hz. The bus-coupled neurons sit slightly below 1 Hz because of the bus capacitance.
+- **Summary** (`docs/SUMMARY.md`): finished apart from the 100 pF post-layout cell. It lists the sha256 of every delivered file.
+- **Chat log** (`docs/chatlog/2026-11-08_claude_bionic_blinkenlights.md`): built and checked by your scripts. All messages and replies are verbatim, and no reasoning text is in it. I'll rebuild it at the final commit so it covers the rest of the session.
+
+When the run finishes I'll redo the figures, put the 100 pF value into the summary, rebuild the chat log and make the final commit.
+
+*[Task notification: Background command "Post-layout: 100 pF bus case, 4 s, saving only the bus vectors" completed (exit code 0).]*  
+
+*[Context compacted (2026-11-09 07:05 UTC): the session continued from an automatic summary of the conversation so far; the summary is not reproduced here.]*
+
+*[Bash: Show end of the post-layout campaign log.]*  
+*[Bash: Show post-layout 100 pF result.]*  
+*[Bash: Regenerate figures and results table.]*  
+*[Bash: Show the bus-capacitance table in results.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/results/busload.png`.]*  
+*[Bash: List post-layout outputs with times.]*  
+*[Bash: Find bus-load case definitions.]*  
+*[Bash: Show run log rows 60 to 69.]*  
+*[Bash: Post-layout: 13 pF bus case, 1.5 s.]*  
+*[ToolSearch: select:TaskUpdate.]*  
+*[TaskUpdate call.]*  
+*[TaskUpdate call.]*  
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/commitmsg.txt`.]*  
+
+**Assistant:**
+
+The 13 pF post-layout run is under way (about 20 min, like the 30 pF case). When it finishes I'll fill in the summary row and the exponent, then commit and push.
+
+*[Task notification: Background command "Post-layout: 13 pF bus case, 1.5 s" completed (exit code 0).]*  
+*[Bash: Show end of the post-layout campaign log.]*  
+*[Bash: Show start and end times of the 13 pF run.]*  
+*[Bash: Regenerate figures and results table.]*  
+*[Bash: Show the bus-capacitance table in results.]*  
+*[Bash: Show post-layout rates for 3, 13 and 33 pF.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/RUNLOG.md`.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Grep call.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+
+**Assistant:**
+
+The summary, README and run log now include the post-layout bus-load points. Next I rebuild the chat log, then commit and push.
+
+*[Bash: Find the earlier chat-log build command.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/RUNLOG.md`.]*  
+*[TaskUpdate call.]*  
+*[Bash: Rebuild the chat log from the transcript.]*  
 
 ---
 
-*[End of the export: the last record on the live path is 93c78cc8-02e7-4f01-91fb-2614b2dadb35 (2026-11-09 06:09 UTC). Later turns are not included.]*
+*[End of the export: the last record on the live path is 9ed91d53-5772-4317-8013-155ff6b323f3 (2026-11-09 07:44 UTC). Later turns are not included.]*

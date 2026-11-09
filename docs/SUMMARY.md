@@ -19,11 +19,16 @@ N2 and N3 have their membranes on `analog_bus2` / `analog_bus3`; the bus line an
 |---|---|---|---|---|---|
 | N2, schematic (code 6) | 7.19 Hz | 4.09 | 2.19 | 0.84 | -0.99 |
 | N3, schematic | 7.20 | 4.09 | 2.20 | 0.84 | -1.00 |
-| N2, post-layout | 6.95 | — | 2.18 | TBD | TBD |
-| N0, N1 (buffered) | 9.32 / 9.34 | 9.32 / 9.34 | 9.33 / 9.34 | 9.32 / 9.34 | 0 |
+| N2, post-layout | 6.95 | 4.02 | 2.18 | 0.83 | -0.98 |
+| N3, post-layout | 6.98 | 4.02 | 2.18 | 0.83 | -0.98 |
+| N0, N1 (buffered), schematic | 9.32 / 9.34 | 9.32 / 9.34 | 9.33 / 9.34 | 9.32 / 9.34 | 0 |
+| N0, N1 (buffered), post-layout | 9.02 / 9.03 | 9.01 / 9.03 | 9.02 / 9.02 | 8.99 / 9.00 | 0 |
 
-The rate is inversely proportional to the membrane capacitance including the bus: about -0.55 Hz per pF at
-the unloaded bus. The bus pulse a bus-coupled neuron produces shrinks with the load (2.0 V unloaded,
+The rate is inversely proportional to the membrane capacitance including the bus, before and after
+extraction: about -0.55 Hz per pF at the unloaded bus. The extracted wiring adds about 0.4 pF to every
+membrane: post-layout rates are 3 % lower at 3 pF (the buffered N0, N1 as well), 1.7 % at 13 pF and 0.5 % at
+33 and 103 pF, where the bus dominates. Figure:
+`testbenches/ngspice/results/busload.png`. The bus pulse a bus-coupled neuron produces shrinks with the load (2.0 V unloaded,
 1.2 V at 30 pF, 0.9 V at 100 pF, post-layout), and the spike reaches the bus only with `vcplb` high (pulled up on chip
 to 3.3 V when left open); at 0.8 / 1.2 V the pass gate clips it, while the bus still loads the membrane.
 

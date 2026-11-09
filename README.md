@@ -57,7 +57,8 @@ from `vdd_3v3` (simulated average, all codes 0 to codes 12..15).
 
 The bus line and whatever loads it become part of the membrane capacitance of N2 and N3, so the firing rate
 follows 1 / (10 pF + C_bus): at code 6, 7.2 Hz with the 3 pF bus line alone, 4.1 Hz with 10 pF more, 2.2 Hz
-with 30 pF, 0.84 Hz with 100 pF (exponent -1.0; post-layout 2.18 Hz at 30 pF). N0 and N1 stay at 9.3 Hz.
+with 30 pF, 0.84 Hz with 100 pF (exponent -1.0; post-layout 6.95 / 4.02 / 2.18 / 0.83 Hz, exponent -0.98).
+N0 and N1 stay at 9.3 Hz (post-layout 9.0 Hz).
 Figure: [`testbenches/ngspice/results/busload.png`](testbenches/ngspice/results/busload.png); all results in
 [`docs/SUMMARY.md`](docs/SUMMARY.md).
 
