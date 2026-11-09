@@ -1,4 +1,4 @@
-* Extracted by KLayout with SG13CMOS5L LVS runset on : 09/11/2026 00:52
+* Extracted by KLayout with SG13CMOS5L LVS runset on : 09/11/2026 01:19
 
 .SUBCKT bbl_slot_pads \$1.sa \$1.vbn \$1.vbp analog_bus0 analog_bus1
 + analog_bus2 analog_bus3 dig_in[0] dig_in[10] dig_in[11] dig_in[12] dig_in[13]
@@ -10,11 +10,11 @@
 + vss_1v2 vss_3v3
 X$2 vss_3v3 dig_in[16] \$159 dig_in[17] vdd_3v3 \$155 bbl_syn
 X$3 \$72 vdd_3v3 analog_bus0 vss_3v3 bbl_inv
-X$4 s1_an_0_esd dig_in[20] dig_in[21] \$152 \$155 vss_3v3 bbl_gap
+X$4 s1_an_0_esd dig_in[20] dig_in[21] \$151 \$155 vss_3v3 bbl_gap
 X$7 vss_3v3 vss_1v2 vdd_1v2 dig_out[8] dig_out[7] dig_out[0] dig_out[6]
 + dig_out[5] dig_out[1] dig_out[2] dig_out[4] dig_out[3] dig_out[9] dig_out[10]
 + dig_out[11] bbl_tielo
-X$8 vss_3v3 \$152 \$149 dig_in[0] dig_in[1] dig_in[2] dig_in[3] vdd_3v3 \$72
+X$8 vss_3v3 \$151 \$149 dig_in[0] dig_in[1] dig_in[2] dig_in[3] vdd_3v3 \$72
 + bbl_unit
 X$10 vss_3v3 \$158 \$149 dig_in[12] dig_in[13] dig_in[14] dig_in[15] vdd_3v3
 + \$154 bbl_unit
@@ -26,8 +26,8 @@ X$13 s1_an[1] dig_in[22] dig_in[23] analog_bus2 \$158 vss_3v3 bbl_gap
 X$14 \$73 vdd_3v3 analog_bus1 vss_3v3 bbl_inv
 X$15 \$72 vdd_3v3 \$159 vss_3v3 bbl_inv
 X$16 \$73 vdd_3v3 \$160 vss_3v3 bbl_inv
-X$17 vss_3v3 dig_in[18] \$160 dig_in[19] vdd_3v3 \$152 bbl_syn
-R$1 \$150 \$151 vss_3v3 rhigh w=0.5u l=41.055u ps=0.18u b=9 m=1
+X$17 vss_3v3 dig_in[18] \$160 dig_in[19] vdd_3v3 \$151 bbl_syn
+R$1 \$150 \$152 vss_3v3 rhigh w=0.5u l=41.055u ps=0.18u b=9 m=1
 M$2 vss_1v2 enable \$71 vss_3v3 sg13_lv_nmos L=0.5u W=0.3u AS=0.102p AD=0.102p
 + PS=1.28u PD=1.28u rfmode=0
 M$3 vdd_1v2 enable \$71 vdd_1v2 sg13_lv_pmos L=0.5u W=0.3u AS=0.102p AD=0.102p
@@ -42,7 +42,7 @@ M$15 \$158 s1_an[1] analog_bus3 vss_3v3 sg13_hv_nmos L=0.45u W=1u AS=0.34p
 + AD=0.34p PS=2.68u PD=2.68u rfmode=0
 M$16 vss_3v3 enable \$1.sa vss_3v3 sg13_hv_nmos L=0.45u W=1u AS=0.34p AD=0.34p
 + PS=2.68u PD=2.68u rfmode=0
-M$17 vss_3v3 enable \$151 vss_3v3 sg13_hv_nmos L=0.45u W=1u AS=0.34p AD=0.34p
+M$17 vss_3v3 enable \$152 vss_3v3 sg13_hv_nmos L=0.45u W=1u AS=0.34p AD=0.34p
 + PS=2.68u PD=2.68u rfmode=0
 M$18 vss_3v3 \$71 \$1.vbn vss_3v3 sg13_hv_nmos L=0.45u W=1u AS=0.34p AD=0.34p
 + PS=2.68u PD=2.68u rfmode=0
@@ -56,7 +56,7 @@ M$29 vdd_3v3 \$1.vbp s1_an[1] vdd_3v3 sg13_hv_pmos L=22u W=0.3u AS=0.102p
 + AD=0.102p PS=1.28u PD=1.28u rfmode=0
 M$30 vdd_3v3 \$1.vbp s1_an_0_esd vdd_3v3 sg13_hv_pmos L=22u W=0.3u AS=0.102p
 + AD=0.102p PS=1.28u PD=1.28u rfmode=0
-M$31 vdd_3v3 \$1.vbp \$149 vdd_3v3 sg13_hv_pmos L=8u W=0.3u AS=0.102p AD=0.102p
+M$31 vdd_3v3 \$1.vbp \$149 vdd_3v3 sg13_hv_pmos L=7u W=0.3u AS=0.102p AD=0.102p
 + PS=1.28u PD=1.28u rfmode=0
 M$32 vdd_3v3 vdd_3v3 \$1.vbn vdd_3v3 sg13_hv_pmos L=0.45u W=4u AS=1.36p
 + AD=1.36p PS=8.68u PD=8.68u rfmode=0
@@ -167,7 +167,7 @@ M$37 vss b0 s0 vss sg13_hv_nmos L=0.45u W=0.3u AS=0.102p AD=0.102p PS=1.28u
 + PD=1.28u rfmode=0
 M$38 s0 vbnl vin vss sg13_hv_nmos L=2u W=0.3u AS=0.102p AD=0.102p PS=1.28u
 + PD=1.28u rfmode=0
-M$39 vss vbnl vin vss sg13_hv_nmos L=9u W=0.3u AS=0.102p AD=0.102p PS=1.28u
+M$39 vss vbnl vin vss sg13_hv_nmos L=3.2u W=0.3u AS=0.102p AD=0.102p PS=1.28u
 + PD=1.28u rfmode=0
 M$40 vdd vin slow vdd sg13_hv_pmos L=4u W=0.3u AS=0.102p AD=0.102p PS=1.28u
 + PD=1.28u rfmode=0
