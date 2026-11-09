@@ -48,7 +48,8 @@ VECS = ['v(x1.out0)', 'v(x1.out1)', 'v(x1.out2)', 'v(x1.out3)',
 
 def run(net, name, tstop=4.0, tstep='10u', vecs=VECS, keep=True, retry=True):
     os.makedirs(OUT, exist_ok=True)
-    ctl = (f".control\nset wr_singlescale\nset wr_vecnames\noption numdgt=7\n"
+    # save: keep only the written vectors in memory (all nodes of the extracted netlist over 4 s need 15 GB)
+    ctl = (f".control\nset wr_singlescale\nset wr_vecnames\noption numdgt=7\nsave {' '.join(vecs)}\n"
            f"tran {tstep} {tstop}\nwrdata {name}.dat {' '.join(vecs)}\n.endc\n.end\n")
     sp = os.path.join(OUT, name + '.sp')
     for ext in ('.dat', '.log'):

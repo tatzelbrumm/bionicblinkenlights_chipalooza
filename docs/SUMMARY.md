@@ -5,9 +5,10 @@ SPDX-License-Identifier: Apache-2.0
 # Summary
 
 Bionic Blinkenlights for the Chipalooza sg13cmos5l harness: four spiking neurons (9 transistors and 2 MOS
-capacitors each, all 3.3 V devices, no static current in the neuron), tunable 1 to 20 Hz, coupled through pulse
-synapses, a gap junction and the harness analog buses. Repository `tatzelbrumm/bionicblinkenlights_chipalooza`,
-branch `main`, commit TBD.
+capacitors each, all 3.3 V devices, no static current in the neuron), tuned by 4-bit codes: buffered neurons
+1.1 to 18 Hz (codes 0 to 13 simulated), bus-coupled neurons 0.9 to 16 Hz (codes 0 to 15, 3 pF bus); coupled
+through pulse synapses, a gap junction and the harness analog buses. Repository `tatzelbrumm/bionicblinkenlights_chipalooza`,
+branch `main`; the delivered files are pinned by their sha256 below.
 
 ## The point: the bus capacitance sets the firing rate
 
@@ -39,8 +40,8 @@ to 3.3 V when left open); at 0.8 / 1.2 V the pass gate clips it, while the bus s
 
 | | schematic | post-layout |
 |---|---|---|
-| tuning, buffered N0/N1, code 0 .. 13 | 1.19 .. 18.30 Hz (N0: about 1.3 Hz + 1.32 Hz per code step) | 3.5 to 4 % lower; code 0 TBD |
-| tuning, on 3 pF bus N2/N3, code 0 .. 15 | 0.91 .. 16.04 Hz | 3.5 to 4 % lower |
+| tuning, buffered N0/N1, code 0 .. 13 | 1.19 .. 18.30 Hz (N0: about 1.3 Hz + 1.32 Hz per code step) | 3.5 to 4 % lower; code 0: 1.14 Hz |
+| tuning, on 3 pF bus N2/N3, code 0 .. 15 | 0.91 .. 16.04 Hz | 3 to 4 % lower; code 0: 0.88 Hz |
 | supply current, slot (average, vdd_3v3) | 0.37 uA (all codes 0) .. 0.47 uA | 0.40 .. 0.48 uA |
 | pulse synapse N0 -> N1 (N0 13.2 Hz) | N1 2.60 / 4.11 / 6.85 / 9.91 Hz for off / weak / strong / both; strong locks 2:1 (vector strength 0.89) | both: 9.51 Hz |
 | mutual synapses (N0 5.33, N1 2.60 Hz) | strong: 1:1 lock, 5.33 / 5.33 Hz, VS 1.00; weak: drift, 5.59 / 3.23 Hz | — |
@@ -55,7 +56,18 @@ bus coupling demonstrate suppression and desynchronization. Figures and the full
 
 ## Files
 
-TBD (sha256 of the final GDS, LVS netlist, extracted netlists, source netlists)
+| file | sha256 |
+|---|---|
+| `final/gds/bbl_slot_shared.gds` (= `layout/gds/`) | `b3ea7c8bfaa29aecc88830512442f58a8eaa8b95147ca9320e023468758c8738` |
+| `final/gds/bbl_slot_pads.gds` (= `layout/gds/`) | `333b2ae429301398d2ee841d43c490152d8ed917d2e4fc7a9cb7c051c884c7a4` |
+| `layout/gds/bbl_cells.gds` | `eadc7b38263c6c06f0ae1d790bfc89a7c9fe6bdb785c1425a3729d181da511ff` |
+| `netlist/cdl/bbl.cdl` (LVS) | `14edeff7393ec994b9d44e2c1dcac51401bd3152d3db2fffbeaca65e31272441` |
+| `netlist/source/bbl.spice` | `9fa234c9592e96d4d1ac57378383f9c3c4a08e3ca2fc786fcc3cb9f7980201d7` |
+| `netlist/source/bbl_slot.spice` | `9353d7e297f5c200e3b6ef6ab3feb34e48d7b1c2c92c255f5ae9332fcc022b35` |
+| `netlist/pex/bbl_slot_shared.pex.spice` | `a9de7b9856362602bf2671b3887535ffd9539927c98e901e06e3b565e7c6e453` |
+| `netlist/pex/bbl_slot_pads.pex.spice` | `f855451d8a8f757c785883c8742465c17ea46ee06ff72e4fd5c1851edd2d0b90` |
+
+DRC (01:20) and LVS (01:19, repeated on `final/gds/` at 06:08) ran on exactly these GDS files.
 
 ## Open points
 
