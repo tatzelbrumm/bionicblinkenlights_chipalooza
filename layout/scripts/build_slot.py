@@ -25,7 +25,7 @@ PINLIM = 71.5
 def placement(variant):
     P = {}
     for k in range(4):
-        P[f'U{k}'] = ('bbl_unit', 45.0, 96.0 + 43.0 * k,
+        P[f'U{k}'] = ('bbl_unit_hi' if k == 3 else 'bbl_unit', 45.0, 96.0 + 43.0 * k,
                       dict(vdd='vdd', vss='vss', vm=f'vm{k}', out=f'out{k}', vbnl='vbnl',
                            b0=f'd{4*k}', b1=f'd{4*k+1}', b2=f'd{4*k+2}', b3=f'd{4*k+3}'))
     P['B'] = ('bbl_biasc', 45.0, 4.0, dict(vdd='vdd', vss='vss', vbnl='vbnl', vcpla='vcpla', vcplb='vcplb',
@@ -39,8 +39,8 @@ def placement(variant):
     P['G01'] = ('bbl_gap', 417.0, 4.0, dict(vss='vss', a='vm0', b='vm1', vc='vcpla', enw='d20', ens='d21'))
     P['G32'] = ('bbl_gap', 441.0, 4.0, dict(vss='vss', a='bus2', b='vm3', vc='vcplb', enw='d22', ens='d23'))
     P['PS'] = ('bbl_pass', 465.0, 4.0, dict(vss='vss', vm2='vm2', bus2='bus2', vm3='vm3', bus3='bus3', vcplb='vcplb'))
-    P['LV'] = ('bbl_lvinv', 476.0, 4.0, dict(vddl='vddl', vssl='vssl', vss='vss', ena='ena', enab='enab'))
-    P['TL'] = ('bbl_tielo', 486.0, 4.0, dict(dict(vddl='vddl', vssl='vssl', vss='vss'),
+    P['LV'] = ('bbl_lvinv', 481.0, 4.0, dict(vddl='vddl', vssl='vssl', vss='vss', ena='ena', enab='enab'))
+    P['TL'] = ('bbl_tielo', 491.0, 4.0, dict(dict(vddl='vddl', vssl='vssl', vss='vss'),
                                               **{f'q{k}': f'q{k}' for k in range(12)}))
     return P
 

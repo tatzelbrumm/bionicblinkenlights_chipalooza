@@ -173,7 +173,7 @@ C {lab_pin.sym} 20 230 0 0 {name=l35 sig_type=std_logic lab=d8}
 C {lab_pin.sym} 20 250 0 0 {name=l36 sig_type=std_logic lab=d9}
 C {lab_pin.sym} 20 270 0 0 {name=l37 sig_type=std_logic lab=d10}
 C {lab_pin.sym} 20 290 0 0 {name=l38 sig_type=std_logic lab=d11}
-C {bbl_unit.sym} 150 550 0 0 {name=XU3}
+C {bbl_unit_hi.sym} 150 550 0 0 {name=XU3}
 C {lab_pin.sym} 110 440 0 1 {name=l40 sig_type=std_logic lab=vdd}
 C {lab_pin.sym} 110 660 0 1 {name=l41 sig_type=std_logic lab=vss}
 C {lab_pin.sym} 280 510 0 1 {name=l42 sig_type=std_logic lab=vm3}
@@ -236,7 +236,7 @@ C {lab_pin.sym} 1070 240 0 1 {name=l98 sig_type=std_logic lab=bus2}
 C {lab_pin.sym} 1000 300 0 0 {name=l99 sig_type=std_logic lab=vcplb}
 C {lab_pin.sym} 1070 360 0 1 {name=l100 sig_type=std_logic lab=vm2}
 C {lab_pin.sym} 1100 300 0 1 {name=l101 sig_type=std_logic lab=vss}
-C {sg13cmos5l_pr/sg13_hv_nmos.sym} 1050 500 0 0 {name=MP3 l=0.45u w=1u ng=1 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
+C {sg13cmos5l_pr/sg13_hv_nmos.sym} 1050 500 0 0 {name=MP3 l=0.45u w=40u ng=8 m=1 mm_ok=1 model=sg13_hv_nmos spiceprefix=X}
 C {lab_pin.sym} 1070 440 0 1 {name=l103 sig_type=std_logic lab=bus3}
 C {lab_pin.sym} 1000 500 0 0 {name=l104 sig_type=std_logic lab=vcplb}
 C {lab_pin.sym} 1070 560 0 1 {name=l105 sig_type=std_logic lab=vm3}

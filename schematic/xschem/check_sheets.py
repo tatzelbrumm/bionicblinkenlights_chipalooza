@@ -60,7 +60,8 @@ def compare(cell, path):
     return errs
 
 if __name__ == '__main__':
-    cells = sys.argv[1:] or ['bbl_neuron', 'bbl_dac', 'bbl_unit', 'bbl_inv', 'bbl_syn', 'bbl_gap', 'bbl_bias',
+    cells = sys.argv[1:] or ['bbl_neuron', 'bbl_neuron_hi', 'bbl_dac', 'bbl_unit', 'bbl_unit_hi', 'bbl_inv', 'bbl_syn',
+                             'bbl_gap', 'bbl_bias',
                              'bbl_core', 'bbl_tielo', 'bbl_slot_shared', 'bbl_slot_pads']
     outdir = os.path.join(HERE, 'netlist_check')
     bad = 0

@@ -423,15 +423,66 @@ if __name__ == '__main__':
             rows = [[]] + rows[1:]
         sh = leaf_sheet(subs[nm], rows, title, rails=rails, notes=notes)
         sh.save(os.path.join(out, nm + '.sch'))
+    # bbl_neuron_hi (N3, leakage-robust): the hand-drawn bbl_neuron sheet with the sizes of bbl_neuron_hi
+    # from the source netlist, its own title and a note; the drawing is the same
+    hi = {i['name']: i['params'] for i in subs['bbl_neuron_hi']['insts']}
+    def resize(m):
+        p = hi.get('X' + m.group(1))
+        s = m.group(0)
+        if p:
+            for k in ('l', 'w', 'ng'):
+                s = re.sub(rf' {k}=\S+', f' {k}={p[k]}', s, count=1)
+        return s
+    txt = re.sub(r'\{name=(\w+) [^}]*\}', resize, open(os.path.join(out, 'bbl_neuron.sch')).read())
+    # XMR5A of N3 is a switch: slow to vss, gate outb (bbl_neuron: slow to out, gate vdd)
+    r5a = next(i for i in subs['bbl_neuron_hi']['insts'] if i['name'] == 'XMR5A')['nodes']
+    if r5a == ['slow', 'outb', 'vss', 'vss']:
+        for old, new in [('N 680 -180 760 -180 {lab=out}',
+                          'N 740 -180 760 -180 {lab=vss}\n'
+                          'C {lab_pin.sym} 740 -180 0 0 {name=l24 sig_type=std_logic lab=vss}'),
+                         ('N 790 -220 790 -480 {lab=vdd}',
+                          'N 790 -220 790 -260 {lab=outb}\n'
+                          'C {lab_pin.sym} 790 -260 0 1 {name=l25 sig_type=std_logic lab=outb}')]:
+            assert txt.count(old) == 1, old
+            txt = txt.replace(old, new)
+    txt = txt.replace('T {bbl_neuron: Bionic Blinkenlight integrate-and-fire neuron (CMOS translation)}',
+                      'T {bbl_neuron_hi: the neuron of N3, robust against bus leakage (generated from bbl_neuron.sch)}')
+    txt = txt.replace('T {R5 = XMR5A (fast discharge of slow)',
+                      'T {XMR3 mirrors 16 x the DAC current (5.6 .. 174 nA): audio rates on chip, blinking with about '
+                      '10 nF on the bus; XM2, XM4, XMR5B resized; XMR5A: slow to vss, gate outb} 0 -530 0 0 0.3 0.3 {}\n'
+                      'T {Schmitt comparator (right): inverter XMIP / XMIN (out -> outb, switches at about 2.3 V) and '
+                      'pull-up XMQ on out (gate outb)} 0 -500 0 0 0.3 0.3 {}\n'
+                      'T {R5 = XMR5A (fast discharge of slow)')
+    def dev(sym, x, y, nm):
+        p = hi['X' + nm]
+        model = 'sg13_hv_pmos' if 'pmos' in sym else 'sg13_hv_nmos'
+        return (f'C {{sg13cmos5l_pr/{sym}.sym}} {x} {y} 0 0 {{name={nm} l={p["l"]} w={p["w"]} ng={p["ng"]} m=1 '
+                f'mm_ok=1 model={model} spiceprefix=X}}')
+    lab = lambda x, y, net, k, flip: f'C {{lab_pin.sym}} {x} {y} 0 {flip} {{name=l{k} sig_type=std_logic lab={net}}}'
+    txt += '\n'.join([
+        dev('sg13_hv_pmos', 1300, -380, 'MQ'), dev('sg13_hv_pmos', 1440, -380, 'MIP'),
+        dev('sg13_hv_nmos', 1440, -60, 'MIN'),
+        'N 1180 -480 1460 -480 {lab=vdd}', 'N 1060 250 1460 250 {lab=vss}',
+        'N 1320 -380 1320 -480 {lab=vdd}', 'N 1460 -380 1460 -480 {lab=vdd}', 'N 1460 -60 1460 250 {lab=vss}',
+        'N 1320 -350 1320 -320 {lab=out}', lab(1320, -320, 'out', 20, 1),
+        'N 1260 -380 1280 -380 {lab=outb}', lab(1260, -380, 'outb', 21, 0),
+        'N 1460 -350 1460 -90 {lab=outb}', 'N 1460 -220 1500 -220 {lab=outb}', lab(1500, -220, 'outb', 22, 1),
+        'N 1420 -380 1420 -60 {lab=out}', 'N 1400 -220 1420 -220 {lab=out}', lab(1400, -220, 'out', 23, 0)]) + '\n'
+    open(os.path.join(out, 'bbl_neuron_hi.sch'), 'w').write(txt)
     # symbols
     syms = {}
     syms['bbl_neuron'] = symbol(subs['bbl_neuron'], os.path.join(out, 'bbl_neuron.sym'),
                                 left=['vin'], right=['vm', 'out'], top=['vdd'], bot=['vss'], label='neuron')
+    syms['bbl_neuron_hi'] = symbol(subs['bbl_neuron_hi'], os.path.join(out, 'bbl_neuron_hi.sym'),
+                                   left=['vin'], right=['vm', 'out'], top=['vdd'], bot=['vss'], label='neuron (nA)')
     syms['bbl_dac'] = symbol(subs['bbl_dac'], os.path.join(out, 'bbl_dac.sym'),
                              left=['vbnl', 'b0', 'b1', 'b2', 'b3'], right=['vin'], top=['vdd'], bot=['vss'], label='DAC')
     syms['bbl_unit'] = symbol(subs['bbl_unit'], os.path.join(out, 'bbl_unit.sym'),
                               left=['vbnl', 'b0', 'b1', 'b2', 'b3'], right=['vm', 'out'], top=['vdd'], bot=['vss'],
                               label='neuron + DAC')
+    syms['bbl_unit_hi'] = symbol(subs['bbl_unit_hi'], os.path.join(out, 'bbl_unit_hi.sym'),
+                                 left=['vbnl', 'b0', 'b1', 'b2', 'b3'], right=['vm', 'out'], top=['vdd'], bot=['vss'],
+                                 label='neuron (nA) + DAC')
     syms['bbl_inv'] = symbol(subs['bbl_inv'], os.path.join(out, 'bbl_inv.sym'), left=['a'], right=['y'],
                              top=['vdd'], bot=['vss'])
     syms['bbl_syn'] = symbol(subs['bbl_syn'], os.path.join(out, 'bbl_syn.sym'), left=['spk', 'enw', 'ens'],
@@ -451,7 +502,10 @@ if __name__ == '__main__':
     sh = hier_sheet(subs['bbl_unit'], 'bbl_unit: one neuron with its tuning DAC',
                     {'XN': (300, 0), 'XD': (-100, 0)}, syms)
     sh.save(os.path.join(out, 'bbl_unit.sch'))
-    pl = {'XB': (-250, -300), 'XU0': (150, -350), 'XU1': (150, -50), 'XU2': (150, 250), 'XU3': (150, 550),
+    sh = hier_sheet(subs['bbl_unit_hi'], 'bbl_unit_hi: the neuron of N3 (nA, robust against bus leakage) with its tuning DAC',
+                    {'XN': (300, 0), 'XD': (-100, 0)}, syms)
+    sh.save(os.path.join(out, 'bbl_unit_hi.sch'))
+    pl ={'XB': (-250, -300), 'XU0': (150, -350), 'XU1': (150, -50), 'XU2': (150, 250), 'XU3': (150, 550),
           'XL0': (650, -450), 'XL1': (650, -200), 'XI0': (1050, -450), 'XI1': (1050, -200),
           'XS01': (650, 50), 'XS10': (650, 250), 'XG01': (650, 450), 'XG32': (650, 650),
           'XMP2': (1050, 300), 'XMP3': (1050, 500)}

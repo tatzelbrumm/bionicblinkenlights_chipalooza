@@ -717,9 +717,9 @@ text {font-family: Sans-Serif;}
 <text fill="#00ddff"  xml:space="preserve" font-size="8.73232" transform="translate(391.888, 426.394)" >d9</text>
 <text fill="#00ddff"  xml:space="preserve" font-size="8.73232" transform="translate(387.888, 436.572)" >d10</text>
 <text fill="#00ddff"  xml:space="preserve" font-size="8.73232" transform="translate(389.888, 446.749)" >d11</text>
-<text fill="#cccccc"  xml:space="preserve" font-size="7.93847" transform="translate(434.693, 539.217)" >bbl_unit</text>
+<text fill="#cccccc"  xml:space="preserve" font-size="7.93847" transform="translate(434.693, 539.217)" >bbl_unit_hi</text>
 <text fill="#cccccc"  xml:space="preserve" font-size="7.93847" transform="translate(434.693, 615.548)" >XU3</text>
-<text fill="#cccccc"  xml:space="preserve" font-size="6.61539" transform="translate(437.237, 576.181)" >neuron + DAC</text>
+<text fill="#cccccc"  xml:space="preserve" font-size="6.61539" transform="translate(437.237, 576.181)" >neuron (nA) + DAC</text>
 <text fill="#cccccc"  xml:space="preserve" font-size="5.29232" transform="translate(448.185, 556.275) rotate(270)" >vdd</text>
 <text fill="#cccccc"  xml:space="preserve" font-size="5.29232" transform="translate(454.256, 603.251) rotate(270)" >vss</text>
 <text fill="#cccccc"  xml:space="preserve" font-size="5.29232" transform="translate(503.024, 556.66)" >vm</text>
@@ -859,9 +859,9 @@ text {font-family: Sans-Serif;}
 <text fill="#ff0000"  xml:space="preserve" font-size="3.96924" transform="translate(942.297, 539.965)" >D</text>
 <text fill="#ff0000"  xml:space="preserve" font-size="3.96924" transform="translate(941.025, 548.334)" >B</text>
 <text fill="#aaaa00"  xml:space="preserve" font-size="5.29232" transform="translate(946.75, 557.805)" >m=1</text>
-<text fill="#aaaa00"  xml:space="preserve" font-size="5.29232" transform="translate(946.75, 553.352)" >ng=1</text>
+<text fill="#aaaa00"  xml:space="preserve" font-size="5.29232" transform="translate(946.75, 553.352)" >ng=8</text>
 <text fill="#aaaa00"  xml:space="preserve" font-size="5.29232" transform="translate(946.75, 546.991)" >l=0.45u</text>
-<text fill="#aaaa00"  xml:space="preserve" font-size="5.29232" transform="translate(946.75, 541.267)" >w=1u</text>
+<text fill="#aaaa00"  xml:space="preserve" font-size="5.29232" transform="translate(946.75, 541.267)" >w=40u</text>
 <text fill="#00ddff"  xml:space="preserve" font-size="8.73232" transform="translate(944.841, 523.081)" >bus3</text>
 <text fill="#00ddff"  xml:space="preserve" font-size="8.73232" transform="translate(879.587, 553.613)" >vcplb</text>
 <text fill="#00ddff"  xml:space="preserve" font-size="8.73232" transform="translate(944.841, 584.146)" >vm3</text>

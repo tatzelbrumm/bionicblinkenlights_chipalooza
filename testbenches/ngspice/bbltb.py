@@ -14,7 +14,9 @@ def corner_libs(corner='tt'):
     r = {'tt': 'res_typ', 'ss': 'res_wcs', 'ff': 'res_bcs', 'sf': 'res_typ', 'fs': 'res_typ'}[corner]
     return f".lib cornerMOShv.lib {m}\n.lib cornerMOSlv.lib {m}\n.lib cornerRES.lib {r}\n"
 
-def netlist(dig=0, cbus=(3e-12,) * 4, rsw=2e3, vcpla=None, vcplb=None, corner='tt', temp=27, vdd=3.3,
+# rsw: the harness bus switch analog_switch_med closed, 3.5 .. 17 Ohm (testbenches/harness_bus); it was 2 kOhm
+# here before 2026-11-09, which made no difference at pF loads but would slow the reset of a 10 nF bus
+def netlist(dig=0, cbus=(3e-12,) * 4, rsw=10.0, vcpla=None, vcplb=None, corner='tt', temp=27, vdd=3.3,
             include=SRC, dut='bbl_core', ena_t=0.0, extra=''):
     """dig: 24-bit integer (dig_in[23:0]); cbus: capacitance on analog_bus0..3 (on-chip line plus
     external load); vcpla/vcplb: None = not driven (on-chip pull-up), else a voltage or a source spec."""
@@ -64,9 +66,10 @@ def run(net, name, tstop=4.0, tstep='10u', vecs=VECS, keep=True, retry=True):
     if not os.path.exists(os.path.join(OUT, name + '.dat')):
         raise RuntimeError(f"{name}: no output, see {name}.log")
     d = np.genfromtxt(os.path.join(OUT, name + '.dat'), names=True)
-    if d['time'][-1] < 0.999 * tstop and retry and tstep == '10u':
+    if d['time'][-1] < 0.999 * tstop and retry:
         # the transient solver occasionally fails at a spike onset; one retry at half the step
-        return run(net, name, tstop, '5u', vecs, keep, retry=False)
+        half = f"{float(tstep.rstrip('u')) / 2:g}u"
+        return run(net, name, tstop, half, vecs, keep, retry=False)
     if d['time'][-1] < 0.999 * tstop:
         raise RuntimeError(f"{name}: transient stopped at {d['time'][-1]:.4g} s of {tstop} s, see {name}.log")
     return d
@@ -76,6 +79,18 @@ def spikes(t, out, th=1.65, dead=2e-3):
     dead time after a spike (glitches of out during the spike) are not counted."""
     s = out > th
     e = t[np.where(s[:-1] & ~s[1:])[0]]
+    keep = []
+    for x in e:
+        if not keep or x - keep[-1] > dead:
+            keep.append(x)
+    return np.array(keep)
+
+def resets(t, v, level=0.45, dead=2e-6):
+    """Spike times of N3 (bbl_neuron_hi): its out only dips for nanoseconds, but its membrane (and bus)
+    is a sawtooth that resets to 0 V at every spike: falling crossings of v through level."""
+    k = np.r_[np.diff(t) > 0, True]
+    t, v = t[k], v[k]
+    e = t[np.where((v[:-1] > level) & (v[1:] <= level))[0]]
     keep = []
     for x in e:
         if not keep or x - keep[-1] > dead:
@@ -94,7 +109,7 @@ def summary(d, t0=0.5):
     t = d['time']
     res = {}
     for k in range(4):
-        sp = spikes(t, d[f'vx1out{k}'])
+        sp = resets(t, d['vx1vm3']) if k == 3 else spikes(t, d[f'vx1out{k}'])
         res[k] = dict(spikes=sp, f=rate(sp, t0))
     return res
 
@@ -160,6 +175,6 @@ def summary_bus(d, t0=0.3):
     t = d['time']
     res = {}
     for k in range(4):
-        sp = bus_spikes(t, d[f'vbus{k}'])
+        sp = resets(t, d['vbus3']) if k == 3 else bus_spikes(t, d[f'vbus{k}'])
         res[k] = dict(spikes=sp, f=rate(sp, t0))
     return res

@@ -30,7 +30,10 @@ def row(b, devs, x0, yref, side, avoid=None):
                 sx = [x + 0.15 + i * (l + 0.38) for i in range(ng + 1)]
                 gx = [x + 0.34 + l / 2 + i * (l + 0.38) for i in range(ng)]
                 mine = [(S if i % 2 == 0 else D, p) for i, p in enumerate(sx)] + [(G, gx[len(gx) // 2])]
-                bad = any(abs(p - q) < 0.45 and n != m for n, p in mine for (m, q) in avoid)
+                # foreign stubs: 0.45 um between centres; stubs of the same net land on the same track, so
+                # their Via2 need the same 0.45 um unless the stubs coincide
+                bad = any((n != m and abs(p - q) < 0.45) or (n == m and 1e-6 < abs(p - q) < 0.45)
+                          for n, p in mine for (m, q) in avoid)
                 if not bad:
                     break
                 x += 0.05
@@ -111,19 +114,36 @@ def rhigh_cell(ly, name, w, l, nb, A, B):
     return b
 
 
-def unit(ly):
-    """bbl_unit: neuron (8 transistors, C1, C2) plus tuning DAC."""
+# Sizes (w, l, ng) of the devices that differ between the neuron of N0..N2 (bbl_unit) and the
+# leakage-robust N3 (bbl_unit_hi); they must match netlist/source/bbl.spice.
+UNIT = {'bbl_unit': dict(XMR3=(0.3, 30, 1), XMR5B=(0.3, 4, 1), XM2=(2, 0.45, 1), XM4=(1, 0.45, 1),
+                         XMR5A=(0.3, 100, 1)),
+        'bbl_unit_hi': dict(XMR3=(48, 3, 8), XMR5B=(10, 0.45, 2), XM2=(40, 0.45, 8), XM4=(10, 0.45, 2),
+                            XMR5A=(3, 0.45, 1))}
+# XMR5A terminals (S, D, G): bbl_unit slow to out, gate vdd; bbl_unit_hi a switch slow to vss, gate outb
+R5A_NETS = {'bbl_unit': ('out', 'slow', 'vdd'), 'bbl_unit_hi': ('vss', 'slow', 'outb')}
+XMP3 = (40, 0.45, 8)     # bus pass gate of N3: resets an external capacitor on analog_bus3 quickly
+# N3 only: Schmitt comparator (inverter out -> outb, pull-up XMQ on out with gate outb)
+SCHMITT_P = [('XMQ', 'p', 0.3, 3, 1, 'vdd', 'out', 'outb'), ('XMIP', 'p', 3, 0.45, 1, 'vdd', 'outb', 'out')]
+SCHMITT_N = [('XMIN', 'n', 0.3, 4, 1, 'vss', 'outb', 'out')]
+
+
+def unit(ly, name='bbl_unit'):
+    """bbl_unit: neuron (8 transistors, C1, C2) plus tuning DAC; bbl_unit_hi (N3): the same with other sizes
+    and the Schmitt comparator (11 transistors, C1, C2)."""
+    s = UNIT[name]
+    hi = name == 'bbl_unit_hi'
     pdev = [('XMD', 'p', 3, 3, 1, 'vdd', 'vin', 'vin'),
-            ('XMR3', 'p', 0.3, 30, 1, 'vdd', 'vm', 'vin'),
+            ('XMR3', 'p', *s['XMR3'], 'vdd', 'vm', 'vin'),
             ('XC1', 'p', 225, 10, 18, 'vdd', 'vdd', 'vm'),
             ('XM3', 'p', 0.3, 4, 1, 'vdd', 'vm', 'out'),
-            ('XMR1', 'p', 0.3, 20, 1, 'vdd', 'out', 'vss'),
-            ('XM4', 'p', 1, 0.45, 1, 'vdd', 'rst', 'slow'),
-            ('XMR5B', 'p', 0.3, 4, 1, 'vdd', 'slow', 'vin')]
-    ndev = [('XM1', 'n', 1, 1, 1, 'vss', 'out', 'vm'),
-            ('XM2', 'n', 2, 0.45, 1, 'vss', 'vm', 'rst'),
+            ('XMR1', 'p', 0.3, 20, 1, 'vdd', 'out', 'vss')] + (SCHMITT_P if hi else []) + \
+           [('XM4', 'p', *s['XM4'], 'vdd', 'rst', 'slow'),
+            ('XMR5B', 'p', *s['XMR5B'], 'vdd', 'slow', 'vin')]
+    ndev = [('XM1', 'n', 1, 1, 1, 'vss', 'out', 'vm')] + (SCHMITT_N if hi else []) + \
+           [('XM2', 'n', *s['XM2'], 'vss', 'vm', 'rst'),
             ('XMR2', 'n', 0.3, 20, 1, 'vss', 'rst', 'vdd'),
-            ('XMR5A', 'n', 0.3, 100, 1, 'out', 'slow', 'vdd'),
+            ('XMR5A', 'n', *s['XMR5A'], *R5A_NETS[name]),
             ('XC2', 'n', 60, 10, 6, 'vss', 'vss', 'slow'),
             ('XMH', 'n', 0.3, 3.2, 1, 'vss', 'vin', 'vbnl'),
             ('XMU0', 'n', 0.3, 2, 1, 's0', 'vin', 'vbnl'),
@@ -134,11 +154,11 @@ def unit(ly):
             ('XMS2', 'n', 1.2, 0.45, 4, 'vss', 's2', 'b2'),
             ('XMU3', 'n', 2.4, 2, 8, 's3', 'vin', 'vbnl'),
             ('XMS3', 'n', 2.4, 0.45, 8, 'vss', 's3', 'b3')]
-    return make_cell(ly, 'bbl_unit', pdev, ndev, ports=('vdd', 'vss', 'vm', 'out', 'vbnl', 'b0', 'b1', 'b2', 'b3'))
+    return make_cell(ly, name, pdev, ndev, ports=('vdd', 'vss', 'vm', 'out', 'vbnl', 'b0', 'b1', 'b2', 'b3'))
 
 
 def cells(ly):
-    out = [unit(ly)]
+    out = [unit(ly), unit(ly, 'bbl_unit_hi')]
     out.append(make_cell(ly, 'bbl_inv', [('XMP', 'p', 1, 0.45, 1, 'vdd', 'y', 'a')],
                          [('XMN', 'n', 1, 0.45, 1, 'vss', 'y', 'a')], ports=('vdd', 'vss', 'a', 'y')))
     out.append(make_cell(ly, 'bbl_syn',
@@ -153,7 +173,7 @@ def cells(ly):
          ('XMGS', 'n', 1, 0.45, 1, 'gs', 'a', 'vc'), ('XMTS', 'n', 1, 0.45, 1, 'b', 'gs', 'ens')],
         ports=('vss', 'a', 'b', 'vc', 'enw', 'ens')))
     out.append(make_cell(ly, 'bbl_pass', [],
-        [('XMP2', 'n', 1, 0.45, 1, 'vm2', 'bus2', 'vcplb'), ('XMP3', 'n', 1, 0.45, 1, 'vm3', 'bus3', 'vcplb')],
+        [('XMP2', 'n', 1, 0.45, 1, 'vm2', 'bus2', 'vcplb'), ('XMP3', 'n', *XMP3, 'vm3', 'bus3', 'vcplb')],
         ports=('vss', 'vm2', 'bus2', 'vm3', 'bus3', 'vcplb')))
     out.append(make_cell(ly, 'bbl_biasc',
         [('XMPA', 'p', 2, 2, 1, 'vdd', 'vbn', 'vbp'), ('XMPB', 'p', 2, 2, 1, 'vdd', 'vbp', 'vbp'),

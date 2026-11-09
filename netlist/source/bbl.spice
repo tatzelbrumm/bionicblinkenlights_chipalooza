@@ -47,6 +47,40 @@ XC2 vss slow vss vss sg13_hv_nmos w=60u l=10u ng=6 m=1
 .ends bbl_neuron
 
 * ---------------------------------------------------------------------------------------------------
+* bbl_neuron_hi: the neuron of N3, robust against the leakage on a harness analog bus (pad ESD, the other
+* slots' switches: the PDK pad model leaks 0.1..0.4 nA, testbenches/harness_bus/results.md).
+* XMR3 mirrors 16 x the DAC current (W/L 16 against 1/100), i.e. 5.6 nA at code 0 to 174 nA at code 15,
+* about 900 x the current of bbl_neuron. On chip (10 pF + a few pF of bus) N3 therefore runs at audio rates;
+* an external capacitor on analog_bus3 (about 10 nF) brings it back to blinking.
+* A membrane with nF on it rises too slowly for the regenerative loop of bbl_neuron (XM3 into vm): the reset
+* catches up and holds vm at the threshold. N3's comparator is therefore a Schmitt trigger on its own:
+*   XMIP / XMIN  inverter out -> outb, switching at about 2.3 V (strong PMOS, weak NMOS), so it flips while
+*                out has dropped only a little, before slow and rst respond
+*   XMQ          pull-up on out, gate outb: on while out is high (firing threshold about 0.92 V), off as soon
+*                as out falls; out then stays low until the membrane and the bus are reset
+*   XMR5A        a switch from slow to vss, gate outb: empties slow within nanoseconds when out falls and is
+*                off as soon as out is high again, so that slow recovers only through XMR5B: rst stays fully
+*                high for the whole refractory time (about 8 us at code 15 .. 0.8 ms at code 0)
+* XM4 10 x wider (rst fully high), XM2 20 x and the bus pass gate XMP3 (in bbl_core) 40 x: about 100 Ohm, so
+* 10 nF on the bus is reset within the refractory time; XMR5B about 300 x. 12 transistors, 2 MOS capacitors.
+.subckt bbl_neuron_hi vdd vss vm out vin
+XM1 out vm vss vss sg13_hv_nmos w=1u l=1u ng=1 m=1
+XM2 vm rst vss vss sg13_hv_nmos w=40u l=0.45u ng=8 m=1
+XM3 vm out vdd vdd sg13_hv_pmos w=0.3u l=4u ng=1 m=1
+XM4 rst slow vdd vdd sg13_hv_pmos w=10u l=0.45u ng=2 m=1
+XMQ out outb vdd vdd sg13_hv_pmos w=0.3u l=3u ng=1 m=1
+XMIN outb out vss vss sg13_hv_nmos w=0.3u l=4u ng=1 m=1
+XMIP outb out vdd vdd sg13_hv_pmos w=3u l=0.45u ng=1 m=1
+XMR1 out vss vdd vdd sg13_hv_pmos w=0.3u l=20u ng=1 m=1
+XMR2 rst vdd vss vss sg13_hv_nmos w=0.3u l=20u ng=1 m=1
+XMR3 vm vin vdd vdd sg13_hv_pmos w=48u l=3u ng=8 m=1
+XMR5A slow outb vss vss sg13_hv_nmos w=3u l=0.45u ng=1 m=1
+XMR5B slow vin vdd vdd sg13_hv_pmos w=10u l=0.45u ng=2 m=1
+XC1 vdd vm vdd vdd sg13_hv_pmos w=225u l=10u ng=18 m=1
+XC2 vss slow vss vss sg13_hv_nmos w=60u l=10u ng=6 m=1
+.ends bbl_neuron_hi
+
+* ---------------------------------------------------------------------------------------------------
 * Tuning DAC (the bias of the R3 stand-in): the diode XMD carries (0.5 + code) x 0.7 nA,
 * code = b3..b0; XMR3 mirrors about 1/57 of it into the membrane: f is about 1.3 Hz x (0.75 + code),
 * i.e. 1 Hz .. 21 Hz (unloaded). The base leg XMH is always on, so dig_in = 0 (harness default) blinks at 1 Hz.
@@ -69,6 +103,12 @@ XMS3 s3 b3 vss vss sg13_hv_nmos w=2.4u l=0.45u ng=8 m=1
 XN vdd vss vm out vin bbl_neuron
 XD vdd vss vin vbnl b0 b1 b2 b3 bbl_dac
 .ends bbl_unit
+
+* N3: the leakage-robust neuron with the same tuning DAC.
+.subckt bbl_unit_hi vdd vss vm out vbnl b0 b1 b2 b3
+XN vdd vss vm out vin bbl_neuron_hi
+XD vdd vss vin vbnl b0 b1 b2 b3 bbl_dac
+.ends bbl_unit_hi
 
 * 3.3 V inverter: LED bus driver of N0 / N1 (bus high while the neuron fires) and spike output spk.
 .subckt bbl_inv vdd vss a y
@@ -141,6 +181,8 @@ XCB vss vcplb vss vss sg13_hv_nmos w=50u l=10u ng=5 m=1
 *   N2, N3: membranes on analog_bus2 / analog_bus3 through NMOS pass gates at vcplb: the bus
 *          capacitance is part of their membrane capacitance; the bus is high while they fire.
 *          N3 also reaches analog_bus2 (d22 weak, d23 strong) and through it N2.
+*          N3 is bbl_unit_hi (nA, robust against bus leakage): audio rates on chip, blinking with about
+*          10 nF on analog_bus3; N2 keeps the pA neuron (blinking on chip, stopped by a leaky bus).
 *   Tuning codes: N0 d3..d0, N1 d7..d4, N2 d11..d8, N3 d15..d12.
 .subckt bbl_core vdd vss vddl vssl ena d0 d1 d2 d3 d4 d5 d6 d7 d8 d9 d10 d11 d12 d13 d14 d15 d16
 + d17 d18 d19 d20 d21 d22 d23 bus0 bus1 bus2 bus3 vcpla vcplb
@@ -148,7 +190,7 @@ XB vdd vss vddl vssl ena vbnl vcpla vcplb bbl_bias
 XU0 vdd vss vm0 out0 vbnl d0 d1 d2 d3 bbl_unit
 XU1 vdd vss vm1 out1 vbnl d4 d5 d6 d7 bbl_unit
 XU2 vdd vss vm2 out2 vbnl d8 d9 d10 d11 bbl_unit
-XU3 vdd vss vm3 out3 vbnl d12 d13 d14 d15 bbl_unit
+XU3 vdd vss vm3 out3 vbnl d12 d13 d14 d15 bbl_unit_hi
 XL0 vdd vss out0 bus0 bbl_inv
 XL1 vdd vss out1 bus1 bbl_inv
 XI0 vdd vss out0 spk0 bbl_inv
@@ -157,6 +199,6 @@ XS01 vdd vss spk0 vm1 d16 d17 bbl_syn
 XS10 vdd vss spk1 vm0 d18 d19 bbl_syn
 XG01 vss vm0 vm1 vcpla d20 d21 bbl_gap
 XMP2 bus2 vcplb vm2 vss sg13_hv_nmos w=1u l=0.45u ng=1 m=1
-XMP3 bus3 vcplb vm3 vss sg13_hv_nmos w=1u l=0.45u ng=1 m=1
+XMP3 bus3 vcplb vm3 vss sg13_hv_nmos w=40u l=0.45u ng=8 m=1
 XG32 vss bus2 vm3 vcplb d22 d23 bbl_gap
 .ends bbl_core
