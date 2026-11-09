@@ -34,6 +34,10 @@ for c in [0, 10e-12, 30e-12, 100e-12]:
 #    low it runs on its own membrane at about 0.5 kHz)
 for v in [0.0, 0.8, 1.2, 3.3]:
     CASES[f'vcplb_{v:.1f}'] = dict(dig=dig(6, 6, 6, 0), cbus=(C3, C3, C3 + 30e-12, CB3), vcplb=v, tstop=2.5)
+# vcplb 0: the pass gates are off, N3 runs at about 600 Hz on its own membrane, and the solver stalled with every
+# bus model tried (at bus0, bus2, bus3, after 0.05 .. 1.15 s). Default bus model, up to 100 Newton iterations per
+# time point (itl4, default 10), 0.8 s
+CASES['vcplb_0.0'].update(opts='itl4=100', tstop=0.8, t0=0.1)
 # 4. demo img11: N0 fast, N1 slow, excitatory synapse N0 -> N1 at four weights
 for name, bits in [('none', ()), ('weak', (16,)), ('strong', (17,)), ('both', (16, 17))]:
     CASES[f'syn01_{name}'] = dict(dig=dig(9, 1, 0, 0, bits), cbus=CBUS, tstop=2.5)
@@ -62,6 +66,8 @@ for code, tstop, tstep in [(0, 6.0, '20u'), (15, 1.0, '10u')]:
 for code in (0, 15):     # the PDK pad model's leakage on analog_bus3 (20 pF: bus switch closed, see harness_bus)
     CASES[f'n3_pad_{code}'] = dict(dig=dig(6, 6, 6, code), cbus=(C3, C3, C3, 20e-12), pad=True, tstop=0.02,
                                    tstep='1u', t0=0.004)
+    CASES[f'n3_c20p_{code}'] = dict(dig=dig(6, 6, 6, code), cbus=(C3, C3, C3, 20e-12), tstop=0.02,
+                                    tstep='1u', t0=0.004)     # the same without the pad
 CASES['n3_pad_blink_6'] = dict(dig=dig(6, 6, 6, 6), cbus=CBUS, pad=True, tstop=2.0, t0=0.3)
 
 
@@ -76,7 +82,7 @@ def one(args):
     name, case, include, tag, reuse = args
     outdir = os.path.join(bbltb.OUT, tag)
     os.makedirs(outdir, exist_ok=True)
-    kw = {k: v for k, v in case.items() if k in ('dig', 'cbus', 'vcpla', 'vcplb')}
+    kw = {k: v for k, v in case.items() if k in ('dig', 'cbus', 'vcpla', 'vcplb', 'rsw', 'cslot', 'opts')}
     pex = include.endswith('.pex.spice')
     if pex:
         cell = os.path.basename(include).split('.')[0]
@@ -87,11 +93,22 @@ def one(args):
     res = dict(case=name, **{k: (list(v) if isinstance(v, tuple) else v) for k, v in case.items()})
     t0 = case.get('t0', 0.3)
     try:
-        if reuse:    # --reanalyze: the saved waveforms of an earlier run
-            d = np.genfromtxt(os.path.join(outdir, name + '.dat'), names=True)
-        else:
-            d = run(net, os.path.join(tag, name), tstop=case['tstop'], tstep=case.get('tstep', '10u'),
-                    vecs=bbltb.BUSVECS if pex else bbltb.VECS + ['v(busx0)'])
+        try:
+            if reuse:    # --reanalyze: the saved waveforms of an earlier run
+                d = np.genfromtxt(os.path.join(outdir, name + '.dat'), names=True)
+                if d['time'][-1] < 0.999 * case['tstop']:
+                    raise bbltb.Stopped(f"{name}: waveform ends at {d['time'][-1]:.4g} s")
+            else:
+                d = run(net, os.path.join(tag, name), tstop=case['tstop'], tstep=case.get('tstep', '10u'),
+                        vecs=bbltb.BUSVECS if pex else bbltb.VECS + ['v(busx0)'])
+        except bbltb.Stopped as e:
+            # both attempts stopped early ("timestep too small"): rates from the longer one if it covers at
+            # least half of the analysis window t0 .. tstop; res['partial'] = where it ends
+            d = bbltb.partial(os.path.join(tag, name))
+            if d['time'][-1] - t0 < 0.5 * (case['tstop'] - t0):
+                raise
+            res['partial'] = float(d['time'][-1])
+            res['note'] = str(e)
         s = bbltb.summary_bus(d, t0=t0) if pex else summary(d, t0=t0)
         sb = bbltb.summary_bus(d, t0=t0)
         res['f_bus'] = [float(sb[k]['f']) for k in range(4)]
@@ -108,7 +125,8 @@ def one(args):
         res['ok'] = False
         res['error'] = str(e)
     json.dump(res, open(os.path.join(outdir, name + '.json'), 'w'), indent=1)
-    print(name, 'ok' if res['ok'] else 'FAIL', res.get('f'), res.get('error', ''), flush=True)
+    print(name, ('ok' + (f" (partial, to {res['partial']:.4g} s)" if 'partial' in res else '')) if res['ok'] else 'FAIL',
+          res.get('f'), res.get('error', ''), flush=True)
     return res
 
 

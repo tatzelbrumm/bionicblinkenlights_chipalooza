@@ -2,22 +2,49 @@
 SPDX-FileCopyrightText: 2026 Christoph Maier
 SPDX-License-Identifier: Apache-2.0
 -->
-# Cloud session: Bionic Blinkenlights slot for the Chipalooza sg13cmos5l harness (2026-11-08 / 09)
+# Cloud session C4: replica bias for the reference and common-mode inputs of the custom pads (2026-11-06 / 08)
 
-- **Session:** Claude Code cloud session (https://claude.ai/code/session_01XU3KHA7Yq8zX5MgXJUhmLH), claude.
-  Launch prompt: the first user message below.
-- **Repository:** `tatzelbrumm/bionicblinkenlights_chipalooza`, branch `main` (records in `docs/`: `RUNLOG.md`,
-  `SUMMARY.md`, this log).
-- **What is verbatim:** Christoph's messages (as **User**, including the messages he sent while a turn was running)
-  and the assistant's visible replies, as written.
+- **Session:** Claude Code cloud session (https://claude.ai/code/session_01XU3KH9LkJUXwr5yuksqCZG), claude. Launch
+  prompt: the task file `docs/launch/replica_bias_TASK.md` on branch `harness-test`.
+- **Branches:** design `claude/c4-replica-bias` (`docs/replica_bias/`: `SURVEY.md`, `RUNLOG.md`, `SUMMARY.md`), notes
+  `claude/c4-replica-bias-sudel` (`sudelbuecher/design_considerations/replica_bias/`, logs in
+  `sudelbuecher/logs/replica-bias/`).
+- **What is verbatim:** Christoph's messages (as **User**) and the assistant's visible replies, as written.
   - Each tool call appears as one `*[ ]*` line: action, and the observable result only where it was an error.
   - Tool output, system text and reminders are not included. The internal reasoning is not included.
-- **How it was made:** extracted by script (`build_chatlog.py`, copied unchanged from
-  `sudelbuecher/design_considerations/replica_bias/chatlog_tools/` on the notes branch of
-  `sg13cmos5l_cm_ip__single2diff2single`) from the session's raw transcript, along the live path of `parentUuid`,
-  and checked by script (`verify_chatlog.py`, same place): every message and reply present verbatim, and no
-  40-character window of the reasoning in the file.
-- **Times:** UTC.
+- **How it was made:** extracted by script (`build_chatlog.py` in
+  `sudelbuecher/design_considerations/replica_bias/chatlog_tools/`, adapted from session C3's) from the session's raw
+  transcript, along the live path of `parentUuid`, and checked by script (`verify_chatlog.py`): every message and
+  reply present verbatim, and no 40-character window of the reasoning in the file.
+- **Times:** UTC. Christoph's clock (Europe/Berlin) is one hour ahead.
+- **Gap:** the raw transcript keeps only part of the assistant's visible messages as text records (Phase 1: 6 of about
+  20; the progress messages between tool calls are missing, and the same holds for Phase 2). The others are not in the transcript as text, so they
+  are missing here. They are not reconstructed: the only other trace of them is inside the reasoning records, which
+  this log excludes. The full content of Phase 1 is in `docs/replica_bias/SURVEY.md` and `RUNLOG.md` on the design
+  branch.
+- **Day 2 (2026-11-07):** the shared bias tree pad_ref_rb (option A), Christoph's hand-compacted sheets and the short
+  in them, the skill update, the layout primitives. The conversation passed a context compaction; the log follows the
+  live path across it (`logicalParentUuid`). Notes: `../design_considerations/replica_bias/phase2b/README.md`.
+- **Day 2, afternoon and evening (2026-11-07, turns 15–40):** the bypass cell bypass_rb and its PMOS / NMOS / varicap
+  study, bias_dist_pd's sheet and truth table, the survey of external switch and level-shifter cells, the CACE
+  characterization of analog_pswitch_small (agent), and the layout of pad_ref_rb by agents P, P3, N and F (briefs with
+  Christoph's layout rules verbatim, rb_avg redrawn, dummies backannotated, the rb_casc alternatives, F's brief and
+  Christoph's placement answers). A second context compaction; the log follows the live path across it the same way.
+  Notes: `../design_considerations/replica_bias/layout/`.
+- **Updated 2026-11-07 (21:25 UTC):** turns 15–40 added by the same scripts; turns 1–14 are unchanged except for the
+  tool lines at the end of turn 14 that came after the first export.
+- **Days 2–3 (2026-11-07 late evening to 2026-11-08, turns 41 on):** F's assembly of pad_ref_rb (routing-driven
+  placement, pins straight out, position in slot7), the drawn bypass capacitors backannotated, bias_dist_pd by agent D
+  (two rounds, the narrow-poly check), the standard-cell fill / decap / endcap survey (agent R), the `.klay.klib`
+  companion files, the slice hierarchy backannotated into the sheets, Christoph's hand edits of those sheets and of the
+  symbols, and the skill updates from them. More context compactions; the log follows the live path across them.
+  The long check results of these turns are in `docs/replica_bias/RUNLOG.md` rows 74–103 on the design branch.
+- **Updated 2026-11-08:** turns from 41 on added by the same scripts.
+- **Day 3, afternoon (2026-11-08, turns 68 on):** the slot-7 hookup concept (research agent on the harness and the other
+  sessions), the fail-safe enable redesigned (en_ctrl_3v3 v2: nA leaker shifter, no supply detectors; sheets, CACE,
+  layout by agents), the pads' starvation check, the reference cores' start-up current, the tier-1 slot netlist and its
+  switch matrix (`macros/slot_7`), and the parallel layout agents for the slot assembly. Check results in
+  `docs/replica_bias/RUNLOG.md` rows 104-116.
 
 ## Turn 1 (2026-11-08 21:56 UTC)
 
@@ -2242,7 +2269,1060 @@ The chat log check found four 40-character stretches of my reasoning that also a
 *[Bash: Show where the shared stretches sit in the chat log.]*  
 *[Edit `/home/user/bionicblinkenlights_chipalooza/docs/RUNLOG.md`.]*  
 *[Bash: Rebuild the chat log once more.]*  
+*[Bash: Verify the rebuilt chat log.]*  
+*[Bash: Stage the slot 3 and harness bus changes.]*  
+*[Bash: Show staged changes.]*  
+*[Bash: Commit slot 3 and the harness bus analysis.]*  
+*[Bash: Push main to GitHub.]*  
+*[TaskUpdate call.]*  
+*[TaskUpdate call.]*  
+
+**Assistant:**
+
+I put the chip in slot 3, and looking at the harness bus turned up a problem: once the bus switch is closed, the PDK pad model says N2 and N3 stop firing. Everything is pushed to `main`.
+
+**Slot 3**
+- **The file:** `final/gds/slot_3.gds` (top cell `slot_3`) uses the variant with two dedicated analog pads: `vcpla` on `s3_an_0_esd`, `vcplb` on `s3_an[1]`. DRC shows no violations and LVS matches. `final/gds/` now holds only this file; the two generic variants are still in `layout/gds/`.
+- **Second ground pin:** slot 3's outline (unlike slot 1's) has a second `vss_3v3` pin, a Metal2 strip on the right edge. In my first build nothing connected to it, and LVS passed only because KLayout treats pins with the same name as connected. It is now wired to the ground straps through metal, and I checked that connection without relying on the pin names.
+- **Allowed slots were wrong:** the old list let the pads variant go into slots 6, 7, 13 and 17, whose pads are digital or custom, and missed 5, 9, 10 and 14. `build_slot.py` now reads the pad types from the harness's `config.txt`.
+- **Moving to another slot:** the steps are in the README under "Slot 3, and moving to another slot". On the harness side only `s3_source` and `s3_version` change, and nothing has to be rebuilt as long as the pad types stay.
+- **For you to sort out:** the harness `config.txt` still assigns slot 3 to El-Shinnawey (`sg13cmos5l_slot3_backup`).
+
+**Is PEX our friend?**
+- **For our own slot, yes.** Extraction adds about 0.4 pF to each membrane, and the rate still follows 1/(10 pF + C_bus) after extraction.
+- **For the bus, extracted wiring is the small part; the devices dominate.** Per bus, all 18 slots' switches sit on one net, which is the chip's analog pin. I simulated the harness's own extracted switch netlist and the PDK pad model:
+  - **Switch open:** about 0.5 pF on our side.
+  - **Switch closed:** about 9 pF on chip (our switch 2 pF, the 17 others 6.8 pF, the pad 0.2 pF), plus the shared wiring and the board.
+
+  That puts 10–20 pF on the bus, not 3 pF. The circuit tolerates that, since the 1/C law holds up to 103 pF; at code 6 the rate drops from 7.2 Hz to about 3.7 Hz.
+- **The problem is leakage, not capacitance.** The PDK pad model leaks 0.1–0.36 nA to ground at 0.3–1.6 V. With it on the bus, N2 and N3 fire at no code tested (6, 10 and 15, at 3 and 10 pF, 27 and 60 °C); their membranes stall at 0.1–0.5 V. To fire they need the leakage below about 9 pA at code 0 and 139 pA at code 15.
+- **That leakage may not be real.** It comes from a breakdown term in the pad's ESD-diode models that was fitted down to −15 V, and the model is marked as valid only for reverse bias. It is orders of magnitude above normal junction leakage.
+- **Other leakage is likely real.** The pad's clamp transistors alone push 6–27 pA into the node. The other slots' open switches each push or pull 0.1–30 pA, depending on the voltage on their side.
+- **N0 and N1 are not affected:** they drive their buses through inverters.
+- **The chip can measure both.** Plot N2's rate against N0's rate over the tuning codes: the slope gives the bus capacitance and the offset gives the leakage. If N2 only starts firing above some code, that code gives the leakage directly.
+
+Details and scripts are in `testbenches/harness_bus/`; it's open point 1 in `docs/SUMMARY.md`.
+
+**Decision for you:** if real pads leak anywhere near what the model says, N2 and N3 only work with their bus switch open, and then nothing of them is visible off-chip. You have two options:
+1. **Keep the design and let the silicon decide.** It costs nothing, and the chip measures the leakage either way.
+2. **Make N2 or N3 robust to about 0.5 nA.** That needs about ten times the current. Keeping 1–20 Hz then also needs about ten times the membrane capacitance, roughly 100 pF instead of 10 pF, which is a lot of area.
+
+I'd do option 1 for both, or option 2 for N3 only so one bus-coupled neuron survives in the worst case. Which do you want?
+
+## Turn 13 (2026-11-09 11:07 UTC)
+
+**User:**
+
+2, and tolerate that the design makes itself heard (frequency shift to audio range, with the option to detune to blinking frequencies by loading the analog bus with external capacitance)
+
+**Assistant:**
+
+N3 gets option 2, the robust high-current version. N2 stays as it is, as the experiment with the pad leakage. N3 will run at audio frequencies on the chip and can be detuned to blinking with an external capacitor on `analog_bus3`. If you want N2 changed too, it's the same change. First I'll check how the charging current is set.
+
+*[Bash: Show the source netlist of the core.]*  
+*[Bash: Find the neuron cell in the layout generator.]*  
+*[Bash: Count lines of the generator scripts.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build.py`.]*  
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/buscap/out/ron.sp`.]*  
+*[Bash: Measure the harness switch on-resistance.]*  
+*[Bash: Measure the harness switch on-resistance.]*  
+*[Bash: Show the on-resistance run output.]*  
+*[Edit `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/buscap/out/ron.sp`.]*  
+*[Bash: Measure the harness switch on-resistance.]*  
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/mknet.py`.]*  
+*[Bash: Write the trial netlist with the robust N3.]*  
+*[Bash: Check the trial netlist changes.]*  
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/n3sim.py`.]*  
+*[Bash: Simulate the trial N3 in audio and blinking modes.]*  
+
+**Assistant:**
+
+The trial N3 is simulating: 9 cases, audio mode at 3 and 20 pF and blinking mode with 10 nF, with and without the pad leakage. Meanwhile I'm looking at what the schematics need.
+
+*[Bash: Find how the schematic generator treats the neuron and unit.]*  
+*[Bash: List the xschem folder.]*  
+*[TaskCreate call.]*  
+*[TaskCreate call.]*  
+*[TaskUpdate call.]*  
+*[Bash: Show the sheet generator's main section.]*  
+*[Result: error (Exit code 1).]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/schematic/xschem/gen_sheets.py`.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/schematic/xschem/check_sheets.py`.]*  
+*[Bash: Show the neuron sheet's device lines to change.]*  
+*[Bash: Show the device property lines in the neuron sheet.]*  
+*[Bash: Show the trial N3 results so far.]*  
+*[Bash: Show how XMR3 is written in the neuron sheet.]*  
+*[Bash: List the instance lines of the neuron sheet.]*  
+*[Bash: List running ngspice processes.]*  
+
+**Assistant:**
+
+N3 is simulating. Meanwhile I'm generalizing the layout generator: one function now builds both unit cells, and N3's (`bbl_unit_hi`) takes its sizes for XMR3, XMR5B and XM2 as parameters.
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build_slot.py`.]*  
+*[Bash: Find the pass gate cell in the layout generator.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build.py`.]*  
+*[Bash: Show the trial N3 results so far.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/schematic/xschem/gen_sheets.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/schematic/xschem/gen_sheets.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/schematic/xschem/gen_sheets.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/schematic/xschem/gen_sheets.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/schematic/xschem/check_sheets.py`.]*  
+*[Bash: Show new trial N3 results.]*  
+*[Bash: List running ngspice processes.]*  
+*[Bash: List the blinking-mode simulation files.]*  
+
+**Assistant:**
+
+While the blinking cases run, I'm writing the robust N3 into the source netlist with the trial sizes; I'll adjust them if the 10 nF results require it.
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/netlist/source/bbl.spice`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/netlist/source/bbl.spice`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/netlist/source/bbl.spice`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/netlist/source/bbl.spice`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/netlist/source/bbl.spice`.]*  
+*[Bash: Regenerate the generated sheets and symbols.]*  
+*[Bash: Show which schematic files changed.]*  
+*[Bash: Show the change in the core sheet.]*  
+*[Bash: Netlist every sheet with xschem and compare with the source.]*  
+
+**Assistant:**
+
+All 13 sheets match the source netlist device by device, including the new `bbl_neuron_hi` and `bbl_unit_hi`.
+
+*[Bash: List the render folder and sheet images.]*  
+*[Bash: Find how the sheet images were rendered.]*  
+*[Bash: Show the skill's rendering recipe.]*  
+*[Bash: Show blinking-mode results and running simulations.]*  
+
+**Assistant:**
+
+While waiting, I'm building the layout with the new N3 cell into scratch and running DRC and LVS early, to catch fit problems.
+
+*[Bash: Build slot 3 with the robust N3 into scratch.]*  
+*[Bash: Write the LVS netlist with the robust N3 into scratch.]*  
+*[Bash: DRC of the scratch slot 3 with the robust N3.]*  
+*[Bash: LVS of the scratch slot 3 with the robust N3.]*  
+
+**Assistant:**
+
+LVS passes; DRC flags Metal2 and Via2 spacing. I'm finding where.
+
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/drcwhere.py`.]*  
+*[Bash: List the DRC violation locations.]*  
+*[Edit `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/drcwhere.py`.]*  
+*[Bash: List the DRC violations with their cell.]*  
+*[Bash: Find the Metal2 stub width in the layout helper.]*  
+*[Bash: Find the via and stub sizes in the layout helper.]*  
+*[Bash: Show the Metal2 stub width constant.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build.py`.]*  
+*[Bash: Rebuild slot 3 with the stricter stub spacing.]*  
+*[Bash: DRC of the rebuilt scratch slot 3.]*  
+*[Bash: List the remaining DRC violation.]*  
+
+**Assistant:**
+
+Now two Via2 of that net are 0.01 µm apart. Same-net stubs land on the same track, so their vias need full spacing unless they coincide:
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build.py`.]*  
+*[Bash: Rebuild slot 3 with the corrected stub rule.]*  
+*[Bash: DRC of the rebuilt scratch slot 3.]*  
+*[Bash: List the remaining DRC violation.]*  
+
+**Assistant:**
+
+The two vias now overlap with an offset of exactly 0.01 µm, which the tolerance still allowed. Requiring exact coincidence:
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build.py`.]*  
+*[Bash: Rebuild slot 3 with the exact-coincidence rule.]*  
+*[Bash: DRC of the rebuilt scratch slot 3.]*  
+
+**Assistant:**
+
+DRC is clean. Next I'm checking that the stricter stub rule left every other cell unchanged:
+
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/xor_cells.py`.]*  
+*[Bash: Build all cells into scratch.]*  
+*[Bash: XOR the old and new cells.]*  
+*[Bash: Show blinking-mode results and running simulations.]*  
+*[TaskStop: a background task stopped.]*  
+*[Result: error (Task bqgm5jomb is not running (status: completed)).]*  
+*[Edit `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/mknet.py`.]*  
+*[Edit `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/mknet.py`.]*  
+*[Task notification: Background command "Simulate the trial N3 in audio and blinking modes" completed (exit code 0).]*  
+*[Bash: Show the code 0, 10 nF result.]*  
+
+**Assistant:**
+
+Confirmed: at code 0 with 10 nF, N3 also fired once and then latched (0.18–0.74 V, 3.6 µA). Now the hysteresis variants:
+
+*[Edit `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/n3sim.py`.]*  
+*[Bash: Write variant b (hysteresis PMOS 0.3/6).]*  
+*[Bash: Write variant c (hysteresis PMOS 0.3/2).]*  
+*[Bash: Count CPU cores.]*  
+*[Bash: Simulate N3 with hysteresis PMOS 0.3/6.]*  
+*[Bash: Simulate N3 with hysteresis PMOS 0.3/2.]*  
+
+**Assistant:**
+
+Both XMQ variants (0.3/6 and 0.3/2 µm) are simulating: blinking mode with 10 nF and 1 nF, and audio mode at codes 0 and 15. I'll report when they finish.
+
+*[Task notification: Background command "Simulate N3 with hysteresis PMOS 0.3/2" completed (exit code 0).]*  
+*[Task notification: Background command "Simulate N3 with hysteresis PMOS 0.3/6" completed (exit code 0).]*  
+*[Bash: Show the results of both hysteresis variants.]*  
+*[Bash: Show why the variant runs failed.]*  
+*[Bash: Check the hysteresis transistor line in variant b.]*  
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/mknet.py`.]*  
+*[Bash: Rewrite variant b.]*  
+*[Bash: Rewrite variant c.]*  
+*[Bash: Check variant b is well formed.]*  
+*[Bash: Simulate N3 with hysteresis PMOS 0.3/6.]*  
+*[Bash: Simulate N3 with hysteresis PMOS 0.3/2.]*  
+
+**Assistant:**
+
+The two hysteresis variants are running again with a correct netlist. I'll pick the size from the results, then do the netlist, schematic and layout updates.
+
+*[Task notification: Background command "Simulate N3 with hysteresis PMOS 0.3/2" completed (exit code 0).]*  
+*[Bash: Show the results of both hysteresis variants.]*  
+*[Bash: Print N3 waveforms over 6 ms at 1 nF.]*  
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/probe.py`.]*  
+*[Bash: Probe N3 internal nodes at 1 nF, code 6.]*  
+
+**Assistant:**
+
+No event within the first 12 ms; at 1 nF the first charge-up takes about 12 ms. Rerunning with 30 ms:
+
+*[Bash: Probe N3 internal nodes at 1 nF, code 6, 30 ms.]*  
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/mknet2.py`.]*  
+*[Bash: Write variant d.]*  
+*[Bash: Show variant d's N3 and pass gate.]*  
+*[TaskStop: a background task stopped.]*  
+*[Bash: Probe variant d at 1 nF, code 6.]*  
+*[Edit `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/mknet2.py`.]*  
+*[Bash: Write variant e (NMOS hysteresis pull-up gated by slow).]*  
+*[Bash: Probe variant e at 1 nF, code 6.]*  
+*[Edit `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/mknet2.py`.]*  
+*[Bash: Write variant f (Schmitt comparator).]*  
+*[Bash: Probe variant f at 1 nF, code 6.]*  
+*[Edit `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/mknet2.py`.]*  
+*[Bash: Write variant g (skewed inverter in the Schmitt comparator).]*  
+*[Bash: Probe variant g at 1 nF, code 6.]*  
+*[Bash: Simulate variant g in blinking mode.]*  
+*[Bash: Simulate variant g in audio mode.]*  
+
+**Assistant:**
+
+While the simulations run, I'm writing this design into the source netlist and the layout generator.
+
+*[Bash: Locate the robust neuron in the source netlist.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/netlist/source/bbl.spice`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/netlist/source/bbl.spice`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/netlist/source/bbl.spice`.]*  
+*[Bash: Compare the source netlist N3 with variant g.]*  
+
+**Assistant:**
+
+Now the layout generator: N3's cell gets the three comparator devices and the new sizes, and XMP3 goes to 40/0.45 µm.
+
+*[Read `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build.py`.]*  
+*[Bash: Build all cells with the Schmitt N3 into scratch.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build_slot.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build_slot.py`.]*  
+*[Bash: Build slot 3 with the Schmitt N3 into scratch.]*  
+*[Bash: Write the LVS netlist into scratch.]*  
+*[Task notification: Background command "Simulate variant g in audio mode" completed (exit code 0).]*  
+*[Bash: Show the audio-mode results of variant g.]*  
+*[Bash: DRC of the scratch slot 3 with the Schmitt N3.]*  
+*[Bash: LVS of the scratch slot 3 with the Schmitt N3.]*  
+*[Bash: Show blinking-mode results so far.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/schematic/xschem/gen_sheets.py`.]*  
+*[Bash: Regenerate the sheets.]*  
+*[Bash: Check every sheet against the source netlist.]*  
+
+**Assistant:**
+
+All 13 sheets match the netlist, including `bbl_neuron_hi` with its 14 devices. Next, rendering the new and changed sheets:
+
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/render.py`.]*  
+*[Bash: Render the new and changed sheets.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/schematic/png/bbl_neuron_hi.png`.]*  
+
+**Assistant:**
+
+The rendered `bbl_neuron_hi` sheet is readable. The comparator sits on the right, connected by `out`/`outb` labels, and the rails run across the sheet. Checking the 10 nF runs:
+
+*[Bash: Show blinking-mode results.]*  
+*[Bash: Write variant h (original slow-node transistor).]*  
+*[Bash: Probe variant h at 10 nF, code 15.]*  
+*[Task notification: Background command "Simulate variant g in blinking mode" completed (exit code 0).]*  
+*[Bash: Write variant i sizes.]*  
+*[Bash: Gate the slow-node transistor of N3 by outb in variant i.]*  
+*[Bash: Probe variant i at 10 nF, code 15.]*  
+*[Bash: Make the slow-node transistor of N3 discharge to ground.]*  
+*[Bash: Probe variant i at 10 nF, code 15.]*  
+*[Edit `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/n3sim.py`.]*  
+*[Edit `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/n3sim.py`.]*  
+*[Bash: Simulate variant i in audio mode.]*  
+*[Bash: Simulate variant i in blinking mode.]*  
+*[Bash: Find the wires at the slow-node transistor's pins.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/schematic/xschem/gen_sheets.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/schematic/xschem/gen_sheets.py`.]*  
+
+**Assistant:**
+
+Now the source netlist:
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/netlist/source/bbl.spice`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/netlist/source/bbl.spice`.]*  
+*[Bash: Compare the source netlist N3 with variant i.]*  
+
+**Assistant:**
+
+Now the layout generator: N3's XMR5A gets different terminals as well as a new size.
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/layout/scripts/build.py`.]*  
+*[Bash: Regenerate the sheets.]*  
+*[Bash: Check every sheet against the source netlist.]*  
+
+**Assistant:**
+
+Sheets match (13/13). Building the layout with variant i and checking it in scratch:
+
+*[Bash: Build slot 3 with variant i into scratch.]*  
+*[Bash: Write the LVS netlist into scratch.]*  
+*[Bash: DRC of the scratch slot 3 with variant i.]*  
+*[Bash: LVS of the scratch slot 3 with variant i.]*  
+*[Task notification: Background command "Simulate variant i in audio mode" completed (exit code 0).]*  
+*[Bash: Show variant i results.]*  
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/reanalyze.py`.]*  
+*[Bash: Recount N3 rates from membrane resets.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Bash: Show the bus-based summary function.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Bash: Check the 10 nF runs of variant i.]*  
+*[TaskUpdate call.]*  
+*[TaskUpdate call.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Bash: Copy the pad leakage tables into the repository.]*  
+*[Bash: List the campaign cases.]*  
+
+**Assistant:**
+
+51 cases in total. A short smoke test of one new N3 case before launching everything:
+
+*[Bash: Smoke-test two N3 campaign cases.]*  
+
+**Assistant:**
+
+Both match the design runs (3.88 kHz; 209 Hz with the pad). Checking the code 0, 10 nF run:
+
+*[Bash: Check the code 0, 10 nF run.]*  
+
+**Assistant:**
+
+Still running. Meanwhile I'm building the final layouts into the repository: the cells, both generic variants, and `final/gds/slot_3.gds`. Then the LVS netlist, DRC and LVS on all three.
+
+*[Bash: Build the cell library into layout/gds.]*  
+*[Bash: Build the two generic slot variants into layout/gds.]*  
+*[Bash: Build slot_3 into final/gds.]*  
+*[Bash: Regenerate the LVS netlist.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/netlist/cdl/bbl.cdl`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/netlist/cdl/bbl.cdl`.]*  
+*[Bash: Remove the old DRC reports and slot 3 LVS reports before the new runs.]*  
+*[Bash: Remove the old LVS reports of the generic variants.]*  
+*[Bash: DRC of final/gds/slot_3.gds.]*  
+*[Bash: DRC of the generic pads variant.]*  
+*[Bash: DRC of the generic shared variant.]*  
+*[Task notification: Background command "Simulate variant i in blinking mode" completed (exit code 0).]*  
+
+**Assistant:**
+
+All three layouts are DRC clean. Now LVS:
+
+*[Bash: LVS of final/gds/slot_3.gds.]*  
+*[Bash: LVS of the generic pads variant.]*  
+*[Bash: LVS of the generic shared variant.]*  
+*[Bash: Recount the code 0, 10 nF run.]*  
+*[Bash: Find the earlier kpex commands in the run log.]*  
+*[Bash: List the extraction outputs.]*  
+*[Bash: Find the exact earlier kpex invocation.]*  
+
+**Assistant:**
+
+kpex takes about a minute per slot. Extracting `slot_3` and both generic variants:
+
+*[Bash: Extract slot_3 with kpex.]*  
+*[Bash: Extract the generic pads variant with kpex.]*  
+*[Bash: Extract the generic shared variant with kpex.]*  
+*[Bash: Find the extracted netlists.]*  
+*[Bash: Count extracted capacitors per slot.]*  
+*[Bash: Copy the slot_3 extracted netlist into the repository.]*  
+*[Bash: Copy the pads variant extracted netlist.]*  
+*[Bash: Copy the shared variant extracted netlist.]*  
+*[Bash: Create the slot 3 extraction report folder.]*  
+*[Bash: Copy the slot 3 kpex log.]*  
+*[Bash: Copy the pads variant kpex log.]*  
+*[Bash: Copy the shared variant kpex log.]*  
+
+**Assistant:**
+
+The extractions are in: 2288 coupling capacitors for `slot_3`. Before starting the campaigns, I'm moving the old design's results out of the way, so the figures can't mix old and new:
+
+*[Bash: Move the old schematic results aside.]*  
+*[Bash: Move the old post-layout results aside.]*  
+*[Bash: Schematic campaign, all 51 cases.]*  
+*[Bash: Post-layout campaign on slot_3, 20 cases.]*  
+*[Bash: Show the start of the last run log row.]*  
+*[Bash: Show the end of the run log.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/RUNLOG.md`.]*  
+*[Bash: Show changed files.]*  
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/commitmsg.txt`.]*  
+*[Bash: Stage the N3 redesign.]*  
+*[Bash: Commit the N3 redesign.]*  
+*[Bash: Push main to GitHub.]*  
+*[Bash: Outline the plotting script.]*  
+*[Bash: Count lines of the plotting script.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Bash: Show campaign progress.]*  
+*[Bash: List finished new campaign results.]*  
+*[Bash: Show the first post-layout N3 result.]*  
+*[Bash: Find README passages that mention N3.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+
+**Assistant:**
+
+A correction to my own text: a 10 MΩ probe draws about 50 nA at 0.5 V, more than N3's charging current below about code 5, so it stops N3 at the low codes.
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Bash: Check campaign progress.]*  
+
+**Assistant:**
+
+Both campaigns are running: 51 schematic cases and 20 post-layout cases on `slot_3`. They will take about 1.5–2.5 hours; the 2.5 s system cases with N3 on 10 nF are the slow part. The README already describes the new N3 with numbers from the design runs. When the campaigns finish I'll regenerate the figures and tables, check those numbers, finish SUMMARY and the run log, rebuild the chat log, then commit and push.
+
+*[Task notification: Background command "Schematic campaign, all 51 cases" completed (exit code 0).]*  
+
+*[Context compacted (2026-11-09 13:12 UTC): the session continued from an automatic summary of the conversation so far; the summary is not reproduced here.]*
+
+*[Bash: Show end of schematic campaign log.]*  
+*[Bash: Show start of schematic campaign log.]*  
+*[Bash: Show campaign case definitions.]*  
+*[Bash: Show core subcircuit netlist.]*  
+*[Bash: Inspect bus23_weak result JSON.]*  
+*[Bash: Check waveform file columns and saved signals.]*  
+*[Task notification: Background command "Post-layout campaign on slot_3, 20 cases" was stopped after reaching its background time limit.]*  
+*[Bash: Show failed 100 nF case log tail.]*  
+*[Bash: Show failed post-layout code-15 log tail.]*  
+*[Bash: List post-layout output files with times.]*  
+*[Bash: Show testbench netlist and run functions.]*  
+*[Bash: Find switch capacitance numbers in bus results.]*  
+*[Bash: Check CPU count, memory and pad hookup.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Bash: Rerun three short N3 cases with the slot-side capacitance.]*  
+*[Bash: Show run times of long schematic N3 cases.]*  
+*[Bash: Show campaign run and argument code.]*  
+*[Bash: Rerun schematic 100 nF N3 case.]*  
+*[Bash: Run post-layout tuning, bus-load and code-15 cases.]*  
+*[Bash: Run post-layout synapse and gap-junction cases.]*  
+
+**Assistant:**
+
+While those run, I'm looking into `bus23_weak`. With the weak bus2–N3 gap junction, N3 stops (bus3 stays between 0.48 and 0.66 V) and N2 runs at 33 Hz.
+
+*[Bash: Show gap junction subcircuit.]*  
+*[Bash: Summarize bus2/bus3 waveforms in bus23_weak.]*  
+*[Bash: Summarize N3 waveforms in vcplb_0.0.]*  
+*[Bash: Recount N3 resets in vcplb_0.0.]*  
+*[Bash: Show summary functions.]*  
+*[Bash: Find all runs of system cases in the schematic log.]*  
+*[Bash: Draw schematic-result figures and table.]*  
+*[Result: error (Exit code 1).]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Bash: Draw schematic-result figures and table.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/results/tuning.png`.]*  
+*[Bash: Show generated results table.]*  
+
+**Assistant:**
+
+The figures look right. N3 follows the 1/C law from 3 pF to 10 nF with exponent −0.99, the same as N2. I'm checking the README numbers against the new table next.
+
+*[Bash: Count doc lines and list README headings.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/iq.py`.]*  
+*[Bash: Check testbench module constants.]*  
+*[Edit `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/iq.py`.]*  
+*[Bash: Sweep forced membrane voltage and print supply current.]*  
+*[Bash: Check progress of running campaigns.]*  
+*[Bash: Show current time.]*  
+
+**Assistant:**
+
+While those run, I'm updating the README sections that don't depend on post-layout numbers.
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+
+**Assistant:**
+
+Now the simulation notes, which still describe the 2 kΩ bus model and the old retry:
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+
+**Assistant:**
+
+Checking the README's claim that both spike detectors agree, using the new schematic results:
+
+*[Bash: List cases where node and bus detectors disagree.]*  
+
+**Assistant:**
+
+They agree everywhere except `vcplb` 0.8 and 1.2 V, as the README says. Next, the harness bus notes:
+
+*[Read `/home/user/bionicblinkenlights_chipalooza/testbenches/harness_bus/results.md`.]*  
+*[Bash: Trace the 1.6 V threshold claim.]*  
+
+**Assistant:**
+
+The "threshold (about 1.6 V)" in `harness_bus/results.md` doesn't match the DC sweep, which puts N2's threshold at about 0.7 V. I'm reading the pad leakage at 0.7 V from the table:
+
+*[Bash: Show pad leakage table format.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Bash: Run N3 20 pF reference cases without pad.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/harness_bus/results.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/harness_bus/results.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/harness_bus/results.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/harness_bus/results.md`.]*  
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/icharge.py`.]*  
+*[Bash: Measure membrane charging current versus code.]*  
+*[Bash: Show DAC netlist and find current claims.]*  
+*[Bash: Find current claims in CDL, sheets, scripts.]*  
+*[Task notification: Background command "Run N3 20 pF reference cases without pad" completed (exit code 0).]*  
+*[Bash: Show 20 pF reference results.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/harness_bus/results.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/harness_bus/results.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+
+**Assistant:**
+
+Next I'm checking the README's refractory time for N3 (8 µs to 0.8 ms) against the waveforms, by measuring how long the membrane stays at 0 V after each reset:
+
+*[Bash: Measure N3 refractory hold time per code.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Bash: Show rest of N3 comment and sheet notes.]*  
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/idac.py`.]*  
+*[Bash: Measure DAC current and both mirror ratios.]*  
+
+**Assistant:**
+
+The operating point lands in the reset state (milliamps into the membrane sources), so I'm switching to the DC-sweep continuation that worked before:
+
+*[Edit `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/n3hi/idac.py`.]*  
+*[Bash: Measure DAC current and mirror ratios by DC sweep.]*  
+
+**Assistant:**
+
+The DAC diode carries 0.38 nA plus 0.47 nA per step (7.4 nA at code 15). N3 mirrors 15.9 times that, and N2 about 1/52 (7.7 to 139 pA). Correcting the source comments, the sheet note and the README:
+
+*[Bash: Find remaining stale current and timing claims.]*  
+*[Bash: Show DAC comment and sheet note generator code.]*  
+*[Bash: Show the self-biased note generator lines.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/schematic/xschem/gen_sheets.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/schematic/xschem/gen_sheets.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/netlist/source/bbl.spice`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/netlist/source/bbl.spice`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/netlist/source/bbl.spice`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Bash: Fix code-0 current and regenerate xschem sheets.]*  
+
+**Assistant:**
+
+Status: the post-layout runs are still going. Meanwhile I've been correcting N3's documented currents and refractory time against direct measurements, and regenerating the sheets.
+
+*[Bash: Check sheets against netlist and list changed files.]*  
+
+**Assistant:**
+
+All 13 sheets match the netlist, and only `bbl_neuron_hi.sch` changed. Re-rendering it:
+
+*[Bash: Show render script usage.]*  
+*[Bash: Render the N3 neuron sheet.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/schematic/png/bbl_neuron_hi.png`.]*  
+
+**Assistant:**
+
+The render is clean. Next, regenerating the LVS netlist from the edited source. First I'm checking what `mkcdl.py` writes into the header, so absolute paths don't end up in the file again:
+
+*[Bash: Show CDL header and mkcdl arguments.]*  
+*[Bash: Keep a copy of the current CDL for comparison.]*  
+*[Bash: Regenerate the LVS netlist with slot 3.]*  
+*[Bash: Make CDL header paths relative.]*  
+*[Bash: Compare new CDL with the previous one.]*  
+
+**Assistant:**
+
+Only comments changed, as intended. I'll rerun LVS against this file once the simulations free up the CPUs. Checking progress:
+
+*[Bash: Show time and campaign progress.]*  
+*[Bash: Show run log header and last rows.]*  
+*[Bash: Show recent commits and diff size.]*  
+
+**Assistant:**
+
+Adding the run-log rows. I'm taking the times from file timestamps:
+
+*[Bash: Collect file times for the run log.]*  
+
+**Assistant:**
+
+The 100 nF case rewrote its netlist at 14:29, which means its first attempt failed and it is retrying at half the step. Checking why:
+
+*[Bash: Inspect the 100 nF case rerun state.]*  
+
+**Assistant:**
+
+The first attempt at a 50 µs step failed after 8 minutes, and the retry deleted its log, so I can't see why. The retry at 25 µs is running. I'm writing the run-log rows while it runs:
+
+*[Bash: Check run log file ending.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/RUNLOG.md`.]*  
+
+**Assistant:**
+
+Next I'm checking load and memory to decide whether the remaining post-layout cases can start now:
+
+*[Bash: Show load, memory and running simulations.]*  
+*[Bash: Show ngspice init and thread counts.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Bash: Rerun schematic vcplb 0 V case.]*  
+*[Bash: Run post-layout N3-to-bus2 coupling cases.]*  
+*[Bash: Run post-layout 100 pF bus-load case, 4 s.]*  
+*[Bash: Confirm thread count of new simulations.]*  
+
+**Assistant:**
+
+Still 8 threads, so `OMP_NUM_THREADS` isn't what controls them. Checking whether the threads actually use CPU:
+
+*[Bash: Show per-thread CPU of one simulation.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[ToolSearch: select:TaskStop.]*  
+*[TaskStop: a background task stopped.]*  
+*[Bash: Check that the stopped simulation is gone.]*  
+
+**Assistant:**
+
+I've stopped the 4 s run and will restart it when cores free up. Six simulations are running: the remaining post-layout cases, plus schematic `n3_busload_100n` (100 nF) and `vcplb_0.0` with the corrected bus model. Waiting for them to finish.
+
+*[Task notification: Background command "Rerun schematic vcplb 0 V case" completed (exit code 0).]*  
+*[Bash: Show time and latest campaign results.]*  
+*[Result: error (Exit code 2).]*  
+
+**Assistant:**
+
+`vcplb_0.0` failed again, this time at 0.05 s. Both attempts' logs are kept now:
+
+*[Bash: Show failure messages of both attempts.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Bash: Rerun vcplb 0 V case with the 2 kOhm switch model.]*  
+
+**Assistant:**
+
+I'm rerunning `vcplb_0.0` with the old switch model (2 kΩ, all capacitance on the bus side). That model can't affect this case: with the pass gates off, the buses are disconnected from N2 and N3. Five simulations are still running.
+
+*[Task notification: Background command "Rerun schematic 100 nF N3 case" completed (exit code 0).]*  
+*[Bash: Show 100 nF rerun result.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Bash: Rerun 100 nF case with 2 kOhm on buses 0 and 1.]*  
+
+**Assistant:**
+
+I'm rerunning the 100 nF case with that per-bus model. If any post-layout case stalls at `bus0` the same way, it gets the same treatment. Waiting for the runs.
+
+*[Task notification: Background command "Rerun 100 nF case with 2 kOhm on buses 0 and 1" completed (exit code 0).]*  
+*[Bash: Show 100 nF result and running simulations.]*  
+
+**Assistant:**
+
+At 100 nF, N3 runs at 0.6415 Hz. The 1/C line through the 10 nF point predicts 0.556 Hz, so it is 15 % fast. My guess is that the 100 nF bus doesn't fully reset. Checking the bus3 swing:
+
+*[Bash: Check N3 reset depth at 100 nF.]*  
+*[Bash: Find claims about 100 nF reset.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+
+**Assistant:**
+
+The busload fit in `plots.py` would now include the 100 nF point. I'm restricting the exponent fit to 10 nF and below, while still drawing and listing that point:
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Bash: List recent post-layout output files.]*  
+
+**Assistant:**
+
+Post-layout `busload_10p` failed at 0.54 s, and `tune_12_13_14_15` and `syn01_both` are on their retries. Checking which node:
+
+*[Bash: Show failing node of post-layout busload_10p.]*  
+*[Bash: Show current bus model lines.]*  
+*[Task notification: Background command "Rerun vcplb 0 V case with the 2 kOhm switch model" completed (exit code 0).]*  
+*[Bash: Show bus model code and vcplb 0 V result.]*  
+
+**Assistant:**
+
+`vcplb_0.0` failed even with the old 2 kΩ model, at 0.33 s. Looking at both attempts:
+
+*[Bash: Show failing nodes of vcplb 0 V attempts.]*  
+*[Bash: No-op placeholder.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+
+**Assistant:**
+
+Relaunching `vcplb_0.0` (schematic) and post-layout `busload_10p`, both on the new bus model:
+
+*[Bash: Rerun vcplb 0 V case with slot-side capacitance.]*  
+*[Bash: Rerun post-layout 10 pF bus-load case.]*  
+
+**Assistant:**
+
+While these run, updating the README's description of the bus model:
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Bash: Show running simulations.]*  
+*[Bash: Find PIDs of the two retrying simulations.]*  
+*[Bash: Stop the two old-model retries.]*  
+*[Task notification: Background command "Run post-layout N3-to-bus2 coupling cases" completed (exit code 0).]*  
+*[Bash: Rerun post-layout 30 pF and strong bus23 cases.]*  
+
+**Assistant:**
+
+Now the run-log rows for the bus-model changes:
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/RUNLOG.md`.]*  
+
+**Assistant:**
+
+Waiting on eight post-layout cases and the schematic `vcplb_0.0`. Two of the post-layout cases are still on the old in-memory bus model; I'll rerun them if they fail.
+
+*[Task notification: Background command "Rerun vcplb 0 V case with slot-side capacitance" completed (exit code 0).]*  
+*[Bash: Show vcplb 0 V and post-layout results.]*  
+
+**Assistant:**
+
+`vcplb_0.0` failed again, at 0.45 s. Post-layout `tune_12_13_14_15` and `syn01_both` are done. Checking the node:
+
+*[Bash: Show failing nodes and bus model of vcplb 0 V.]*  
+*[Bash: Locate the options line in the testbench.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Bash: Rerun vcplb 0 V with more Newton iterations.]*  
+
+**Assistant:**
+
+Starting the 4 s post-layout `busload_100p` now as well, since the earlier runs will free cores as it goes:
+
+*[Bash: Run post-layout 100 pF bus-load case, 4 s.]*  
+*[Bash: Compare two post-layout testbench netlists.]*  
+
+**Assistant:**
+
+The netlists differ only in the codes and in the 0.5 pF on the slot side. Looking at N0's spike intervals in both runs:
+
+*[Bash: Compare N0/N1 spike intervals across post-layout runs.]*  
+*[Bash: Recompute post-layout busload_0p rates from spikes.]*  
+*[Bash: Print all N0/N1 spike times in busload_0p.]*  
+*[Bash: Scan results for irregular spike intervals.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+
+**Assistant:**
+
+Test run of the plots with the current results:
+
+*[Bash: Draw figures and show sensitivity and N3 tables.]*  
+
+**Assistant:**
+
+Medians are consistent. They also remove a small start-up bias in the short N3 runs (`n3_tune_0`: 469.2 Hz median against a 470.0 Hz mean). Status of the runs:
+
+*[Bash: Show running simulations and recent results.]*  
+
+**Assistant:**
+
+Post-layout `busload_10p` is on its retry even with the new model. Checking its first attempt:
+
+*[Bash: Show failed first attempts kept as log1.]*  
+*[Bash: Show end of failed attempt log without progress lines.]*  
+*[Bash: Show the bus driver inverter.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/bbltb.py`.]*  
+
+**Assistant:**
+
+Now the campaign side: use the partial waveform when it covers at least half the analysis window, and record that in the results:
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/campaign.py`.]*  
+*[Bash: Check the three scripts compile.]*  
+
+**Assistant:**
+
+The scripts compile. Waiting for the remaining runs; anything that fails twice from here on gets the partial-waveform treatment if it covers enough of its window.
+
+*[Task notification: Background command "Run post-layout tuning, bus-load and code-15 cases" completed (exit code 0).]*  
+*[Bash: Show post-layout results and running simulations.]*  
+*[Bash: List LVS outputs and previous invocation.]*  
+
+**Assistant:**
+
+LVS takes a few seconds per layout. Running all three against the new CDL:
+
+*[Bash: Run LVS on slot_3 against the new CDL.]*  
+*[Bash: Run LVS on the pads variant.]*  
+*[Bash: Run LVS on the shared variant.]*  
+*[Task notification: Background command "Rerun post-layout 30 pF and strong bus23 cases" completed (exit code 0).]*  
+
+**Assistant:**
+
+All three LVS runs pass. The other files in those directories were overwritten, so I'm removing the superseded 12:10 run logs to keep one consistent set:
+
+*[Bash: List LVS run logs.]*  
+*[Bash: Remove superseded LVS run logs.]*  
+
+**Assistant:**
+
+Post-layout `busload_30p`: N2 at 2.173 Hz (schematic 2.195 Hz). Four cases are still running. Meanwhile I'm collecting the numbers for the SUMMARY:
+
+*[Bash: List median rates and currents per case.]*  
+*[Bash: Check uncoupled reference cases for odd intervals.]*  
+*[Bash: List DRC and PEX verification files.]*  
+*[Task notification: Background command "Rerun vcplb 0 V with more Newton iterations" completed (exit code 0).]*  
+*[Bash: Show vcplb 0 V result.]*  
+
+**Assistant:**
+
+Failed again with `itl4=100`, at 0.493 of 0.8 s. That covers more than half of the 0.1 to 0.8 s window, so I'll take the rates from this waveform with `--reanalyze` and mark the case as partial:
+
+*[Bash: Reanalyze vcplb 0 V from its partial waveform.]*  
+
+**Assistant:**
+
+`vcplb_0.0` (partial, to 0.49 s): N2 at 9.33 Hz on its own membrane, the same as N0/N1, and N3 at 599 Hz, as expected with the pass gates off. Remaining runs:
+
+*[Bash: Show running simulations.]*  
+
+**Assistant:**
+
+Three left: post-layout `gap_off` (then `gap_both`), `busload_10p` and the 4 s `busload_100p`. Run-log rows for the last hour:
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/RUNLOG.md`.]*  
+
+**Assistant:**
+
+Adding the same to the README's simulation notes:
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+
+**Assistant:**
+
+Switching the pad table in `harness_bus/results.md` to median rates as well:
+
+*[Bash: Compute pad effect from median rates.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/testbenches/harness_bus/results.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/harness_bus/results.md`.]*  
+
+**Assistant:**
+
+Drafting the new SUMMARY now. The few values still running are marked PEND and will be filled in when the runs finish:
+
+*[Write `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+
+**Assistant:**
+
+Checking two claims in the draft: the kpex time, and whether the `slot_3` XOR was redone after the N3 redesign. The XOR sentence comes from the earlier SUMMARY.
+
+*[Bash: Check PEX times and the XOR script.]*  
+
+**Assistant:**
+
+Re-running the XOR on the current layouts, so the sentence is backed by them:
+
+*[Bash: XOR slot_3 against the pads variant.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Bash: Show remaining simulations.]*  
+
+**Assistant:**
+
+While these finish, I'm preparing the chat-log rebuild. Checking how the tools are invoked:
+
+*[Bash: Show chat log tool usage.]*  
+*[Bash: List chat log directory and previous rebuild rows.]*  
+*[Bash: Find chat log tool arguments and outputs.]*  
+*[Bash: See how the check JSON is produced.]*  
+
+**Assistant:**
+
+The remaining three post-layout runs (`gap_off`, then `gap_both`; `busload_10p`; the 4 s `busload_100p`) have about 20 to 40 minutes to go. When they finish I'll fill the remaining SUMMARY values, regenerate the figures, rebuild the chat log, commit and push.
+
+*[Task notification: Background command "Rerun post-layout 10 pF bus-load case" completed (exit code 0).]*  
+*[Bash: Show post-layout 10 pF result.]*  
+
+**Assistant:**
+
+Post-layout `busload_10p` stopped in both attempts. The retry reached 1.219 s, which covers 77 % of the 0.3 to 1.5 s window, so I'm reanalyzing from that waveform:
+
+*[Bash: Reanalyze post-layout 10 pF case from partial waveform.]*  
+
+**Assistant:**
+
+Post-layout N2 with 13 pF: 4.010 Hz (schematic 4.089 Hz, −1.9 %), from the partial run. Two runs remain:
+
+*[Bash: Show remaining simulations.]*  
+
+**Assistant:**
+
+Two runs left: post-layout `gap_off` (then `gap_both`) and the 4 s `busload_100p`.
+
+*[Task notification: Background command "Run post-layout synapse and gap-junction cases" completed (exit code 0).]*  
+*[Bash: Show gap-junction results and remaining runs.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Bash: Median post-layout rates of the bus-load cases.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/RUNLOG.md`.]*  
+
+**Assistant:**
+
+Drafting the commit message while the last run finishes:
+
+*[Write `/tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/commitmsg.txt`.]*  
+*[Bash: Count campaign cases and result files.]*  
+*[Bash: Fix case count in commit message.]*  
+
+**Assistant:**
+
+The 4 s post-layout `busload_100p` is the last run, about 45 minutes in. Once it finishes I'll fill in the last SUMMARY values, regenerate the figures, rebuild the chat log, then commit and push.
+
+*[Task notification: Background command "Run post-layout 100 pF bus-load case, 4 s" completed (exit code 0).]*  
+*[Bash: Show last result, redraw figures, print sensitivity table.]*  
+
+**Assistant:**
+
+Done: post-layout N2 at 103 pF runs at 0.8334 Hz (schematic 0.8371 Hz), exponent −0.98. Getting N0/N1's medians from that run, then filling in the last values:
+
+*[Bash: Median rates of post-layout 100 pF case; list placeholders.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+
+**Assistant:**
+
+Checking the final figures:
+
+*[Read `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/results/busload.png`.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/results/tuning.png`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/plots.py`.]*  
+*[Bash: Redraw figures.]*  
+*[Read `/home/user/bionicblinkenlights_chipalooza/testbenches/ngspice/results/busload.png`.]*  
+
+**Assistant:**
+
+The figure is fixed. Adding N3's post-layout numbers to the README bus-load paragraph:
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+
+**Assistant:**
+
+Reading the README's bus section once through to check that the edits read correctly together:
+
+*[Bash: Show the README bus section.]*  
+
+**Assistant:**
+
+Untangling the doubled parentheses in the N3 sentence:
+
+*[Edit `/home/user/bionicblinkenlights_chipalooza/README.md`.]*  
+
+**Assistant:**
+
+Computing the sha256 values for the SUMMARY's file table:
+
+*[Bash: Compute sha256 of delivered files.]*  
+*[Edit `/home/user/bionicblinkenlights_chipalooza/docs/SUMMARY.md`.]*  
+
+**Assistant:**
+
+Verifying that claim against git:
+
+*[Bash: List changed files.]*  
+
+**Assistant:**
+
+The GDS, extracted netlists and `bbl_slot.spice` are unchanged, and the simulation outputs under `out/` are ignored by git, as intended. Rebuilding and verifying the chat log:
+
+*[Bash: Build the chat log from the transcript.]*  
+*[Bash: Verify the chat log against the transcript.]*  
 
 ---
 
-*[End of the export: the last record on the live path is 70011b4d-858f-42f3-a348-306fd1b32853 (2026-11-09 11:04 UTC). Later turns are not included.]*
+*[End of the export: the last record on the live path is 1a52a8de-4645-4962-8d4c-157329491e20 (2026-11-09 15:57 UTC). Later turns are not included.]*

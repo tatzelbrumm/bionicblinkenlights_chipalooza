@@ -447,8 +447,10 @@ if __name__ == '__main__':
             txt = txt.replace(old, new)
     txt = txt.replace('T {bbl_neuron: Bionic Blinkenlight integrate-and-fire neuron (CMOS translation)}',
                       'T {bbl_neuron_hi: the neuron of N3, robust against bus leakage (generated from bbl_neuron.sch)}')
+    assert txt.count('XMR2 and XMR5A gates on vdd;') == 1
+    txt = txt.replace('XMR2 and XMR5A gates on vdd;', 'XMR2 gate on vdd, XMR5A gate on outb;')
     txt = txt.replace('T {R5 = XMR5A (fast discharge of slow)',
-                      'T {XMR3 mirrors 16 x the DAC current (5.6 .. 174 nA): audio rates on chip, blinking with about '
+                      'T {XMR3 mirrors 16 x the DAC current (6.1 .. 118 nA): audio rates on chip, blinking with about '
                       '10 nF on the bus; XM2, XM4, XMR5B resized; XMR5A: slow to vss, gate outb} 0 -530 0 0 0.3 0.3 {}\n'
                       'T {Schmitt comparator (right): inverter XMIP / XMIN (out -> outb, switches at about 2.3 V) and '
                       'pull-up XMQ on out (gate outb)} 0 -500 0 0 0.3 0.3 {}\n'

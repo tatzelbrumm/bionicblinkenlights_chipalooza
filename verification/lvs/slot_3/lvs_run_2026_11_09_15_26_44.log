@@ -1,0 +1,16 @@
+09-Nov-2026 15:26:44 | INFO    | Your Klayout version is: KLayout 0.30.12
+09-Nov-2026 15:26:44 | INFO    | Running SG13CMOS5L LVS checks on design /home/user/bionicblinkenlights_chipalooza/final/gds/slot_3.gds on cell slot_3
+09-Nov-2026 15:26:51 | INFO    | ==============================================================================
+09-Nov-2026 15:26:51 | INFO    | Important Summary
+09-Nov-2026 15:26:51 | INFO    | +------------------+-------------------------------------------------------------------+
+09-Nov-2026 15:26:51 | INFO    | | Status           | PASS                                                              |
+09-Nov-2026 15:26:51 | INFO    | | Mode             | COMPARE                                                           |
+09-Nov-2026 15:26:51 | INFO    | | Outcome          | Comparison mode: PASS (netlists match).                           |
+09-Nov-2026 15:26:51 | INFO    | | Layout           | slot_3.gds                                                        |
+09-Nov-2026 15:26:51 | INFO    | | Top Cell         | slot_3                                                            |
+09-Nov-2026 15:26:51 | INFO    | | Results Dir      | /home/user/bionicblinkenlights_chipalooza/verification/lvs/slot_3 |
+09-Nov-2026 15:26:51 | INFO    | | Warnings         | 0                                                                 |
+09-Nov-2026 15:26:51 | INFO    | | Errors           | 0                                                                 |
+09-Nov-2026 15:26:51 | INFO    | | Run Time (s)     | 7.494                                                             |
+09-Nov-2026 15:26:51 | INFO    | +------------------+-------------------------------------------------------------------+
+09-Nov-2026 15:26:51 | INFO    | ==============================================================================

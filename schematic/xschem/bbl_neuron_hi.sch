@@ -18,8 +18,8 @@ T {R5a} 776 -246 0 1 0.3 0.3 {layer=8}
 T {bbl_neuron_hi: the neuron of N3, robust against bus leakage (generated from bbl_neuron.sch)} 0 -710 0 0 0.6 0.6 {}
 T {Q1..Q4, R1..R5, C1, C2 of the discrete circuit (spike1.asc) are marked under each device; R4 = the length of XM3} 0 -650 0 0 0.3 0.3 {}
 T {XC1 membrane capacitor 10 pF (PMOS gate cap), XC2 slow-node capacitor 2.6 pF} 0 -620 0 0 0.3 0.3 {}
-T {self-biased: XMR1 gate on vss, XMR2 and XMR5A gates on vdd; XMR3 and XMR5B on the DAC bias vin} 0 -590 0 0 0.3 0.3 {}
-T {XMR3 mirrors 16 x the DAC current (5.6 .. 174 nA): audio rates on chip, blinking with about 10 nF on the bus; XM2, XM4, XMR5B resized; XMR5A: slow to vss, gate outb} 0 -530 0 0 0.3 0.3 {}
+T {self-biased: XMR1 gate on vss, XMR2 gate on vdd, XMR5A gate on outb; XMR3 and XMR5B on the DAC bias vin} 0 -590 0 0 0.3 0.3 {}
+T {XMR3 mirrors 16 x the DAC current (6.1 .. 118 nA): audio rates on chip, blinking with about 10 nF on the bus; XM2, XM4, XMR5B resized; XMR5A: slow to vss, gate outb} 0 -530 0 0 0.3 0.3 {}
 T {Schmitt comparator (right): inverter XMIP / XMIN (out -> outb, switches at about 2.3 V) and pull-up XMQ on out (gate outb)} 0 -500 0 0 0.3 0.3 {}
 T {R5 = XMR5A (fast discharge of slow) + XMR5B (slow recharge: refractory time, complete reset)} 0 -560 0 0 0.3 0.3 {}
 N 0 -480 1180 -480 {lab=vdd}

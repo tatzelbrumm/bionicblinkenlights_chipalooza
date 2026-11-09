@@ -277,6 +277,8 @@ text {font-family: Sans-Serif;}
 <path class="l4" d="M1010.29 457.841L1025.14 457.841"/>
 <path class="l4" d="M1033.91 471.342L1037.29 469.655L1033.91 467.967L1033.91 471.342"/>
 <path class="l4" d="M1024.46 447.039L1025.81 447.039L1025.81 468.642L1024.46 468.642L1024.46 447.039z"/>
+<path class="l5" d="M550.384 375.987L552.072 375.987L552.072 377.674L550.384 377.674L550.384 375.987z"/>
+<path class="l5" d="M584.138 321.98L585.826 321.98L585.826 323.667L584.138 323.667L584.138 321.98z"/>
 <path class="l5" d="M183.306 240.125L186.681 241.813L183.306 243.501L183.306 240.125"/>
 <path class="l5" d="M184.994 260.378L188.369 260.378L188.369 263.753L184.994 263.753L184.994 260.378z"/>
 <path class="l5" d="M157.99 240.125L161.366 240.125L161.366 243.501L157.99 243.501L157.99 240.125z"/>
@@ -371,6 +373,8 @@ text {font-family: Sans-Serif;}
 <path class="l5" d="M901.429 240.969L903.117 240.969L903.117 242.657L901.429 242.657L901.429 240.969z"/>
 <path class="l5" d="M1063.45 348.983L1065.14 348.983L1065.14 350.671L1063.45 350.671L1063.45 348.983z"/>
 <path class="l5" d="M995.941 348.983L997.629 348.983L997.629 350.671L995.941 350.671L995.941 348.983z"/>
+<text fill="#00ddff"  xml:space="preserve" font-size="11.5845" transform="translate(527.165, 381.864)" >vss</text>
+<text fill="#00ddff"  xml:space="preserve" font-size="11.5845" transform="translate(590.045, 327.857)" >outb</text>
 <text fill="#cccccc"  xml:space="preserve" font-size="7.0209" transform="translate(160.555, 227.935)" >MR3</text>
 <text fill="#ff0000"  xml:space="preserve" font-size="5.26567" transform="translate(162.429, 239.843)" >G</text>
 <text fill="#cccccc"  xml:space="preserve" font-size="7.0209" transform="translate(193.432, 261.232)" >sg13_hv_pmos</text>
@@ -439,8 +443,8 @@ text {font-family: Sans-Serif;}
 <text fill="#ff0000"  xml:space="preserve" font-size="5.26567" transform="translate(590.475, 380.83) rotate(270)" >B</text>
 <text fill="#aaaa00"  xml:space="preserve" font-size="7.0209" transform="translate(579.085, 398.425) rotate(270)" >m=1</text>
 <text fill="#aaaa00"  xml:space="preserve" font-size="7.0209" transform="translate(584.992, 400.425) rotate(270)" >ng=1</text>
-<text fill="#aaaa00"  xml:space="preserve" font-size="7.0209" transform="translate(593.431, 403.425) rotate(270)" >l=10u</text>
-<text fill="#aaaa00"  xml:space="preserve" font-size="7.0209" transform="translate(601.025, 410.425) rotate(270)" >w=0.3u</text>
+<text fill="#aaaa00"  xml:space="preserve" font-size="7.0209" transform="translate(593.431, 411.425) rotate(270)" >l=0.45u</text>
+<text fill="#aaaa00"  xml:space="preserve" font-size="7.0209" transform="translate(601.025, 403.425) rotate(270)" >w=3u</text>
 <text fill="#cccccc"  xml:space="preserve" font-size="7.0209" transform="translate(669.368, 227.935)" >MR5B</text>
 <text fill="#ff0000"  xml:space="preserve" font-size="5.26567" transform="translate(679.494, 239.843)" >G</text>
 <text fill="#cccccc"  xml:space="preserve" font-size="7.0209" transform="translate(605.491, 261.232)" >sg13_hv_pmos</text>
@@ -448,9 +452,9 @@ text {font-family: Sans-Serif;}
 <text fill="#ff0000"  xml:space="preserve" font-size="5.26567" transform="translate(653.554, 228.741)" >S</text>
 <text fill="#ff0000"  xml:space="preserve" font-size="5.26567" transform="translate(655.242, 239.843)" >B</text>
 <text fill="#aaaa00"  xml:space="preserve" font-size="7.0209" transform="translate(637.647, 252.407)" >m=1</text>
-<text fill="#aaaa00"  xml:space="preserve" font-size="7.0209" transform="translate(635.647, 246.5)" >ng=1</text>
+<text fill="#aaaa00"  xml:space="preserve" font-size="7.0209" transform="translate(634.647, 246.5)" >ng=2</text>
 <text fill="#aaaa00"  xml:space="preserve" font-size="7.0209" transform="translate(624.647, 238.062)" >l=0.45u</text>
-<text fill="#aaaa00"  xml:space="preserve" font-size="7.0209" transform="translate(625.647, 230.467)" >w=3.4u</text>
+<text fill="#aaaa00"  xml:space="preserve" font-size="7.0209" transform="translate(628.647, 230.467)" >w=10u</text>
 <text fill="#cccccc"  xml:space="preserve" font-size="7.0209" transform="translate(667.119, 457.465)" >C2</text>
 <text fill="#ff0000"  xml:space="preserve" font-size="5.26567" transform="translate(661.993, 469.373)" >G</text>
 <text fill="#cccccc"  xml:space="preserve" font-size="7.0209" transform="translate(692.996, 490.761)" >sg13_hv_nmos</text>
@@ -545,11 +549,11 @@ text {font-family: Sans-Serif;}
 <path class="l1" d="M402.709 471.342L483.719 471.342"/>
 <path class="l1" d="M335.2 471.342L335.2 532.1"/>
 <path class="l1" d="M402.709 370.08L402.709 471.342"/>
-<path class="l1" d="M510.723 376.83L510.723 451.09"/>
+<path class="l1" d="M510.723 349.827L510.723 451.09"/>
 <path class="l1" d="M429.712 349.827L510.723 349.827"/>
-<path class="l1" d="M510.723 376.83L564.73 376.83"/>
+<path class="l1" d="M551.228 376.83L564.73 376.83"/>
 <path class="l1" d="M463.467 241.813L483.719 241.813"/>
-<path class="l1" d="M584.982 174.304L584.982 349.827"/>
+<path class="l1" d="M584.982 322.823L584.982 349.827"/>
 <path class="l1" d="M605.235 376.83L659.242 376.83"/>
 <path class="l1" d="M659.242 376.83L659.242 471.342"/>
 <path class="l1" d="M659.242 349.827L740.252 349.827"/>
@@ -572,7 +576,7 @@ text {font-family: Sans-Serif;}
 <path class="l1" d="M51.664 174.304L186.681 174.304"/>
 <path class="l1" d="M402.709 174.304L510.723 174.304"/>
 <path class="l1" d="M659.242 174.304L767.256 174.304"/>
-<path class="l1" d="M584.982 174.304L659.242 174.304"/>
+<path class="l1" d="M510.723 174.304L659.242 174.304"/>
 <path class="l1" d="M287.944 174.304L402.709 174.304"/>
 <path class="l1" d="M186.681 174.304L287.944 174.304"/>
 <path class="l1" d="M51.664 667.118L335.2 667.118"/>
@@ -584,8 +588,6 @@ text {font-family: Sans-Serif;}
 <path class="l1" d="M260.941 471.342L335.2 471.342"/>
 <path class="l1" d="M335.2 471.342L402.709 471.342"/>
 <path class="l1" d="M510.723 262.066L510.723 349.827"/>
-<path class="l1" d="M510.723 349.827L510.723 376.83"/>
-<path class="l1" d="M510.723 174.304L584.982 174.304"/>
 <path class="l1" d="M659.242 349.827L659.242 376.83"/>
 <path class="l1" d="M659.242 262.066L659.242 349.827"/>
 <path class="l1" d="M767.256 370.08L767.256 552.353"/>
@@ -614,22 +616,16 @@ text {font-family: Sans-Serif;}
 <circle class="l1" cx="335.2" cy="667.118" r="2.49782"/>
 <circle class="l1" cx="686.245" cy="667.118" r="2.49782"/>
 <circle class="l1" cx="767.256" cy="667.118" r="2.49782"/>
-<circle class="l1" cx="584.982" cy="174.304" r="2.49782"/>
-<circle class="l1" cx="659.242" cy="174.304" r="2.49782"/>
 <circle class="l1" cx="510.723" cy="174.304" r="2.49782"/>
-<circle class="l1" cx="584.982" cy="174.304" r="2.49782"/>
+<circle class="l1" cx="659.242" cy="174.304" r="2.49782"/>
 <circle class="l1" cx="659.242" cy="174.304" r="2.49782"/>
 <circle class="l1" cx="767.256" cy="174.304" r="2.49782"/>
-<circle class="l1" cx="584.982" cy="174.304" r="2.49782"/>
 <circle class="l1" cx="402.709" cy="174.304" r="2.49782"/>
 <circle class="l1" cx="510.723" cy="174.304" r="2.49782"/>
-<circle class="l1" cx="510.723" cy="376.83" r="2.49782"/>
 <circle class="l1" cx="510.723" cy="349.827" r="2.49782"/>
-<circle class="l1" cx="510.723" cy="376.83" r="2.49782"/>
 <circle class="l1" cx="510.723" cy="349.827" r="2.49782"/>
 <circle class="l1" cx="335.2" cy="471.342" r="2.49782"/>
 <circle class="l1" cx="402.709" cy="471.342" r="2.49782"/>
-<circle class="l1" cx="510.723" cy="376.83" r="2.49782"/>
 <circle class="l1" cx="510.723" cy="349.827" r="2.49782"/>
 <circle class="l1" cx="402.709" cy="471.342" r="2.49782"/>
 <circle class="l1" cx="335.2" cy="471.342" r="2.49782"/>
@@ -681,8 +677,8 @@ text {font-family: Sans-Serif;}
 <text fill="#cccccc"  xml:space="preserve" font-size="21.0627" transform="translate(51.664, 38.1595)" >bbl_neuron_hi: the neuron of N3, robust against bus leakage (generated from bbl_neuron.sch)</text>
 <text fill="#cccccc"  xml:space="preserve" font-size="10.5313" transform="translate(51.664, 69.1022)" >Q1..Q4, R1..R5, C1, C2 of the discrete circuit (spike1.asc) are marked under each device; R4 = the length of XM3</text>
 <text fill="#cccccc"  xml:space="preserve" font-size="10.5313" transform="translate(51.664, 89.3548)" >XC1 membrane capacitor 10 pF (PMOS gate cap), XC2 slow-node capacitor 2.6 pF</text>
-<text fill="#cccccc"  xml:space="preserve" font-size="10.5313" transform="translate(51.664, 109.607)" >self-biased: XMR1 gate on vss, XMR2 and XMR5A gates on vdd; XMR3 and XMR5B on the DAC bias vin</text>
-<text fill="#cccccc"  xml:space="preserve" font-size="10.5313" transform="translate(51.664, 150.113)" >XMR3 mirrors 16 x the DAC current (5.6 .. 174 nA): audio rates on chip, blinking with about 10 nF on the bus; XM2, XM4, XMR5A, XMR5B resized for that</text>
+<text fill="#cccccc"  xml:space="preserve" font-size="10.5313" transform="translate(51.664, 109.607)" >self-biased: XMR1 gate on vss, XMR2 gate on vdd, XMR5A gate on outb; XMR3 and XMR5B on the DAC bias vin</text>
+<text fill="#cccccc"  xml:space="preserve" font-size="10.5313" transform="translate(51.664, 150.113)" >XMR3 mirrors 16 x the DAC current (6.1 .. 118 nA): audio rates on chip, blinking with about 10 nF on the bus; XM2, XM4, XMR5B resized; XMR5A: slow to vss, gate outb</text>
 <text fill="#cccccc"  xml:space="preserve" font-size="10.5313" transform="translate(51.664, 170.365)" >Schmitt comparator (right): inverter XMIP / XMIN (out -&gt; outb, switches at about 2.3 V) and pull-up XMQ on out (gate outb)</text>
 <text fill="#cccccc"  xml:space="preserve" font-size="10.5313" transform="translate(51.664, 129.86)" >R5 = XMR5A (fast discharge of slow) + XMR5B (slow recharge: refractory time, complete reset)</text>
 </svg>

@@ -32,17 +32,18 @@ On-chip capacitance on a slot bus:
   and the switch and IO layouts are not in this container; estimate 1..2 pF), plus everything off chip.
 
 The 3 pF of the simulations is therefore low for a closed switch: 10..20 pF is more likely. The firing
-rate follows 1 / (10 pF + C_bus) up to 103 pF (schematic and post-layout), so the circuit tolerates it; at
-code 6, 15 pF gives about 3.7 Hz instead of 7.2 Hz.
+rate follows 1 / (10 pF + C_bus) up to 103 pF for N2 and up to 10 nF for N3 (schematic and post-layout), so
+the circuit tolerates it; at code 6, 15 pF gives N2 about 3.7 Hz instead of 7.2 Hz.
 
-## Leakage: the pad model stops N2 and N3 (`padiv.py`, `padtest.py`)
+## Leakage: the pad model stops N2 (`padiv.py`, `padtest.py`)
 
 The pad's leakage in the model comes from the antenna diodes (`dantenna`, `dpantenna`, 2 x 35 um^2 each): their
 models carry a soft-breakdown term (`bv` 11.6 V, `nbv` 48.9) fitted down to -15 V and are marked "designed for
 reverse direction". At 0.3..1.5 V that term gives 1.5..5 pA per um^2, orders of magnitude above the usual
 junction leakage; it may be an artefact of the fit. The clamp transistors alone push current into the node.
 
-Transients (schematic, 2.5 s) with the pad's DC I-V (table) and 0.21 pF on `analog_bus2/3`:
+Transients (schematic, 2.5 s) with the pad's DC I-V (table) and 0.21 pF on `analog_bus2/3`, run while N3
+was still the pA neuron of N0..N2 (N2 is unchanged; N3 as it is now: next section):
 
 | case | N2, N3 | membrane |
 |---|---|---|
@@ -53,10 +54,24 @@ Transients (schematic, 2.5 s) with the pad's DC I-V (table) and 0.21 pF on `anal
 | code 15, 3 pF + pad, 60 C | no spike | settles at 0.22 V |
 | code 15, 10 pF + pad, 27 C | no spike | settles at 0.51 V |
 
-N2 and N3 fire only while the net leakage at the threshold (about 1.6 V) is below their charging current:
-about 9 pA at code 0, 62 pA at code 6, 139 pA at code 15. The model's pad sinks 364 pA there (27 C). The
+N2 fires only while the net leakage up to its threshold (about 0.7 V) is below its charging current:
+about 8 pA at code 0, 62 pA at code 6, 139 pA at code 15. The model's pad sinks 170 pA at 0.7 V (27 C). The
 open switches of the other slots push or pull 0.1..30 pA each (27 C), depending on the voltage on their slot
 side. N0 and N1 drive their buses through inverters and are not affected.
+
+## N3 (`bbl_neuron_hi`) with the pad
+
+N3 charges its membrane with 16 x the DAC current, 6.1 nA at code 0 to 118 nA at code 15 (DC, membrane
+held at 0.3 V); the pad sinks 208 pA at its threshold (0.92 V). Schematic, 20 pF on `analog_bus3` (closed
+switch, see above), campaign cases `n3_pad_*` and `n3_c20p_*` (`testbenches/ngspice`; 1 / median spike
+interval):
+
+| code | without pad | with the pad (leakage table + 0.21 pF) | change |
+|---|---|---|---|
+| 0 | 214.85 Hz | 209.21 Hz | -2.6 % |
+| 15 | 4092.2 Hz | 4061.2 Hz | -0.76 %, mostly the pad's 0.21 pF |
+
+With 10 nF on the bus (code 6, `n3_pad_blink_6`): 5.543 Hz with the pad, 5.557 Hz without (-0.25 %).
 
 ## Reading the bus off the chip
 
@@ -65,3 +80,7 @@ f0(k) = I_k / (C_m dV); N2 on the bus gives f2(k) = (I_k + I_bus) / ((C_m + C_bu
 f2 against f0 is a straight line: slope C_m / (C_m + C_bus) gives the bus capacitance, the offset
 I_bus / ((C_m + C_bus) dV) gives the net leakage (C_m = 10.4 pF post-layout). If N2 stops at the low codes,
 the code where it starts gives I_bus directly.
+
+N3 on `analog_bus3` gives the same line with 16 x the current: f3(k) = (16 I_k + I_bus) / ((C_m + C_bus) dV),
+plus its refractory time at audio rates. Its slope gives C_bus where N2 has stopped; its offset shows the
+leakage only when it is a sizeable fraction of 6.1 nA.

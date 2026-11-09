@@ -50,8 +50,8 @@ MC2 vss slow vss vss sg13_hv_nmos w=60u l=10u ng=6 m=1
 * ---------------------------------------------------------------------------------------------------
 * bbl_neuron_hi: the neuron of N3, robust against the leakage on a harness analog bus (pad ESD, the other
 * slots' switches: the PDK pad model leaks 0.1..0.4 nA, testbenches/harness_bus/results.md).
-* XMR3 mirrors 16 x the DAC current (W/L 16 against 1/100), i.e. 5.6 nA at code 0 to 174 nA at code 15,
-* about 900 x the current of bbl_neuron. On chip (10 pF + a few pF of bus) N3 therefore runs at audio rates;
+* XMR3 mirrors 16 x the DAC current (W/L 16 against 1/100), i.e. 6.1 nA at code 0 to 118 nA at code 15,
+* about 800 x the current of bbl_neuron (DC, membrane at 0.3 V). On chip (10 pF + a few pF of bus) N3 therefore runs at audio rates;
 * an external capacitor on analog_bus3 (about 10 nF) brings it back to blinking.
 * A membrane with nF on it rises too slowly for the regenerative loop of bbl_neuron (XM3 into vm): the reset
 * catches up and holds vm at the threshold. N3's comparator is therefore a Schmitt trigger on its own:
@@ -61,7 +61,7 @@ MC2 vss slow vss vss sg13_hv_nmos w=60u l=10u ng=6 m=1
 *                as out falls; out then stays low until the membrane and the bus are reset
 *   XMR5A        a switch from slow to vss, gate outb: empties slow within nanoseconds when out falls and is
 *                off as soon as out is high again, so that slow recovers only through XMR5B: rst stays fully
-*                high for the whole refractory time (about 8 us at code 15 .. 0.8 ms at code 0)
+*                high for the whole refractory time (11 us at code 15 .. 0.19 ms at code 0)
 * XM4 10 x wider (rst fully high), XM2 20 x and the bus pass gate XMP3 (in bbl_core) 40 x: about 100 Ohm, so
 * 10 nF on the bus is reset within the refractory time; XMR5B about 300 x. 12 transistors, 2 MOS capacitors.
 .subckt bbl_neuron_hi vdd vss vm out vin
@@ -82,9 +82,9 @@ MC2 vss slow vss vss sg13_hv_nmos w=60u l=10u ng=6 m=1
 .ends bbl_neuron_hi
 
 * ---------------------------------------------------------------------------------------------------
-* Tuning DAC (the bias of the R3 stand-in): the diode XMD carries (0.5 + code) x 0.7 nA,
-* code = b3..b0; XMR3 mirrors about 1/57 of it into the membrane: f is about 1.3 Hz x (0.75 + code),
-* i.e. 1 Hz .. 21 Hz (unloaded). The base leg XMH is always on, so dig_in = 0 (harness default) blinks at 1 Hz.
+* Tuning DAC (the bias of the R3 stand-in): the diode XMD carries 0.38 nA + code x 0.47 nA (DC sweep),
+* code = b3..b0; XMR3 mirrors about 1/52 of it into the membrane (8 .. 139 pA): f is about
+* 1.3 Hz x (0.9 + code), i.e. 1.2 Hz .. 21 Hz (unloaded). The base leg XMH is always on, so dig_in = 0 (harness default) blinks at 1 Hz.
 * b0..b3 are 1.2 V logic on NMOS switches whose sources sit at vss.
 .subckt bbl_dac vdd vss vin vbnl b0 b1 b2 b3
 MMD vin vin vdd vdd sg13_hv_pmos w=3u l=3u ng=1 m=1
