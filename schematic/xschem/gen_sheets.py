@@ -411,7 +411,11 @@ if __name__ == '__main__':
                       'vbnl: about 2.5 nA reference of the tuning DACs; vcpla / vcplb pulled up by about 1 nA']),
         'bbl_tielo': ([[], ['XMT%d' % k for k in range(12)]], 'bbl_tielo: dig_out[11:0] held low (1.2 V NMOS)', []),
     }
+    # hand-drawn sheets (2026-11-09, skill xschem-analog-schematic): never regenerate them
+    HAND = {'bbl_neuron', 'bbl_syn', 'bbl_bias', 'bbl_dac', 'bbl_gap'}
     for nm, (rows, title, notes) in sheets.items():
+        if nm in HAND:
+            continue
         rails = ('vdd', 'vss')
         if nm == 'bbl_tielo':
             rails = ('vddl', 'vss')
