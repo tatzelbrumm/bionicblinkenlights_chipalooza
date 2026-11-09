@@ -3,7 +3,7 @@
 *** -----------------------------------------------------
 ***     Extraction Engine: KPEX/2.5D
 ***     Technology: ihp_sg13cmos5l
-***     Date: 2026-11-08 23:32:33
+***     Date: 2026-11-09 00:21:59
 *********************************************************
 
 .SUBCKT bbl_slot_pads \$14.sa \$14.vbn \$14.vbp analog_bus0 analog_bus1
@@ -20,23 +20,23 @@ X$1 dig_out[0] vss_3v3 vss_1v2 vdd_1v2 dig_out[2] dig_out[1] dig_out[3]
 X$2 \$88 vdd_3v3 analog_bus0 vss_3v3 sub! bbl_inv
 X$3 \$93 vdd_3v3 analog_bus1 vss_3v3 sub! bbl_inv
 X$4 analog_bus2 vss_3v3 s1_an[1] dig_in[22] dig_in[23] \$99 sub! bbl_gap
-X$5 vss_3v3 \$90 \$86 dig_in[0] dig_in[1] dig_in[2] dig_in[3] \$88 vdd_3v3 sub!
+X$5 vss_3v3 \$91 \$87 dig_in[0] dig_in[1] dig_in[2] dig_in[3] vdd_3v3 \$88 sub!
 + bbl_unit
-X$6 vss_3v3 \$98 \$86 dig_in[8] dig_in[9] dig_in[10] dig_in[11] \$94 vdd_3v3
+X$6 vss_3v3 \$98 \$87 dig_in[8] dig_in[9] dig_in[10] dig_in[11] vdd_3v3 \$94
 + sub! bbl_unit
-X$7 vss_3v3 \$99 \$86 dig_in[12] dig_in[13] dig_in[14] dig_in[15] \$95 vdd_3v3
+X$7 vss_3v3 \$99 \$87 dig_in[12] dig_in[13] dig_in[14] dig_in[15] vdd_3v3 \$95
 + sub! bbl_unit
-X$8 vss_3v3 dig_in[16] dig_in[17] vdd_3v3 \$100 \$97 sub! bbl_syn
-X$9 vss_3v3 dig_in[18] dig_in[19] vdd_3v3 \$101 \$90 sub! bbl_syn
-X$10 \$90 vss_3v3 s1_an_0_esd dig_in[20] dig_in[21] \$97 sub! bbl_gap
-X$11 vss_3v3 \$97 \$86 dig_in[4] dig_in[5] dig_in[6] dig_in[7] \$93 vdd_3v3
+X$8 vss_3v3 dig_in[16] dig_in[17] \$100 vdd_3v3 \$96 sub! bbl_syn
+X$9 vss_3v3 dig_in[18] dig_in[19] \$101 vdd_3v3 \$91 sub! bbl_syn
+X$10 \$91 vss_3v3 s1_an_0_esd dig_in[20] dig_in[21] \$96 sub! bbl_gap
+X$11 vss_3v3 \$96 \$87 dig_in[4] dig_in[5] dig_in[6] dig_in[7] vdd_3v3 \$93
 + sub! bbl_unit
 X$12 \$88 vdd_3v3 \$100 vss_3v3 sub! bbl_inv
 X$13 \$93 vdd_3v3 \$101 vss_3v3 sub! bbl_inv
-X$1 \$89 \$91 sub! rhigh w=5e-07 l=4.1055e-05 ps=1.8e-07 b=9 m=1
-X$2 \$87 enable vss_1v2 sub! sg13_lv_nmos w=3e-07 l=5e-07 as=1.02e-13
+X$1 \$89 \$90 sub! rhigh w=5e-07 l=4.1055e-05 ps=1.8e-07 b=9 m=1
+X$2 \$86 enable vss_1v2 sub! sg13_lv_nmos w=3e-07 l=5e-07 as=1.02e-13
 + ad=1.02e-13 ps=1.28e-06 pd=1.28e-06
-X$3 \$87 enable vdd_1v2 \$I52 sg13_lv_pmos w=3e-07 l=5e-07 as=1.02e-13
+X$3 \$86 enable vdd_1v2 \$I52 sg13_lv_pmos w=3e-07 l=5e-07 as=1.02e-13
 + ad=1.02e-13 ps=1.28e-06 pd=1.28e-06
 X$4 vss_3v3 s1_an_0_esd vss_3v3 sub! sg13_hv_nmos w=1e-05 l=1e-05 as=3.4e-12
 + ad=1.9e-12 ps=2.068e-05 pd=1.038e-05
@@ -64,9 +64,9 @@ X$15 analog_bus3 s1_an[1] \$99 sub! sg13_hv_nmos w=1e-06 l=4.5e-07 as=3.4e-13
 + ad=3.4e-13 ps=2.68e-06 pd=2.68e-06
 X$16 \$14.sa enable vss_3v3 sub! sg13_hv_nmos w=1e-06 l=4.5e-07 as=3.4e-13
 + ad=3.4e-13 ps=2.68e-06 pd=2.68e-06
-X$17 \$91 enable vss_3v3 sub! sg13_hv_nmos w=1e-06 l=4.5e-07 as=3.4e-13
+X$17 \$90 enable vss_3v3 sub! sg13_hv_nmos w=1e-06 l=4.5e-07 as=3.4e-13
 + ad=3.4e-13 ps=2.68e-06 pd=2.68e-06
-X$18 \$14.vbn \$87 vss_3v3 sub! sg13_hv_nmos w=1e-06 l=4.5e-07 as=3.4e-13
+X$18 \$14.vbn \$86 vss_3v3 sub! sg13_hv_nmos w=1e-06 l=4.5e-07 as=3.4e-13
 + ad=3.4e-13 ps=2.68e-06 pd=2.68e-06
 X$19 \$14.vbp \$14.vbn \$89 sub! sg13_hv_nmos w=2e-06 l=2e-06 as=6.8e-13
 + ad=3.8e-13 ps=4.68e-06 pd=2.38e-06
@@ -84,15 +84,15 @@ X$25 \$14.vbp \$14.vbn \$89 sub! sg13_hv_nmos w=2e-06 l=2e-06 as=3.8e-13
 + ad=3.8e-13 ps=2.38e-06 pd=2.38e-06
 X$26 \$89 \$14.vbn \$14.vbp sub! sg13_hv_nmos w=2e-06 l=2e-06 as=3.8e-13
 + ad=6.8e-13 ps=2.38e-06 pd=4.68e-06
-X$27 \$86 \$86 vss_3v3 sub! sg13_hv_nmos w=2e-06 l=2e-06 as=6.8e-13 ad=6.8e-13
+X$27 \$87 \$87 vss_3v3 sub! sg13_hv_nmos w=2e-06 l=2e-06 as=6.8e-13 ad=6.8e-13
 + ps=4.68e-06 pd=4.68e-06
 X$28 \$14.vbn \$14.vbn \$14.sa sub! sg13_hv_nmos w=2e-06 l=2e-06 as=6.8e-13
 + ad=6.8e-13 ps=4.68e-06 pd=4.68e-06
-X$29 s1_an[1] \$14.vbp vdd_3v3 \$I80 sg13_hv_pmos w=3e-07 l=2.2e-05 as=1.02e-13
-+ ad=1.02e-13 ps=1.28e-06 pd=1.28e-06
-X$30 s1_an_0_esd \$14.vbp vdd_3v3 \$I80 sg13_hv_pmos w=3e-07 l=2.2e-05
+X$29 s1_an_0_esd \$14.vbp vdd_3v3 \$I80 sg13_hv_pmos w=3e-07 l=2.2e-05
 + as=1.02e-13 ad=1.02e-13 ps=1.28e-06 pd=1.28e-06
-X$31 \$86 \$14.vbp vdd_3v3 \$I80 sg13_hv_pmos w=3e-07 l=8e-06 as=1.02e-13
+X$30 s1_an[1] \$14.vbp vdd_3v3 \$I80 sg13_hv_pmos w=3e-07 l=2.2e-05 as=1.02e-13
++ ad=1.02e-13 ps=1.28e-06 pd=1.28e-06
+X$31 \$87 \$14.vbp vdd_3v3 \$I80 sg13_hv_pmos w=3e-07 l=8e-06 as=1.02e-13
 + ad=1.02e-13 ps=1.28e-06 pd=1.28e-06
 X$32 \$14.vbn vdd_3v3 vdd_3v3 \$I80 sg13_hv_pmos w=4e-06 l=4.5e-07 as=1.36e-12
 + ad=1.36e-12 ps=8.68e-06 pd=8.68e-06
@@ -183,13 +183,13 @@ X$114 vss_3v3 sub! ptap1
 Cext_1 \$100 \$101 14.4578f
 Cext_2 \$100 \$19 374.308a
 Cext_3 \$100 \$5 194.267a
-Cext_4 \$100 \$87 36.5524a
+Cext_4 \$100 \$86 36.5524a
 Cext_5 \$100 \$88 1.12938f
 Cext_6 \$100 \$89 41.4099a
-Cext_7 \$100 \$90 27.1755a
-Cext_8 \$100 \$91 14.5362f
+Cext_7 \$100 \$90 14.5362f
+Cext_8 \$100 \$91 27.1755a
 Cext_9 \$100 \$93 43.9476a
-Cext_10 \$100 \$97 13.0089f
+Cext_10 \$100 \$96 13.0089f
 Cext_11 \$100 analog_bus0 17.9086a
 Cext_12 \$100 analog_bus1 12.9606a
 Cext_13 \$100 analog_bus2 37.1677a
@@ -228,13 +228,13 @@ Cext_45 \$100 vss_3v3 1.12687f
 Cext_46 \$100 sub! 5.08069f
 Cext_47 \$101 \$19 335.608a
 Cext_48 \$101 \$5 179.151a
-Cext_49 \$101 \$87 36.0353a
+Cext_49 \$101 \$86 36.0353a
 Cext_50 \$101 \$88 11.9807a
 Cext_51 \$101 \$89 39.651a
-Cext_52 \$101 \$90 15.8865f
-Cext_53 \$101 \$91 258.25a
+Cext_52 \$101 \$90 258.25a
+Cext_53 \$101 \$91 15.8865f
 Cext_54 \$101 \$93 1.13002f
-Cext_55 \$101 \$97 71.025a
+Cext_55 \$101 \$96 71.025a
 Cext_56 \$101 \$98 0.229343a
 Cext_57 \$101 \$I80 0.599677a
 Cext_58 \$101 analog_bus0 17.9086a
@@ -275,10 +275,10 @@ Cext_92 \$101 vss_3v3 955.937a
 Cext_93 \$101 sub! 5.78137f
 Cext_94 \$14.sa \$14.vbn 315.483a
 Cext_95 \$14.sa \$14.vbp 2.34767f
-Cext_96 \$14.sa \$86 56.4573a
-Cext_97 \$14.sa \$87 2.34948f
+Cext_96 \$14.sa \$86 2.34948f
+Cext_97 \$14.sa \$87 56.4573a
 Cext_98 \$14.sa \$89 44.9408a
-Cext_99 \$14.sa \$91 52.5973a
+Cext_99 \$14.sa \$90 52.5973a
 Cext_100 \$14.sa \$I80 11.8691a
 Cext_101 \$14.sa enable 672.111a
 Cext_102 \$14.sa s1_an[1] 55.311a
@@ -287,10 +287,10 @@ Cext_104 \$14.sa vdd_3v3 534.217a
 Cext_105 \$14.sa vss_3v3 245.453a
 Cext_106 \$14.sa sub! 656.643a
 Cext_107 \$14.vbn \$14.vbp 4.1004f
-Cext_108 \$14.vbn \$86 128.3a
-Cext_109 \$14.vbn \$87 821.29a
+Cext_108 \$14.vbn \$86 821.29a
+Cext_109 \$14.vbn \$87 128.3a
 Cext_110 \$14.vbn \$89 1.07057f
-Cext_111 \$14.vbn \$91 92.7933a
+Cext_111 \$14.vbn \$90 92.7933a
 Cext_112 \$14.vbn \$I80 892.905a
 Cext_113 \$14.vbn enable 77.8478a
 Cext_114 \$14.vbn s1_an[1] 104.726a
@@ -299,10 +299,10 @@ Cext_116 \$14.vbn vdd_1v2 1.5191a
 Cext_117 \$14.vbn vdd_3v3 1.12549f
 Cext_118 \$14.vbn vss_3v3 491.783a
 Cext_119 \$14.vbn sub! 4.45893f
-Cext_120 \$14.vbp \$86 368.631a
-Cext_121 \$14.vbp \$87 750.127a
+Cext_120 \$14.vbp \$86 750.127a
+Cext_121 \$14.vbp \$87 368.631a
 Cext_122 \$14.vbp \$89 554.412a
-Cext_123 \$14.vbp \$91 104.115a
+Cext_123 \$14.vbp \$90 104.115a
 Cext_124 \$14.vbp \$I80 8.11251f
 Cext_125 \$14.vbp enable 93.4119a
 Cext_126 \$14.vbp s1_an[1] 219.761a
@@ -310,8 +310,8 @@ Cext_127 \$14.vbp s1_an_0_esd 237.602a
 Cext_128 \$14.vbp vdd_3v3 975.555a
 Cext_129 \$14.vbp vss_3v3 158.185a
 Cext_130 \$14.vbp sub! 3.24013f
-Cext_131 \$19 \$90 160.327a
-Cext_132 \$19 \$97 334.772a
+Cext_131 \$19 \$91 160.327a
+Cext_132 \$19 \$96 334.772a
 Cext_133 \$19 analog_bus0 618.799a
 Cext_134 \$19 bs 25.8706a
 Cext_135 \$19 bw 72.8405a
@@ -331,18 +331,18 @@ Cext_148 \$241 analog_bus3 127.725a
 Cext_149 \$241 vss_3v3 0.244588a
 Cext_150 \$241 sub! 31.9a
 Cext_151 \$243 analog_bus0 2.75322a
-Cext_152 \$243 analog_bus1 127.956a
-Cext_153 \$243 analog_bus2 127.725a
-Cext_154 \$243 vss_3v3 1.47958a
-Cext_155 \$243 sub! 31.9a
-Cext_156 \$244 analog_bus0 2.75322a
-Cext_157 \$244 analog_bus1 0.230404a
-Cext_158 \$244 analog_bus2 0.154122a
-Cext_159 \$244 analog_bus3 0.109718a
-Cext_160 \$244 clk 10.6138a
-Cext_161 \$244 vbias 127.725a
-Cext_162 \$244 vss_1v2 48.765a
-Cext_163 \$244 sub! 68.1424a
+Cext_152 \$243 analog_bus1 0.230404a
+Cext_153 \$243 analog_bus2 0.154122a
+Cext_154 \$243 analog_bus3 0.109718a
+Cext_155 \$243 clk 10.6138a
+Cext_156 \$243 vbias 127.725a
+Cext_157 \$243 vss_1v2 48.765a
+Cext_158 \$243 sub! 68.1424a
+Cext_159 \$244 analog_bus0 2.75322a
+Cext_160 \$244 analog_bus1 127.956a
+Cext_161 \$244 analog_bus2 127.725a
+Cext_162 \$244 vss_3v3 1.47958a
+Cext_163 \$244 sub! 31.9a
 Cext_164 \$246 analog_bus0 2.75322a
 Cext_165 \$246 analog_bus1 0.230404a
 Cext_166 \$246 analog_bus2 0.154122a
@@ -366,29 +366,29 @@ Cext_183 \$249 ibias0 127.725a
 Cext_184 \$249 vbias 127.725a
 Cext_185 \$249 vss_1v2 9.16252a
 Cext_186 \$249 sub! 31.9a
-Cext_187 \$252 analog_bus0 127.725a
-Cext_188 \$252 vss_3v3 59.9549a
-Cext_189 \$252 sub! 89.9303a
+Cext_187 \$253 analog_bus0 127.725a
+Cext_188 \$253 vss_3v3 59.9549a
+Cext_189 \$253 sub! 89.9303a
 Cext_190 \$254 analog_bus0 130.479a
 Cext_191 \$254 analog_bus1 127.725a
 Cext_192 \$254 vss_3v3 4.25665a
 Cext_193 \$254 sub! 31.9a
-Cext_194 \$30 \$86 689.25a
-Cext_195 \$30 \$88 365.916a
-Cext_196 \$30 \$90 220.38f
-Cext_197 \$30 \$93 440.153a
-Cext_198 \$30 \$94 554.363a
-Cext_199 \$30 \$95 977.356a
-Cext_200 \$30 \$97 220.454f
-Cext_201 \$30 \$98 220.566f
-Cext_202 \$30 \$99 221.897f
+Cext_194 \$30 \$87 689.19a
+Cext_195 \$30 \$88 874.209a
+Cext_196 \$30 \$91 220.378f
+Cext_197 \$30 \$93 948.445a
+Cext_198 \$30 \$94 1.06268f
+Cext_199 \$30 \$95 1.48565f
+Cext_200 \$30 \$96 220.452f
+Cext_201 \$30 \$98 220.565f
+Cext_202 \$30 \$99 221.896f
 Cext_203 \$30 dig_in[0] 1.01283a
-Cext_204 \$30 dig_in[10] 388.927a
+Cext_204 \$30 dig_in[10] 388.93a
 Cext_205 \$30 dig_in[11] 182.988a
-Cext_206 \$30 dig_in[12] 479.097a
+Cext_206 \$30 dig_in[12] 479.024a
 Cext_207 \$30 dig_in[13] 221.337a
 Cext_208 \$30 dig_in[14] 224.076a
-Cext_209 \$30 dig_in[15] 678.351a
+Cext_209 \$30 dig_in[15] 678.349a
 Cext_210 \$30 dig_in[1] 1.38142a
 Cext_211 \$30 dig_in[2] 0.907879a
 Cext_212 \$30 dig_in[3] 32.8204a
@@ -396,17 +396,17 @@ Cext_213 \$30 dig_in[4] 75.5899a
 Cext_214 \$30 dig_in[5] 75.9122a
 Cext_215 \$30 dig_in[6] 76.271a
 Cext_216 \$30 dig_in[7] 108.612a
-Cext_217 \$30 dig_in[8] 300.474a
-Cext_218 \$30 dig_in[9] 188.142a
-Cext_219 \$30 rst 1.91673f
+Cext_217 \$30 dig_in[8] 300.399a
+Cext_218 \$30 dig_in[9] 188.165a
+Cext_219 \$30 rst 2.05324f
 Cext_220 \$30 s0 83.5304a
 Cext_221 \$30 s1 165.473a
-Cext_222 \$30 s2 238.959a
-Cext_223 \$30 s3 459.786a
-Cext_224 \$30 slow 10.2195f
-Cext_225 \$30 vdd_3v3 102.29f
+Cext_222 \$30 s2 261.934a
+Cext_223 \$30 s3 463.157a
+Cext_224 \$30 slow 10.2899f
+Cext_225 \$30 vdd_3v3 103.77f
 Cext_226 \$30 vin 25.6375f
-Cext_227 \$30 vss_3v3 90.0292f
+Cext_227 \$30 vss_3v3 90.2402f
 Cext_228 \$5 \$88 766.087a
 Cext_229 \$5 \$93 768.118a
 Cext_230 \$5 analog_bus0 116.231a
@@ -416,146 +416,146 @@ Cext_233 \$5 gw 4.98097a
 Cext_234 \$5 vdd_3v3 2.20855f
 Cext_235 \$5 vss_3v3 368.137a
 Cext_236 \$86 \$87 66.7462a
-Cext_237 \$86 \$88 30.1922f
-Cext_238 \$86 \$89 175.871a
-Cext_239 \$86 \$90 301.116a
-Cext_240 \$86 \$91 3.70237f
-Cext_241 \$86 \$93 26.2991f
-Cext_242 \$86 \$94 26.3065f
-Cext_243 \$86 \$95 35.8269f
-Cext_244 \$86 \$97 7.34767f
-Cext_245 \$86 \$98 1.5437f
-Cext_246 \$86 \$99 1.0617f
-Cext_247 \$86 \$I80 88.1493a
-Cext_248 \$86 analog_bus0 17.9086a
-Cext_249 \$86 analog_bus1 11.9807a
-Cext_250 \$86 analog_bus2 11.9807a
-Cext_251 \$86 analog_bus3 15.5964a
-Cext_252 \$86 dig_in[0] 26.1733f
-Cext_253 \$86 dig_in[10] 132.153a
-Cext_254 \$86 dig_in[11] 109.229a
-Cext_255 \$86 dig_in[12] 26.2078f
-Cext_256 \$86 dig_in[13] 107.223a
-Cext_257 \$86 dig_in[14] 103.701a
-Cext_258 \$86 dig_in[15] 115.377a
-Cext_259 \$86 dig_in[16] 11.9807a
-Cext_260 \$86 dig_in[17] 11.9807a
-Cext_261 \$86 dig_in[18] 11.9807a
-Cext_262 \$86 dig_in[19] 14.3547a
-Cext_263 \$86 dig_in[1] 79.796a
-Cext_264 \$86 dig_in[20] 14.3547a
-Cext_265 \$86 dig_in[21] 11.9807a
-Cext_266 \$86 dig_in[22] 11.9807a
-Cext_267 \$86 dig_in[23] 14.3547a
-Cext_268 \$86 dig_in[2] 76.5756a
-Cext_269 \$86 dig_in[3] 3.95163f
-Cext_270 \$86 dig_in[4] 26.2088f
-Cext_271 \$86 dig_in[5] 113.1a
-Cext_272 \$86 dig_in[6] 109.579a
-Cext_273 \$86 dig_in[7] 106.051a
-Cext_274 \$86 dig_in[8] 26.2155f
-Cext_275 \$86 dig_in[9] 123.589a
-Cext_276 \$86 dig_out[0] 11.9807a
-Cext_277 \$86 dig_out[10] 11.9807a
-Cext_278 \$86 dig_out[11] 11.9807a
-Cext_279 \$86 dig_out[1] 11.9807a
-Cext_280 \$86 dig_out[2] 11.9807a
-Cext_281 \$86 dig_out[3] 11.9807a
-Cext_282 \$86 dig_out[4] 11.9807a
-Cext_283 \$86 dig_out[5] 11.9807a
-Cext_284 \$86 dig_out[6] 11.9807a
-Cext_285 \$86 dig_out[7] 11.9807a
-Cext_286 \$86 dig_out[8] 11.9807a
-Cext_287 \$86 dig_out[9] 11.9807a
-Cext_288 \$86 enable 72.9661a
-Cext_289 \$86 rst 306.99a
-Cext_290 \$86 s0 676.189a
-Cext_291 \$86 s1 901.698a
-Cext_292 \$86 s1_an[1] 184.82a
-Cext_293 \$86 s1_an_0_esd 11.7577f
-Cext_294 \$86 s2 1.40008f
-Cext_295 \$86 s3 2.3472f
-Cext_296 \$86 slow 113.735a
-Cext_297 \$86 vdd_1v2 105.737a
-Cext_298 \$86 vdd_3v3 28.7541f
-Cext_299 \$86 vin 5.05163f
-Cext_300 \$86 vss_1v2 453.154a
-Cext_301 \$86 vss_3v3 3.73491f
-Cext_302 \$86 sub! 46.7677f
-Cext_303 \$87 \$88 25.9126f
-Cext_304 \$87 \$89 1.85211f
-Cext_305 \$87 \$90 28.6975a
-Cext_306 \$87 \$91 11.0212f
-Cext_307 \$87 \$93 258.97a
-Cext_308 \$87 \$94 0.418531a
-Cext_309 \$87 \$95 0.25014a
-Cext_310 \$87 \$97 43.373a
-Cext_311 \$87 \$98 16.7168a
-Cext_312 \$87 \$99 48.1092a
-Cext_313 \$87 \$I52 136.596a
-Cext_314 \$87 \$I80 1.61434f
-Cext_315 \$87 analog_bus0 25.3229a
-Cext_316 \$87 analog_bus1 19.395a
-Cext_317 \$87 analog_bus2 19.395a
-Cext_318 \$87 analog_bus3 23.0107a
-Cext_319 \$87 dig_in[0] 0.264512a
-Cext_320 \$87 dig_in[10] 34.9914a
-Cext_321 \$87 dig_in[11] 31.3757a
-Cext_322 \$87 dig_in[12] 31.3757a
-Cext_323 \$87 dig_in[13] 31.3757a
-Cext_324 \$87 dig_in[14] 31.3757a
-Cext_325 \$87 dig_in[15] 31.3757a
-Cext_326 \$87 dig_in[16] 19.395a
-Cext_327 \$87 dig_in[17] 19.395a
-Cext_328 \$87 dig_in[18] 19.395a
-Cext_329 \$87 dig_in[19] 21.769a
-Cext_330 \$87 dig_in[1] 0.404156a
-Cext_331 \$87 dig_in[20] 20.2319a
-Cext_332 \$87 dig_in[21] 17.8579a
-Cext_333 \$87 dig_in[22] 17.8579a
-Cext_334 \$87 dig_in[23] 20.2319a
-Cext_335 \$87 dig_in[2] 78.4518a
-Cext_336 \$87 dig_in[3] 841.276a
-Cext_337 \$87 dig_in[4] 29.274a
-Cext_338 \$87 dig_in[5] 26.9a
-Cext_339 \$87 dig_in[6] 26.9a
-Cext_340 \$87 dig_in[7] 26.9a
-Cext_341 \$87 dig_in[8] 26.9a
-Cext_342 \$87 dig_in[9] 33.3731a
-Cext_343 \$87 dig_out[0] 43.9208a
-Cext_344 \$87 dig_out[10] 37.0674a
-Cext_345 \$87 dig_out[11] 37.0674a
-Cext_346 \$87 dig_out[1] 37.0674a
-Cext_347 \$87 dig_out[2] 37.0674a
-Cext_348 \$87 dig_out[3] 37.0674a
-Cext_349 \$87 dig_out[4] 37.0674a
-Cext_350 \$87 dig_out[5] 37.0674a
-Cext_351 \$87 dig_out[6] 37.0674a
-Cext_352 \$87 dig_out[7] 37.0674a
-Cext_353 \$87 dig_out[8] 37.0674a
-Cext_354 \$87 dig_out[9] 31.9009f
-Cext_355 \$87 enable 4.75325f
-Cext_356 \$87 s1_an[1] 144.715a
-Cext_357 \$87 s1_an_0_esd 94.4005a
-Cext_358 \$87 vdd_1v2 941.878a
-Cext_359 \$87 vdd_3v3 300.421a
-Cext_360 \$87 vss_1v2 619.686a
-Cext_361 \$87 vss_3v3 1.28947f
-Cext_362 \$87 sub! 8.16292f
+Cext_237 \$86 \$88 25.9126f
+Cext_238 \$86 \$89 1.85211f
+Cext_239 \$86 \$90 11.0212f
+Cext_240 \$86 \$91 28.6975a
+Cext_241 \$86 \$93 258.97a
+Cext_242 \$86 \$94 0.418531a
+Cext_243 \$86 \$95 0.25014a
+Cext_244 \$86 \$96 43.373a
+Cext_245 \$86 \$98 16.7168a
+Cext_246 \$86 \$99 48.1092a
+Cext_247 \$86 \$I52 136.596a
+Cext_248 \$86 \$I80 1.61434f
+Cext_249 \$86 analog_bus0 25.3229a
+Cext_250 \$86 analog_bus1 19.395a
+Cext_251 \$86 analog_bus2 19.395a
+Cext_252 \$86 analog_bus3 23.0107a
+Cext_253 \$86 dig_in[0] 0.264512a
+Cext_254 \$86 dig_in[10] 34.9914a
+Cext_255 \$86 dig_in[11] 31.3757a
+Cext_256 \$86 dig_in[12] 31.3757a
+Cext_257 \$86 dig_in[13] 31.3757a
+Cext_258 \$86 dig_in[14] 31.3757a
+Cext_259 \$86 dig_in[15] 31.3757a
+Cext_260 \$86 dig_in[16] 19.395a
+Cext_261 \$86 dig_in[17] 19.395a
+Cext_262 \$86 dig_in[18] 19.395a
+Cext_263 \$86 dig_in[19] 21.769a
+Cext_264 \$86 dig_in[1] 0.404156a
+Cext_265 \$86 dig_in[20] 20.2319a
+Cext_266 \$86 dig_in[21] 17.8579a
+Cext_267 \$86 dig_in[22] 17.8579a
+Cext_268 \$86 dig_in[23] 20.2319a
+Cext_269 \$86 dig_in[2] 78.4518a
+Cext_270 \$86 dig_in[3] 841.276a
+Cext_271 \$86 dig_in[4] 29.274a
+Cext_272 \$86 dig_in[5] 26.9a
+Cext_273 \$86 dig_in[6] 26.9a
+Cext_274 \$86 dig_in[7] 26.9a
+Cext_275 \$86 dig_in[8] 26.9a
+Cext_276 \$86 dig_in[9] 33.3731a
+Cext_277 \$86 dig_out[0] 43.9208a
+Cext_278 \$86 dig_out[10] 37.0674a
+Cext_279 \$86 dig_out[11] 37.0674a
+Cext_280 \$86 dig_out[1] 37.0674a
+Cext_281 \$86 dig_out[2] 37.0674a
+Cext_282 \$86 dig_out[3] 37.0674a
+Cext_283 \$86 dig_out[4] 37.0674a
+Cext_284 \$86 dig_out[5] 37.0674a
+Cext_285 \$86 dig_out[6] 37.0674a
+Cext_286 \$86 dig_out[7] 37.0674a
+Cext_287 \$86 dig_out[8] 37.0674a
+Cext_288 \$86 dig_out[9] 31.9009f
+Cext_289 \$86 enable 4.75325f
+Cext_290 \$86 s1_an[1] 144.715a
+Cext_291 \$86 s1_an_0_esd 94.4005a
+Cext_292 \$86 vdd_1v2 941.878a
+Cext_293 \$86 vdd_3v3 300.421a
+Cext_294 \$86 vss_1v2 619.686a
+Cext_295 \$86 vss_3v3 1.28947f
+Cext_296 \$86 sub! 8.16292f
+Cext_297 \$87 \$88 30.464f
+Cext_298 \$87 \$89 175.871a
+Cext_299 \$87 \$90 3.70237f
+Cext_300 \$87 \$91 306.711a
+Cext_301 \$87 \$93 26.5707f
+Cext_302 \$87 \$94 26.5784f
+Cext_303 \$87 \$95 36.0988f
+Cext_304 \$87 \$96 7.35307f
+Cext_305 \$87 \$98 1.5494f
+Cext_306 \$87 \$99 1.0674f
+Cext_307 \$87 \$I80 88.1493a
+Cext_308 \$87 analog_bus0 17.9086a
+Cext_309 \$87 analog_bus1 11.9807a
+Cext_310 \$87 analog_bus2 11.9807a
+Cext_311 \$87 analog_bus3 15.5964a
+Cext_312 \$87 dig_in[0] 26.4353f
+Cext_313 \$87 dig_in[10] 129.544a
+Cext_314 \$87 dig_in[11] 109.299a
+Cext_315 \$87 dig_in[12] 26.4702f
+Cext_316 \$87 dig_in[13] 107.314a
+Cext_317 \$87 dig_in[14] 101.092a
+Cext_318 \$87 dig_in[15] 115.447a
+Cext_319 \$87 dig_in[16] 11.9807a
+Cext_320 \$87 dig_in[17] 11.9807a
+Cext_321 \$87 dig_in[18] 11.9807a
+Cext_322 \$87 dig_in[19] 14.3547a
+Cext_323 \$87 dig_in[1] 79.689a
+Cext_324 \$87 dig_in[20] 14.3547a
+Cext_325 \$87 dig_in[21] 11.9807a
+Cext_326 \$87 dig_in[22] 11.9807a
+Cext_327 \$87 dig_in[23] 14.3547a
+Cext_328 \$87 dig_in[2] 73.7933a
+Cext_329 \$87 dig_in[3] 3.95146f
+Cext_330 \$87 dig_in[4] 26.471f
+Cext_331 \$87 dig_in[5] 112.944a
+Cext_332 \$87 dig_in[6] 106.753a
+Cext_333 \$87 dig_in[7] 105.93a
+Cext_334 \$87 dig_in[8] 26.4779f
+Cext_335 \$87 dig_in[9] 123.679a
+Cext_336 \$87 dig_out[0] 11.9807a
+Cext_337 \$87 dig_out[10] 11.9807a
+Cext_338 \$87 dig_out[11] 11.9807a
+Cext_339 \$87 dig_out[1] 11.9807a
+Cext_340 \$87 dig_out[2] 11.9807a
+Cext_341 \$87 dig_out[3] 11.9807a
+Cext_342 \$87 dig_out[4] 11.9807a
+Cext_343 \$87 dig_out[5] 11.9807a
+Cext_344 \$87 dig_out[6] 11.9807a
+Cext_345 \$87 dig_out[7] 11.9807a
+Cext_346 \$87 dig_out[8] 11.9807a
+Cext_347 \$87 dig_out[9] 11.9807a
+Cext_348 \$87 enable 72.9661a
+Cext_349 \$87 rst 307.111a
+Cext_350 \$87 s0 676.189a
+Cext_351 \$87 s1 901.698a
+Cext_352 \$87 s1_an[1] 184.82a
+Cext_353 \$87 s1_an_0_esd 11.7577f
+Cext_354 \$87 s2 1.39403f
+Cext_355 \$87 s3 2.35689f
+Cext_356 \$87 slow 124.573a
+Cext_357 \$87 vdd_1v2 105.737a
+Cext_358 \$87 vdd_3v3 28.9744f
+Cext_359 \$87 vin 5.05565f
+Cext_360 \$87 vss_1v2 453.154a
+Cext_361 \$87 vss_3v3 3.80759f
+Cext_362 \$87 sub! 46.8793f
 Cext_363 \$88 \$89 296.112a
-Cext_364 \$88 \$90 28.6337f
-Cext_365 \$88 \$91 32.8391a
+Cext_364 \$88 \$90 32.8391a
+Cext_365 \$88 \$91 28.1679f
 Cext_366 \$88 \$93 25.2541f
 Cext_367 \$88 \$94 12.7597a
 Cext_368 \$88 \$95 12.3992a
-Cext_369 \$88 \$97 31.2992a
+Cext_369 \$88 \$96 31.2992a
 Cext_370 \$88 \$98 11.9807a
 Cext_371 \$88 \$99 19.3185a
 Cext_372 \$88 analog_bus0 1.09702f
 Cext_373 \$88 analog_bus1 25.187a
 Cext_374 \$88 analog_bus2 37.1677a
 Cext_375 \$88 analog_bus3 42.9194a
-Cext_376 \$88 dig_in[0] 77.8859a
+Cext_376 \$88 dig_in[0] 87.5231a
 Cext_377 \$88 dig_in[10] 32.7097a
 Cext_378 \$88 dig_in[11] 32.4238a
 Cext_379 \$88 dig_in[12] 54.0899a
@@ -563,13 +563,13 @@ Cext_380 \$88 dig_in[13] 38.9644a
 Cext_381 \$88 dig_in[14] 33.9757a
 Cext_382 \$88 dig_in[15] 29.0895a
 Cext_383 \$88 dig_in[16] 0.357939a
-Cext_384 \$88 dig_in[1] 79.4669a
+Cext_384 \$88 dig_in[1] 89.1505a
 Cext_385 \$88 dig_in[20] 42.9194a
 Cext_386 \$88 dig_in[21] 31.2398a
 Cext_387 \$88 dig_in[22] 31.2398a
 Cext_388 \$88 dig_in[23] 42.006a
-Cext_389 \$88 dig_in[2] 78.229a
-Cext_390 \$88 dig_in[3] 212.068a
+Cext_389 \$88 dig_in[2] 87.9677a
+Cext_390 \$88 dig_in[3] 221.872a
 Cext_391 \$88 dig_in[4] 28.2175a
 Cext_392 \$88 dig_in[5] 28.2694a
 Cext_393 \$88 dig_in[6] 28.2694a
@@ -589,26 +589,26 @@ Cext_406 \$88 dig_out[7] 31.4899a
 Cext_407 \$88 dig_out[8] 31.6583a
 Cext_408 \$88 dig_out[9] 32.0188a
 Cext_409 \$88 enable 42.006a
-Cext_410 \$88 rst 203.849a
+Cext_410 \$88 rst 213.823a
 Cext_411 \$88 s0 30.8938a
 Cext_412 \$88 s1 51.8627a
 Cext_413 \$88 s1_an[1] 25.7915a
 Cext_414 \$88 s1_an_0_esd 16.4209a
-Cext_415 \$88 s2 93.0499a
-Cext_416 \$88 s3 162.712a
-Cext_417 \$88 slow 102.495a
+Cext_415 \$88 s2 91.5379a
+Cext_416 \$88 s3 165.179a
+Cext_417 \$88 slow 129.409a
 Cext_418 \$88 vdd_1v2 325.967a
-Cext_419 \$88 vdd_3v3 11.0486f
-Cext_420 \$88 vin 168.198a
+Cext_419 \$88 vdd_3v3 10.3426f
+Cext_420 \$88 vin 169.168a
 Cext_421 \$88 vss_1v2 314.118a
-Cext_422 \$88 vss_3v3 6.05443f
-Cext_423 \$88 sub! 8.30498f
-Cext_424 \$89 \$90 32.3133a
-Cext_425 \$89 \$91 45.6369f
+Cext_422 \$88 vss_3v3 6.13506f
+Cext_423 \$88 sub! 8.58445f
+Cext_424 \$89 \$90 45.6369f
+Cext_425 \$89 \$91 32.3133a
 Cext_426 \$89 \$93 5.25532f
 Cext_427 \$89 \$94 26.8312a
 Cext_428 \$89 \$95 76.4176a
-Cext_429 \$89 \$97 46.9888a
+Cext_429 \$89 \$96 46.9888a
 Cext_430 \$89 \$98 16.7168a
 Cext_431 \$89 \$99 48.1092a
 Cext_432 \$89 \$I80 52.3404a
@@ -660,129 +660,129 @@ Cext_477 \$89 vss_1v2 520.419a
 Cext_478 \$89 vss_3v3 576.262a
 Cext_479 \$89 sub! 15.598f
 Cext_480 \$90 \$91 30.0942a
-Cext_481 \$90 \$93 48.7235a
-Cext_482 \$90 \$94 32.994a
-Cext_483 \$90 \$95 32.7861a
-Cext_484 \$90 \$97 34.6487f
-Cext_485 \$90 \$98 14.5293a
-Cext_486 \$90 \$99 20.7623a
-Cext_487 \$90 \$I80 0.599677a
+Cext_481 \$90 \$93 16.0967a
+Cext_482 \$90 \$94 15.5964a
+Cext_483 \$90 \$95 20.929a
+Cext_484 \$90 \$96 42.9449a
+Cext_485 \$90 \$98 16.2887a
+Cext_486 \$90 \$99 47.2528a
+Cext_487 \$90 \$I80 32.5317a
 Cext_488 \$90 analog_bus0 17.9086a
 Cext_489 \$90 analog_bus1 11.9807a
-Cext_490 \$90 analog_bus2 30.7147a
-Cext_491 \$90 analog_bus3 35.7162a
-Cext_492 \$90 bs 34.0351a
-Cext_493 \$90 bw 48.6554a
-Cext_494 \$90 dig_in[0] 90.5295a
-Cext_495 \$90 dig_in[10] 54.7732a
-Cext_496 \$90 dig_in[11] 60.9423a
-Cext_497 \$90 dig_in[12] 36.9571a
-Cext_498 \$90 dig_in[13] 32.4204a
-Cext_499 \$90 dig_in[14] 32.4077a
-Cext_500 \$90 dig_in[15] 34.154a
-Cext_501 \$90 dig_in[16] 11.9807a
-Cext_502 \$90 dig_in[17] 11.9288a
-Cext_503 \$90 dig_in[18] 12.7766f
-Cext_504 \$90 dig_in[19] 75.2826a
-Cext_505 \$90 dig_in[1] 95.1389a
-Cext_506 \$90 dig_in[20] 42.8172a
-Cext_507 \$90 dig_in[21] 36.8087a
-Cext_508 \$90 dig_in[22] 29.8764a
-Cext_509 \$90 dig_in[23] 34.7276a
-Cext_510 \$90 dig_in[2] 97.0218a
-Cext_511 \$90 dig_in[3] 103.773a
-Cext_512 \$90 dig_in[4] 59.8666a
-Cext_513 \$90 dig_in[5] 44.3256a
-Cext_514 \$90 dig_in[6] 38.2806a
-Cext_515 \$90 dig_in[7] 36.6159a
-Cext_516 \$90 dig_in[8] 33.4714a
-Cext_517 \$90 dig_in[9] 33.2865a
-Cext_518 \$90 dig_out[0] 23.9614a
-Cext_519 \$90 dig_out[10] 23.9614a
-Cext_520 \$90 dig_out[11] 23.9614a
-Cext_521 \$90 dig_out[1] 23.9614a
-Cext_522 \$90 dig_out[2] 23.9614a
-Cext_523 \$90 dig_out[3] 23.9614a
-Cext_524 \$90 dig_out[4] 23.9614a
-Cext_525 \$90 dig_out[5] 23.9614a
-Cext_526 \$90 dig_out[6] 23.9614a
-Cext_527 \$90 dig_out[7] 23.9614a
-Cext_528 \$90 dig_out[8] 23.9614a
-Cext_529 \$90 dig_out[9] 23.9614a
-Cext_530 \$90 enable 34.7276a
-Cext_531 \$90 gs 178.064a
-Cext_532 \$90 gw 148.646a
-Cext_533 \$90 rst 867.205a
-Cext_534 \$90 s0 111.202a
-Cext_535 \$90 s1 214.195a
-Cext_536 \$90 s1_an[1] 26.5415f
-Cext_537 \$90 s1_an_0_esd 6.72904f
-Cext_538 \$90 s2 327.973a
-Cext_539 \$90 s3 815.896a
-Cext_540 \$90 slow 1.57259f
-Cext_541 \$90 vdd_1v2 218.616a
-Cext_542 \$90 vdd_3v3 55.8263f
-Cext_543 \$90 vin 352.349a
-Cext_544 \$90 vss_1v2 2.27644f
-Cext_545 \$90 vss_3v3 12.8551f
-Cext_546 \$90 sub! 13.3593f
-Cext_547 \$91 \$93 16.0967a
-Cext_548 \$91 \$94 15.5964a
-Cext_549 \$91 \$95 20.929a
-Cext_550 \$91 \$97 42.9449a
-Cext_551 \$91 \$98 16.2887a
-Cext_552 \$91 \$99 47.2528a
-Cext_553 \$91 \$I80 32.5317a
-Cext_554 \$91 analog_bus0 17.9086a
-Cext_555 \$91 analog_bus1 11.9807a
-Cext_556 \$91 analog_bus2 11.9807a
-Cext_557 \$91 analog_bus3 15.5964a
-Cext_558 \$91 dig_in[10] 31.1929a
-Cext_559 \$91 dig_in[11] 27.5771a
-Cext_560 \$91 dig_in[12] 27.5771a
-Cext_561 \$91 dig_in[13] 27.5771a
-Cext_562 \$91 dig_in[14] 27.5771a
-Cext_563 \$91 dig_in[15] 27.5771a
-Cext_564 \$91 dig_in[16] 11.9807a
-Cext_565 \$91 dig_in[17] 11.9807a
-Cext_566 \$91 dig_in[18] 11.9807a
-Cext_567 \$91 dig_in[19] 14.3547a
-Cext_568 \$91 dig_in[20] 14.3547a
-Cext_569 \$91 dig_in[21] 11.9807a
-Cext_570 \$91 dig_in[22] 11.9807a
-Cext_571 \$91 dig_in[23] 14.3547a
-Cext_572 \$91 dig_in[2] 0.264512a
-Cext_573 \$91 dig_in[3] 0.404156a
-Cext_574 \$91 dig_in[4] 29.9511a
-Cext_575 \$91 dig_in[5] 27.5771a
-Cext_576 \$91 dig_in[6] 27.5771a
-Cext_577 \$91 dig_in[7] 27.5771a
-Cext_578 \$91 dig_in[8] 27.5771a
-Cext_579 \$91 dig_in[9] 27.5771a
-Cext_580 \$91 dig_out[0] 11.9807a
-Cext_581 \$91 dig_out[10] 11.9807a
-Cext_582 \$91 dig_out[11] 11.9807a
-Cext_583 \$91 dig_out[1] 11.9807a
-Cext_584 \$91 dig_out[2] 11.9807a
-Cext_585 \$91 dig_out[3] 11.9807a
-Cext_586 \$91 dig_out[4] 11.9807a
-Cext_587 \$91 dig_out[5] 11.9807a
-Cext_588 \$91 dig_out[6] 11.9807a
-Cext_589 \$91 dig_out[7] 11.9807a
-Cext_590 \$91 dig_out[8] 11.9807a
-Cext_591 \$91 dig_out[9] 11.9807a
-Cext_592 \$91 enable 11.5687f
-Cext_593 \$91 s1_an[0] 6.97808a
-Cext_594 \$91 s1_an[1] 367.283a
-Cext_595 \$91 s1_an_0_esd 3.35295f
-Cext_596 \$91 vdd_1v2 105.737a
-Cext_597 \$91 vdd_3v3 316.778a
-Cext_598 \$91 vss_1v2 602.357a
-Cext_599 \$91 vss_3v3 458.071a
-Cext_600 \$91 sub! 12.3646f
+Cext_490 \$90 analog_bus2 11.9807a
+Cext_491 \$90 analog_bus3 15.5964a
+Cext_492 \$90 dig_in[10] 31.1929a
+Cext_493 \$90 dig_in[11] 27.5771a
+Cext_494 \$90 dig_in[12] 27.5771a
+Cext_495 \$90 dig_in[13] 27.5771a
+Cext_496 \$90 dig_in[14] 27.5771a
+Cext_497 \$90 dig_in[15] 27.5771a
+Cext_498 \$90 dig_in[16] 11.9807a
+Cext_499 \$90 dig_in[17] 11.9807a
+Cext_500 \$90 dig_in[18] 11.9807a
+Cext_501 \$90 dig_in[19] 14.3547a
+Cext_502 \$90 dig_in[20] 14.3547a
+Cext_503 \$90 dig_in[21] 11.9807a
+Cext_504 \$90 dig_in[22] 11.9807a
+Cext_505 \$90 dig_in[23] 14.3547a
+Cext_506 \$90 dig_in[2] 0.264512a
+Cext_507 \$90 dig_in[3] 0.404156a
+Cext_508 \$90 dig_in[4] 29.9511a
+Cext_509 \$90 dig_in[5] 27.5771a
+Cext_510 \$90 dig_in[6] 27.5771a
+Cext_511 \$90 dig_in[7] 27.5771a
+Cext_512 \$90 dig_in[8] 27.5771a
+Cext_513 \$90 dig_in[9] 27.5771a
+Cext_514 \$90 dig_out[0] 11.9807a
+Cext_515 \$90 dig_out[10] 11.9807a
+Cext_516 \$90 dig_out[11] 11.9807a
+Cext_517 \$90 dig_out[1] 11.9807a
+Cext_518 \$90 dig_out[2] 11.9807a
+Cext_519 \$90 dig_out[3] 11.9807a
+Cext_520 \$90 dig_out[4] 11.9807a
+Cext_521 \$90 dig_out[5] 11.9807a
+Cext_522 \$90 dig_out[6] 11.9807a
+Cext_523 \$90 dig_out[7] 11.9807a
+Cext_524 \$90 dig_out[8] 11.9807a
+Cext_525 \$90 dig_out[9] 11.9807a
+Cext_526 \$90 enable 11.5687f
+Cext_527 \$90 s1_an[0] 6.97808a
+Cext_528 \$90 s1_an[1] 367.283a
+Cext_529 \$90 s1_an_0_esd 3.35295f
+Cext_530 \$90 vdd_1v2 105.737a
+Cext_531 \$90 vdd_3v3 316.778a
+Cext_532 \$90 vss_1v2 602.357a
+Cext_533 \$90 vss_3v3 458.071a
+Cext_534 \$90 sub! 12.3646f
+Cext_535 \$91 \$93 48.7235a
+Cext_536 \$91 \$94 32.994a
+Cext_537 \$91 \$95 32.7861a
+Cext_538 \$91 \$96 34.6487f
+Cext_539 \$91 \$98 14.5293a
+Cext_540 \$91 \$99 20.7623a
+Cext_541 \$91 \$I80 0.599677a
+Cext_542 \$91 analog_bus0 17.9086a
+Cext_543 \$91 analog_bus1 11.9807a
+Cext_544 \$91 analog_bus2 30.7147a
+Cext_545 \$91 analog_bus3 35.7162a
+Cext_546 \$91 bs 34.0351a
+Cext_547 \$91 bw 48.6554a
+Cext_548 \$91 dig_in[0] 97.2073a
+Cext_549 \$91 dig_in[10] 54.7732a
+Cext_550 \$91 dig_in[11] 60.9423a
+Cext_551 \$91 dig_in[12] 36.9571a
+Cext_552 \$91 dig_in[13] 32.4204a
+Cext_553 \$91 dig_in[14] 32.4077a
+Cext_554 \$91 dig_in[15] 34.154a
+Cext_555 \$91 dig_in[16] 11.9807a
+Cext_556 \$91 dig_in[17] 11.9288a
+Cext_557 \$91 dig_in[18] 12.7766f
+Cext_558 \$91 dig_in[19] 75.2826a
+Cext_559 \$91 dig_in[1] 101.818a
+Cext_560 \$91 dig_in[20] 42.8172a
+Cext_561 \$91 dig_in[21] 36.8087a
+Cext_562 \$91 dig_in[22] 29.8764a
+Cext_563 \$91 dig_in[23] 34.7276a
+Cext_564 \$91 dig_in[2] 103.696a
+Cext_565 \$91 dig_in[3] 110.442a
+Cext_566 \$91 dig_in[4] 59.8666a
+Cext_567 \$91 dig_in[5] 44.3256a
+Cext_568 \$91 dig_in[6] 38.2806a
+Cext_569 \$91 dig_in[7] 36.6159a
+Cext_570 \$91 dig_in[8] 33.4714a
+Cext_571 \$91 dig_in[9] 33.2865a
+Cext_572 \$91 dig_out[0] 23.9614a
+Cext_573 \$91 dig_out[10] 23.9614a
+Cext_574 \$91 dig_out[11] 23.9614a
+Cext_575 \$91 dig_out[1] 23.9614a
+Cext_576 \$91 dig_out[2] 23.9614a
+Cext_577 \$91 dig_out[3] 23.9614a
+Cext_578 \$91 dig_out[4] 23.9614a
+Cext_579 \$91 dig_out[5] 23.9614a
+Cext_580 \$91 dig_out[6] 23.9614a
+Cext_581 \$91 dig_out[7] 23.9614a
+Cext_582 \$91 dig_out[8] 23.9614a
+Cext_583 \$91 dig_out[9] 23.9614a
+Cext_584 \$91 enable 34.7276a
+Cext_585 \$91 gs 178.064a
+Cext_586 \$91 gw 148.646a
+Cext_587 \$91 rst 986.094a
+Cext_588 \$91 s0 111.202a
+Cext_589 \$91 s1 214.195a
+Cext_590 \$91 s1_an[1] 26.5415f
+Cext_591 \$91 s1_an_0_esd 6.72904f
+Cext_592 \$91 s2 531.144a
+Cext_593 \$91 s3 620.694a
+Cext_594 \$91 slow 1.4197f
+Cext_595 \$91 vdd_1v2 218.616a
+Cext_596 \$91 vdd_3v3 56.0514f
+Cext_597 \$91 vin 296.275a
+Cext_598 \$91 vss_1v2 2.27644f
+Cext_599 \$91 vss_3v3 12.8895f
+Cext_600 \$91 sub! 13.5217f
 Cext_601 \$93 \$94 7.6605f
 Cext_602 \$93 \$95 26.2766a
-Cext_603 \$93 \$97 27.2802f
+Cext_603 \$93 \$96 26.8145f
 Cext_604 \$93 \$98 14.9193a
 Cext_605 \$93 \$99 19.3185a
 Cext_606 \$93 analog_bus1 1.09702f
@@ -802,10 +802,10 @@ Cext_619 \$93 dig_in[22] 31.2398a
 Cext_620 \$93 dig_in[23] 42.006a
 Cext_621 \$93 dig_in[2] 11.9807a
 Cext_622 \$93 dig_in[3] 11.9807a
-Cext_623 \$93 dig_in[4] 77.834a
-Cext_624 \$93 dig_in[5] 79.5188a
-Cext_625 \$93 dig_in[6] 78.0929a
-Cext_626 \$93 dig_in[7] 88.3318a
+Cext_623 \$93 dig_in[4] 87.4712a
+Cext_624 \$93 dig_in[5] 89.2024a
+Cext_625 \$93 dig_in[6] 87.8317a
+Cext_626 \$93 dig_in[7] 98.1361a
 Cext_627 \$93 dig_in[8] 12.61a
 Cext_628 \$93 dig_in[9] 7.63792f
 Cext_629 \$93 dig_out[0] 31.2398a
@@ -822,27 +822,27 @@ Cext_639 \$93 dig_out[8] 31.4899a
 Cext_640 \$93 dig_out[9] 31.6583a
 Cext_641 \$93 enable 42.006a
 Cext_642 \$93 gw 0.129604a
-Cext_643 \$93 rst 223.563a
+Cext_643 \$93 rst 233.537a
 Cext_644 \$93 s0 30.8938a
 Cext_645 \$93 s1 51.8627a
 Cext_646 \$93 s1_an[1] 33.5685a
 Cext_647 \$93 s1_an_0_esd 14.3547a
-Cext_648 \$93 s2 93.0499a
-Cext_649 \$93 s3 162.712a
-Cext_650 \$93 slow 102.495a
+Cext_648 \$93 s2 91.5379a
+Cext_649 \$93 s3 165.179a
+Cext_650 \$93 slow 129.409a
 Cext_651 \$93 vdd_1v2 325.967a
-Cext_652 \$93 vdd_3v3 14.0065f
-Cext_653 \$93 vin 187.359a
+Cext_652 \$93 vdd_3v3 13.3508f
+Cext_653 \$93 vin 188.329a
 Cext_654 \$93 vss_1v2 310.545a
-Cext_655 \$93 vss_3v3 5.77924f
-Cext_656 \$93 sub! 10.5384f
+Cext_655 \$93 vss_3v3 5.77766f
+Cext_656 \$93 sub! 10.818f
 Cext_657 \$94 \$95 11.0867f
-Cext_658 \$94 \$97 12.8437a
-Cext_659 \$94 \$98 27.2602f
+Cext_658 \$94 \$96 12.8437a
+Cext_659 \$94 \$98 26.7945f
 Cext_660 \$94 \$99 23.7941a
 Cext_661 \$94 dig_in[0] 11.9807a
-Cext_662 \$94 dig_in[10] 85.8657a
-Cext_663 \$94 dig_in[11] 92.2208a
+Cext_662 \$94 dig_in[10] 95.6044a
+Cext_663 \$94 dig_in[11] 102.025a
 Cext_664 \$94 dig_in[12] 37.8171a
 Cext_665 \$94 dig_in[13] 22.7011a
 Cext_666 \$94 dig_in[14] 17.687a
@@ -854,34 +854,34 @@ Cext_671 \$94 dig_in[4] 14.9193a
 Cext_672 \$94 dig_in[5] 15.0296a
 Cext_673 \$94 dig_in[6] 15.0819a
 Cext_674 \$94 dig_in[7] 15.1787a
-Cext_675 \$94 dig_in[8] 84.2068a
-Cext_676 \$94 dig_in[9] 1.4076f
+Cext_675 \$94 dig_in[8] 93.844a
+Cext_676 \$94 dig_in[9] 1.41728f
 Cext_677 \$94 dig_out[7] 0.114671a
 Cext_678 \$94 dig_out[8] 0.163712a
 Cext_679 \$94 dig_out[9] 0.25014a
-Cext_680 \$94 rst 245.056a
+Cext_680 \$94 rst 255.03a
 Cext_681 \$94 s0 30.8938a
 Cext_682 \$94 s1 51.8627a
 Cext_683 \$94 s1_an[1] 5.95879a
 Cext_684 \$94 s1_an_0_esd 14.3547a
-Cext_685 \$94 s2 93.0499a
-Cext_686 \$94 s3 162.712a
-Cext_687 \$94 slow 102.495a
-Cext_688 \$94 vdd_3v3 4.76594f
-Cext_689 \$94 vin 212.7a
+Cext_685 \$94 s2 91.5379a
+Cext_686 \$94 s3 165.179a
+Cext_687 \$94 slow 129.409a
+Cext_688 \$94 vdd_3v3 4.09274f
+Cext_689 \$94 vin 213.67a
 Cext_690 \$94 vss_1v2 105.364a
-Cext_691 \$94 vss_3v3 637.308a
-Cext_692 \$94 sub! 3.62625f
-Cext_693 \$95 \$97 12.7056a
+Cext_691 \$94 vss_3v3 636.008a
+Cext_692 \$94 sub! 3.90587f
+Cext_693 \$95 \$96 12.7056a
 Cext_694 \$95 \$98 15.5744a
-Cext_695 \$95 \$99 27.2722f
+Cext_695 \$95 \$99 26.8064f
 Cext_696 \$95 dig_in[0] 11.9807a
 Cext_697 \$95 dig_in[10] 23.2673a
 Cext_698 \$95 dig_in[11] 23.2673a
-Cext_699 \$95 dig_in[12] 109.583a
-Cext_700 \$95 dig_in[13] 90.1069a
-Cext_701 \$95 dig_in[14] 83.5972a
-Cext_702 \$95 dig_in[15] 334.446a
+Cext_699 \$95 dig_in[12] 119.22a
+Cext_700 \$95 dig_in[13] 99.7905a
+Cext_701 \$95 dig_in[14] 93.3359a
+Cext_702 \$95 dig_in[15] 344.251a
 Cext_703 \$95 dig_in[1] 11.9807a
 Cext_704 \$95 dig_in[2] 11.9807a
 Cext_705 \$95 dig_in[3] 11.9807a
@@ -893,86 +893,86 @@ Cext_710 \$95 dig_in[8] 21.1914a
 Cext_711 \$95 dig_in[9] 49.8755a
 Cext_712 \$95 dig_out[8] 0.114671a
 Cext_713 \$95 dig_out[9] 0.163712a
-Cext_714 \$95 rst 276.512a
+Cext_714 \$95 rst 286.486a
 Cext_715 \$95 s0 30.8938a
 Cext_716 \$95 s1 51.8627a
 Cext_717 \$95 s1_an[1] 35.2373a
 Cext_718 \$95 s1_an_0_esd 14.3547a
-Cext_719 \$95 s2 93.0499a
-Cext_720 \$95 s3 162.712a
-Cext_721 \$95 slow 102.495a
-Cext_722 \$95 vdd_3v3 5.09388f
-Cext_723 \$95 vin 268.011a
+Cext_719 \$95 s2 91.5379a
+Cext_720 \$95 s3 165.179a
+Cext_721 \$95 slow 129.409a
+Cext_722 \$95 vdd_3v3 4.42088f
+Cext_723 \$95 vin 268.981a
 Cext_724 \$95 vss_1v2 105.222a
-Cext_725 \$95 vss_3v3 670.082a
-Cext_726 \$95 sub! 4.27354f
-Cext_727 \$97 \$98 33.6215f
-Cext_728 \$97 \$99 23.2984a
-Cext_729 \$97 analog_bus0 25.6043a
-Cext_730 \$97 analog_bus1 19.3185a
-Cext_731 \$97 analog_bus2 44.5648a
-Cext_732 \$97 analog_bus3 50.3917a
-Cext_733 \$97 bs 47.0192a
-Cext_734 \$97 bw 98.4947a
-Cext_735 \$97 dig_in[0] 11.9807a
-Cext_736 \$97 dig_in[10] 30.5774a
-Cext_737 \$97 dig_in[11] 40.6951a
-Cext_738 \$97 dig_in[12] 16.6745a
-Cext_739 \$97 dig_in[13] 12.1379a
-Cext_740 \$97 dig_in[14] 12.1251a
-Cext_741 \$97 dig_in[15] 13.8714a
-Cext_742 \$97 dig_in[16] 12.7898f
-Cext_743 \$97 dig_in[17] 88.364a
-Cext_744 \$97 dig_in[18] 25.4121a
-Cext_745 \$97 dig_in[19] 24.694a
-Cext_746 \$97 dig_in[1] 11.9807a
-Cext_747 \$97 dig_in[20] 1.93533f
-Cext_748 \$97 dig_in[21] 507.127a
-Cext_749 \$97 dig_in[22] 44.5519a
-Cext_750 \$97 dig_in[23] 49.4031a
-Cext_751 \$97 dig_in[2] 11.9807a
-Cext_752 \$97 dig_in[3] 11.9807a
-Cext_753 \$97 dig_in[4] 117.459a
-Cext_754 \$97 dig_in[5] 107.394a
-Cext_755 \$97 dig_in[6] 103.196a
-Cext_756 \$97 dig_in[7] 108.172a
-Cext_757 \$97 dig_in[8] 13.1888a
-Cext_758 \$97 dig_in[9] 13.0039a
-Cext_759 \$97 dig_out[0] 38.6369a
-Cext_760 \$97 dig_out[10] 38.6369a
-Cext_761 \$97 dig_out[11] 38.6369a
-Cext_762 \$97 dig_out[1] 38.6369a
-Cext_763 \$97 dig_out[2] 38.6369a
-Cext_764 \$97 dig_out[3] 38.6369a
-Cext_765 \$97 dig_out[4] 38.6369a
-Cext_766 \$97 dig_out[5] 38.6369a
-Cext_767 \$97 dig_out[6] 38.6369a
-Cext_768 \$97 dig_out[7] 38.6369a
-Cext_769 \$97 dig_out[8] 38.6369a
-Cext_770 \$97 dig_out[9] 38.6369a
-Cext_771 \$97 enable 49.4031a
-Cext_772 \$97 gs 197.147a
-Cext_773 \$97 gw 229.571a
-Cext_774 \$97 rst 885.421a
-Cext_775 \$97 s0 111.202a
-Cext_776 \$97 s1 214.195a
-Cext_777 \$97 s1_an[1] 60.4238a
-Cext_778 \$97 s1_an_0_esd 1.54393f
-Cext_779 \$97 s2 327.973a
-Cext_780 \$97 s3 815.896a
-Cext_781 \$97 slow 1.57267f
-Cext_782 \$97 vdd_1v2 443.171a
-Cext_783 \$97 vdd_3v3 58.0695f
-Cext_784 \$97 vin 370.393a
-Cext_785 \$97 vss_1v2 3.08253f
-Cext_786 \$97 vss_3v3 1.21148f
-Cext_787 \$97 sub! 15.3885f
+Cext_725 \$95 vss_3v3 668.981a
+Cext_726 \$95 sub! 4.55314f
+Cext_727 \$96 \$98 33.6215f
+Cext_728 \$96 \$99 23.2984a
+Cext_729 \$96 analog_bus0 25.6043a
+Cext_730 \$96 analog_bus1 19.3185a
+Cext_731 \$96 analog_bus2 44.5648a
+Cext_732 \$96 analog_bus3 50.3917a
+Cext_733 \$96 bs 47.0192a
+Cext_734 \$96 bw 98.4947a
+Cext_735 \$96 dig_in[0] 11.9807a
+Cext_736 \$96 dig_in[10] 30.5774a
+Cext_737 \$96 dig_in[11] 40.6951a
+Cext_738 \$96 dig_in[12] 16.6745a
+Cext_739 \$96 dig_in[13] 12.1379a
+Cext_740 \$96 dig_in[14] 12.1251a
+Cext_741 \$96 dig_in[15] 13.8714a
+Cext_742 \$96 dig_in[16] 12.7898f
+Cext_743 \$96 dig_in[17] 88.364a
+Cext_744 \$96 dig_in[18] 25.4121a
+Cext_745 \$96 dig_in[19] 24.694a
+Cext_746 \$96 dig_in[1] 11.9807a
+Cext_747 \$96 dig_in[20] 1.93533f
+Cext_748 \$96 dig_in[21] 507.127a
+Cext_749 \$96 dig_in[22] 44.5519a
+Cext_750 \$96 dig_in[23] 49.4031a
+Cext_751 \$96 dig_in[2] 11.9807a
+Cext_752 \$96 dig_in[3] 11.9807a
+Cext_753 \$96 dig_in[4] 124.108a
+Cext_754 \$96 dig_in[5] 114.141a
+Cext_755 \$96 dig_in[6] 109.948a
+Cext_756 \$96 dig_in[7] 114.931a
+Cext_757 \$96 dig_in[8] 13.1888a
+Cext_758 \$96 dig_in[9] 13.0039a
+Cext_759 \$96 dig_out[0] 38.6369a
+Cext_760 \$96 dig_out[10] 38.6369a
+Cext_761 \$96 dig_out[11] 38.6369a
+Cext_762 \$96 dig_out[1] 38.6369a
+Cext_763 \$96 dig_out[2] 38.6369a
+Cext_764 \$96 dig_out[3] 38.6369a
+Cext_765 \$96 dig_out[4] 38.6369a
+Cext_766 \$96 dig_out[5] 38.6369a
+Cext_767 \$96 dig_out[6] 38.6369a
+Cext_768 \$96 dig_out[7] 38.6369a
+Cext_769 \$96 dig_out[8] 38.6369a
+Cext_770 \$96 dig_out[9] 38.6369a
+Cext_771 \$96 enable 49.4031a
+Cext_772 \$96 gs 197.147a
+Cext_773 \$96 gw 229.571a
+Cext_774 \$96 rst 1.00419f
+Cext_775 \$96 s0 111.202a
+Cext_776 \$96 s1 214.195a
+Cext_777 \$96 s1_an[1] 60.4238a
+Cext_778 \$96 s1_an_0_esd 1.54393f
+Cext_779 \$96 s2 531.144a
+Cext_780 \$96 s3 620.749a
+Cext_781 \$96 slow 1.41975f
+Cext_782 \$96 vdd_1v2 443.171a
+Cext_783 \$96 vdd_3v3 58.3426f
+Cext_784 \$96 vin 314.566a
+Cext_785 \$96 vss_1v2 3.08253f
+Cext_786 \$96 vss_3v3 1.21084f
+Cext_787 \$96 sub! 15.5508f
 Cext_788 \$98 \$99 45.2821f
 Cext_789 \$98 analog_bus2 539.184a
 Cext_790 \$98 analog_bus3 35.8444a
 Cext_791 \$98 dig_in[0] 11.9807a
-Cext_792 \$98 dig_in[10] 120.589a
-Cext_793 \$98 dig_in[11] 132.246a
+Cext_792 \$98 dig_in[10] 127.377a
+Cext_793 \$98 dig_in[11] 139.045a
 Cext_794 \$98 dig_in[12] 16.6745a
 Cext_795 \$98 dig_in[13] 12.1379a
 Cext_796 \$98 dig_in[14] 12.1251a
@@ -984,8 +984,8 @@ Cext_801 \$98 dig_in[4] 14.9193a
 Cext_802 \$98 dig_in[5] 14.9193a
 Cext_803 \$98 dig_in[6] 14.9193a
 Cext_804 \$98 dig_in[7] 14.9193a
-Cext_805 \$98 dig_in[8] 106.1a
-Cext_806 \$98 dig_in[9] 99.6157a
+Cext_805 \$98 dig_in[8] 112.776a
+Cext_806 \$98 dig_in[9] 106.394a
 Cext_807 \$98 dig_out[0] 11.9807a
 Cext_808 \$98 dig_out[10] 11.9807a
 Cext_809 \$98 dig_out[11] 11.9807a
@@ -1000,30 +1000,30 @@ Cext_817 \$98 dig_out[8] 11.9807a
 Cext_818 \$98 dig_out[9] 11.9807a
 Cext_819 \$98 enable 17.9086a
 Cext_820 \$98 gs 3.45818a
-Cext_821 \$98 rst 906.575a
+Cext_821 \$98 rst 1.0254f
 Cext_822 \$98 s0 111.202a
 Cext_823 \$98 s1 214.195a
 Cext_824 \$98 s1_an[1] 5.66915f
 Cext_825 \$98 s1_an_0_esd 16.7889a
-Cext_826 \$98 s2 327.973a
-Cext_827 \$98 s3 815.896a
-Cext_828 \$98 slow 1.57293f
+Cext_826 \$98 s2 531.144a
+Cext_827 \$98 s3 621a
+Cext_828 \$98 slow 1.41997f
 Cext_829 \$98 vdd_1v2 105.863a
-Cext_830 \$98 vdd_3v3 57.7068f
-Cext_831 \$98 vin 396.561a
+Cext_830 \$98 vdd_3v3 57.953f
+Cext_831 \$98 vin 340.973a
 Cext_832 \$98 vss_1v2 3.57514f
-Cext_833 \$98 vss_3v3 1.53575f
-Cext_834 \$98 sub! 11.6779f
+Cext_833 \$98 vss_3v3 1.53466f
+Cext_834 \$98 sub! 11.8404f
 Cext_835 \$99 \$I52 5.38639a
 Cext_836 \$99 analog_bus2 365.617a
 Cext_837 \$99 analog_bus3 567.09a
 Cext_838 \$99 dig_in[0] 19.3185a
 Cext_839 \$99 dig_in[10] 23.7941a
 Cext_840 \$99 dig_in[11] 23.7941a
-Cext_841 \$99 dig_in[12] 116.93a
-Cext_842 \$99 dig_in[13] 95.8949a
-Cext_843 \$99 dig_in[14] 97.7113a
-Cext_844 \$99 dig_in[15] 125.246a
+Cext_841 \$99 dig_in[12] 123.606a
+Cext_842 \$99 dig_in[13] 102.673a
+Cext_843 \$99 dig_in[14] 104.499a
+Cext_844 \$99 dig_in[15] 132.046a
 Cext_845 \$99 dig_in[1] 19.3185a
 Cext_846 \$99 dig_in[22] 1.91013f
 Cext_847 \$99 dig_in[23] 488.198a
@@ -1050,20 +1050,20 @@ Cext_867 \$99 dig_out[9] 38.6369a
 Cext_868 \$99 enable 50.4927a
 Cext_869 \$99 gs 88.9299a
 Cext_870 \$99 gw 90.7303a
-Cext_871 \$99 rst 947.715a
+Cext_871 \$99 rst 1.06654f
 Cext_872 \$99 s0 111.202a
 Cext_873 \$99 s1 214.195a
 Cext_874 \$99 s1_an[1] 7.01164f
 Cext_875 \$99 s1_an_0_esd 47.5802a
-Cext_876 \$99 s2 327.973a
-Cext_877 \$99 s3 815.896a
-Cext_878 \$99 slow 1.57293f
+Cext_876 \$99 s2 531.144a
+Cext_877 \$99 s3 621a
+Cext_878 \$99 slow 1.41997f
 Cext_879 \$99 vdd_1v2 443.297a
-Cext_880 \$99 vdd_3v3 58.4077f
-Cext_881 \$99 vin 530.166a
+Cext_880 \$99 vdd_3v3 58.6535f
+Cext_881 \$99 vin 474.579a
 Cext_882 \$99 vss_1v2 8.20325f
-Cext_883 \$99 vss_3v3 1.47447f
-Cext_884 \$99 sub! 29.9917f
+Cext_883 \$99 vss_3v3 1.47267f
+Cext_884 \$99 sub! 30.1542f
 Cext_885 \$I52 analog_bus3 2.07974a
 Cext_886 \$I52 dig_out[10] 1.89499a
 Cext_887 \$I52 dig_out[11] 0.757994a
@@ -1315,7 +1315,7 @@ Cext_1132 dig_in[0] dig_in[16] 11.9807a
 Cext_1133 dig_in[0] dig_in[17] 11.9807a
 Cext_1134 dig_in[0] dig_in[18] 11.9807a
 Cext_1135 dig_in[0] dig_in[19] 11.9807a
-Cext_1136 dig_in[0] dig_in[1] 38.3822f
+Cext_1136 dig_in[0] dig_in[1] 38.6445f
 Cext_1137 dig_in[0] dig_in[20] 11.9807a
 Cext_1138 dig_in[0] dig_in[21] 11.9807a
 Cext_1139 dig_in[0] dig_in[22] 11.9807a
@@ -1344,15 +1344,15 @@ Cext_1161 dig_in[0] enable 1.03241f
 Cext_1162 dig_in[0] rst 44.3868a
 Cext_1163 dig_in[0] s0 644.157a
 Cext_1164 dig_in[0] s1 54.332a
-Cext_1165 dig_in[0] s2 94.1862a
-Cext_1166 dig_in[0] s3 164.288a
-Cext_1167 dig_in[0] slow 22.4602a
+Cext_1165 dig_in[0] s2 92.6742a
+Cext_1166 dig_in[0] s3 166.755a
+Cext_1167 dig_in[0] slow 24.7894a
 Cext_1168 dig_in[0] vdd_1v2 76.8575a
-Cext_1169 dig_in[0] vdd_3v3 728.654a
-Cext_1170 dig_in[0] vin 177.196a
+Cext_1169 dig_in[0] vdd_3v3 752.845a
+Cext_1170 dig_in[0] vin 178.166a
 Cext_1171 dig_in[0] vss_1v2 365.033a
-Cext_1172 dig_in[0] vss_3v3 1.3233f
-Cext_1173 dig_in[10] dig_in[11] 46.1404f
+Cext_1172 dig_in[0] vss_3v3 1.33975f
+Cext_1173 dig_in[10] dig_in[11] 46.4027f
 Cext_1174 dig_in[10] dig_in[12] 27.0167a
 Cext_1175 dig_in[10] dig_in[13] 25.6593a
 Cext_1176 dig_in[10] dig_in[14] 24.9839a
@@ -1373,7 +1373,7 @@ Cext_1190 dig_in[10] dig_in[5] 47.0838a
 Cext_1191 dig_in[10] dig_in[6] 47.0838a
 Cext_1192 dig_in[10] dig_in[7] 47.0838a
 Cext_1193 dig_in[10] dig_in[8] 62.4323a
-Cext_1194 dig_in[10] dig_in[9] 26.8653f
+Cext_1194 dig_in[10] dig_in[9] 27.1276f
 Cext_1195 dig_in[10] dig_out[0] 30.1534a
 Cext_1196 dig_in[10] dig_out[10] 23.7067a
 Cext_1197 dig_in[10] dig_out[11] 28.7095a
@@ -1391,14 +1391,14 @@ Cext_1208 dig_in[10] rst 48.8223a
 Cext_1209 dig_in[10] s0 35.9605a
 Cext_1210 dig_in[10] s1 58.2563a
 Cext_1211 dig_in[10] s1_an_0_esd 1.88636f
-Cext_1212 dig_in[10] s2 958.463a
-Cext_1213 dig_in[10] s3 164.288a
-Cext_1214 dig_in[10] slow 21.8686a
+Cext_1212 dig_in[10] s2 956.388a
+Cext_1213 dig_in[10] s3 166.755a
+Cext_1214 dig_in[10] slow 23.6515a
 Cext_1215 dig_in[10] vdd_1v2 53.5358a
-Cext_1216 dig_in[10] vdd_3v3 4.96592f
-Cext_1217 dig_in[10] vin 274.474a
+Cext_1216 dig_in[10] vdd_3v3 4.98126f
+Cext_1217 dig_in[10] vin 275.444a
 Cext_1218 dig_in[10] vss_1v2 268.468a
-Cext_1219 dig_in[10] vss_3v3 1.29274f
+Cext_1219 dig_in[10] vss_3v3 1.29273f
 Cext_1220 dig_in[11] dig_in[12] 20.0864f
 Cext_1221 dig_in[11] dig_in[13] 27.0686a
 Cext_1222 dig_in[11] dig_in[14] 25.6593a
@@ -1433,19 +1433,19 @@ Cext_1250 dig_in[11] dig_out[7] 23.7067a
 Cext_1251 dig_in[11] dig_out[8] 23.7067a
 Cext_1252 dig_in[11] dig_out[9] 23.7067a
 Cext_1253 dig_in[11] enable 31.2992a
-Cext_1254 dig_in[11] rst 2.80925f
+Cext_1254 dig_in[11] rst 2.37981f
 Cext_1255 dig_in[11] s0 35.9605a
 Cext_1256 dig_in[11] s1 58.2563a
 Cext_1257 dig_in[11] s1_an_0_esd 26.3354a
-Cext_1258 dig_in[11] s2 99.3489a
-Cext_1259 dig_in[11] s3 1.19427f
-Cext_1260 dig_in[11] slow 1.54642f
+Cext_1258 dig_in[11] s2 97.8369a
+Cext_1259 dig_in[11] s3 1.19674f
+Cext_1260 dig_in[11] slow 1.54799f
 Cext_1261 dig_in[11] vdd_1v2 43.6236a
-Cext_1262 dig_in[11] vdd_3v3 1.78f
-Cext_1263 dig_in[11] vin 10.3367f
+Cext_1262 dig_in[11] vdd_3v3 1.787f
+Cext_1263 dig_in[11] vin 11.8714f
 Cext_1264 dig_in[11] vss_1v2 234.229a
 Cext_1265 dig_in[11] vss_3v3 921.907a
-Cext_1266 dig_in[12] dig_in[13] 49.5792f
+Cext_1266 dig_in[12] dig_in[13] 49.8414f
 Cext_1267 dig_in[12] dig_in[14] 42.4171a
 Cext_1268 dig_in[12] dig_in[15] 47.7166a
 Cext_1269 dig_in[12] dig_in[16] 13.0032a
@@ -1483,15 +1483,15 @@ Cext_1300 dig_in[12] s0 644.157a
 Cext_1301 dig_in[12] s1 54.332a
 Cext_1302 dig_in[12] s1_an[1] 1.58656a
 Cext_1303 dig_in[12] s1_an_0_esd 26.3354a
-Cext_1304 dig_in[12] s2 94.1862a
-Cext_1305 dig_in[12] s3 164.288a
-Cext_1306 dig_in[12] slow 22.4602a
+Cext_1304 dig_in[12] s2 92.6742a
+Cext_1305 dig_in[12] s3 166.755a
+Cext_1306 dig_in[12] slow 24.7894a
 Cext_1307 dig_in[12] vdd_1v2 36.3081a
-Cext_1308 dig_in[12] vdd_3v3 3.94798f
-Cext_1309 dig_in[12] vin 296.149a
+Cext_1308 dig_in[12] vdd_3v3 3.9808f
+Cext_1309 dig_in[12] vin 297.118a
 Cext_1310 dig_in[12] vss_1v2 234.371a
-Cext_1311 dig_in[12] vss_3v3 999.779a
-Cext_1312 dig_in[13] dig_in[14] 49.627f
+Cext_1311 dig_in[12] vss_3v3 1.00094f
+Cext_1312 dig_in[13] dig_in[14] 49.8893f
 Cext_1313 dig_in[13] dig_in[15] 49.7549a
 Cext_1314 dig_in[13] dig_in[16] 13.6786a
 Cext_1315 dig_in[13] dig_in[17] 13.0032a
@@ -1528,15 +1528,15 @@ Cext_1345 dig_in[13] s0 35.9605a
 Cext_1346 dig_in[13] s1 747.14a
 Cext_1347 dig_in[13] s1_an[1] 1.69517a
 Cext_1348 dig_in[13] s1_an_0_esd 26.3354a
-Cext_1349 dig_in[13] s2 129.593a
-Cext_1350 dig_in[13] s3 164.288a
-Cext_1351 dig_in[13] slow 22.1487a
+Cext_1349 dig_in[13] s2 128.081a
+Cext_1350 dig_in[13] s3 166.755a
+Cext_1351 dig_in[13] slow 24.1811a
 Cext_1352 dig_in[13] vdd_1v2 30.4378a
-Cext_1353 dig_in[13] vdd_3v3 3.26945f
-Cext_1354 dig_in[13] vin 254.404a
+Cext_1353 dig_in[13] vdd_3v3 3.29654f
+Cext_1354 dig_in[13] vin 255.374a
 Cext_1355 dig_in[13] vss_1v2 234.507a
-Cext_1356 dig_in[13] vss_3v3 784.597a
-Cext_1357 dig_in[14] dig_in[15] 49.6833f
+Cext_1356 dig_in[13] vss_3v3 784.606a
+Cext_1357 dig_in[14] dig_in[15] 49.9456f
 Cext_1358 dig_in[14] dig_in[16] 15.0879a
 Cext_1359 dig_in[14] dig_in[17] 13.6786a
 Cext_1360 dig_in[14] dig_in[18] 13.0032a
@@ -1572,14 +1572,14 @@ Cext_1389 dig_in[14] s0 35.9605a
 Cext_1390 dig_in[14] s1 58.2563a
 Cext_1391 dig_in[14] s1_an[1] 1.81974a
 Cext_1392 dig_in[14] s1_an_0_esd 26.3354a
-Cext_1393 dig_in[14] s2 958.463a
-Cext_1394 dig_in[14] s3 164.288a
-Cext_1395 dig_in[14] slow 21.8686a
+Cext_1393 dig_in[14] s2 956.388a
+Cext_1394 dig_in[14] s3 166.755a
+Cext_1395 dig_in[14] slow 23.6515a
 Cext_1396 dig_in[14] vdd_1v2 25.6523a
-Cext_1397 dig_in[14] vdd_3v3 2.11558f
-Cext_1398 dig_in[14] vin 256.066a
+Cext_1397 dig_in[14] vdd_3v3 2.13032f
+Cext_1398 dig_in[14] vin 257.036a
 Cext_1399 dig_in[14] vss_1v2 234.635a
-Cext_1400 dig_in[14] vss_3v3 876.149a
+Cext_1400 dig_in[14] vss_3v3 875.348a
 Cext_1401 dig_in[15] dig_in[16] 7.52124f
 Cext_1402 dig_in[15] dig_in[17] 22.2592a
 Cext_1403 dig_in[15] dig_in[18] 20.8499a
@@ -1610,17 +1610,17 @@ Cext_1427 dig_in[15] dig_out[7] 23.7067a
 Cext_1428 dig_in[15] dig_out[8] 23.7067a
 Cext_1429 dig_in[15] dig_out[9] 23.7067a
 Cext_1430 dig_in[15] enable 31.2992a
-Cext_1431 dig_in[15] rst 2.97748f
+Cext_1431 dig_in[15] rst 2.54804f
 Cext_1432 dig_in[15] s0 35.9605a
 Cext_1433 dig_in[15] s1 58.2563a
 Cext_1434 dig_in[15] s1_an[1] 21.6048a
 Cext_1435 dig_in[15] s1_an_0_esd 26.3354a
-Cext_1436 dig_in[15] s2 99.3489a
-Cext_1437 dig_in[15] s3 1.19427f
-Cext_1438 dig_in[15] slow 1.54642f
+Cext_1436 dig_in[15] s2 97.8369a
+Cext_1437 dig_in[15] s3 1.19674f
+Cext_1438 dig_in[15] slow 1.54799f
 Cext_1439 dig_in[15] vdd_1v2 21.3772a
-Cext_1440 dig_in[15] vdd_3v3 2.13439f
-Cext_1441 dig_in[15] vin 10.3971f
+Cext_1440 dig_in[15] vdd_3v3 2.14139f
+Cext_1441 dig_in[15] vin 11.9318f
 Cext_1442 dig_in[15] vss_1v2 234.755a
 Cext_1443 dig_in[15] vss_3v3 1.02022f
 Cext_1444 dig_in[16] dig_in[17] 33.9907f
@@ -1769,7 +1769,7 @@ Cext_1586 dig_in[1] dig_in[20] 11.9807a
 Cext_1587 dig_in[1] dig_in[21] 11.9807a
 Cext_1588 dig_in[1] dig_in[22] 11.9807a
 Cext_1589 dig_in[1] dig_in[23] 11.9807a
-Cext_1590 dig_in[1] dig_in[2] 26.7902f
+Cext_1590 dig_in[1] dig_in[2] 27.0525f
 Cext_1591 dig_in[1] dig_in[3] 44.6949a
 Cext_1592 dig_in[1] dig_in[4] 24.4789a
 Cext_1593 dig_in[1] dig_in[5] 24.3094a
@@ -1793,14 +1793,14 @@ Cext_1610 dig_in[1] enable 31.2992a
 Cext_1611 dig_in[1] rst 44.5156a
 Cext_1612 dig_in[1] s0 35.9605a
 Cext_1613 dig_in[1] s1 747.14a
-Cext_1614 dig_in[1] s2 129.593a
-Cext_1615 dig_in[1] s3 164.288a
-Cext_1616 dig_in[1] slow 22.1487a
+Cext_1614 dig_in[1] s2 128.081a
+Cext_1615 dig_in[1] s3 166.755a
+Cext_1616 dig_in[1] slow 24.1811a
 Cext_1617 dig_in[1] vdd_1v2 62.1567a
-Cext_1618 dig_in[1] vdd_3v3 660.469a
-Cext_1619 dig_in[1] vin 174.134a
+Cext_1618 dig_in[1] vdd_3v3 684.66a
+Cext_1619 dig_in[1] vin 175.103a
 Cext_1620 dig_in[1] vss_1v2 237.235a
-Cext_1621 dig_in[1] vss_3v3 6.96942f
+Cext_1621 dig_in[1] vss_3v3 6.98647f
 Cext_1622 dig_in[20] dig_in[21] 38.919f
 Cext_1623 dig_in[20] dig_in[22] 4.71153a
 Cext_1624 dig_in[20] dig_in[23] 2.11646a
@@ -1924,7 +1924,7 @@ Cext_1741 dig_in[23] vdd_1v2 105.737a
 Cext_1742 dig_in[23] vdd_3v3 130.292a
 Cext_1743 dig_in[23] vss_1v2 128.855a
 Cext_1744 dig_in[23] vss_3v3 283.931a
-Cext_1745 dig_in[2] dig_in[3] 32.568f
+Cext_1745 dig_in[2] dig_in[3] 32.8303f
 Cext_1746 dig_in[2] dig_in[4] 25.1327a
 Cext_1747 dig_in[2] dig_in[5] 24.5308a
 Cext_1748 dig_in[2] dig_in[6] 24.3094a
@@ -1947,13 +1947,13 @@ Cext_1764 dig_in[2] enable 31.2992a
 Cext_1765 dig_in[2] rst 44.7665a
 Cext_1766 dig_in[2] s0 35.9605a
 Cext_1767 dig_in[2] s1 58.2563a
-Cext_1768 dig_in[2] s2 958.463a
-Cext_1769 dig_in[2] s3 164.288a
-Cext_1770 dig_in[2] slow 21.8686a
-Cext_1771 dig_in[2] vdd_3v3 651.388a
-Cext_1772 dig_in[2] vin 176.993a
+Cext_1768 dig_in[2] s2 956.388a
+Cext_1769 dig_in[2] s3 166.755a
+Cext_1770 dig_in[2] slow 23.6515a
+Cext_1771 dig_in[2] vdd_3v3 675.579a
+Cext_1772 dig_in[2] vin 177.963a
 Cext_1773 dig_in[2] vss_1v2 233.76a
-Cext_1774 dig_in[2] vss_3v3 6.72285f
+Cext_1774 dig_in[2] vss_3v3 6.74099f
 Cext_1775 dig_in[3] dig_in[4] 6.37726f
 Cext_1776 dig_in[3] dig_in[5] 27.0686a
 Cext_1777 dig_in[3] dig_in[6] 25.6593a
@@ -1973,17 +1973,17 @@ Cext_1790 dig_in[3] dig_out[7] 23.7067a
 Cext_1791 dig_in[3] dig_out[8] 23.7067a
 Cext_1792 dig_in[3] dig_out[9] 29.6346a
 Cext_1793 dig_in[3] enable 31.2992a
-Cext_1794 dig_in[3] rst 2.80395f
+Cext_1794 dig_in[3] rst 2.37451f
 Cext_1795 dig_in[3] s0 35.9605a
 Cext_1796 dig_in[3] s1 58.2563a
-Cext_1797 dig_in[3] s2 99.3489a
-Cext_1798 dig_in[3] s3 1.19427f
-Cext_1799 dig_in[3] slow 1.54642f
-Cext_1800 dig_in[3] vdd_3v3 752.89a
-Cext_1801 dig_in[3] vin 10.2826f
+Cext_1797 dig_in[3] s2 97.8369a
+Cext_1798 dig_in[3] s3 1.19674f
+Cext_1799 dig_in[3] slow 1.54799f
+Cext_1800 dig_in[3] vdd_3v3 774.373a
+Cext_1801 dig_in[3] vin 11.8173f
 Cext_1802 dig_in[3] vss_1v2 233.76a
-Cext_1803 dig_in[3] vss_3v3 1.78353f
-Cext_1804 dig_in[4] dig_in[5] 41.5309f
+Cext_1803 dig_in[3] vss_3v3 1.79854f
+Cext_1804 dig_in[4] dig_in[5] 41.7932f
 Cext_1805 dig_in[4] dig_in[6] 42.4171a
 Cext_1806 dig_in[4] dig_in[7] 40.327a
 Cext_1807 dig_in[4] dig_in[8] 24.9839a
@@ -2006,14 +2006,14 @@ Cext_1823 dig_in[4] s0 644.157a
 Cext_1824 dig_in[4] s1 54.332a
 Cext_1825 dig_in[4] s1_an[1] 2.13327a
 Cext_1826 dig_in[4] s1_an_0_esd 28.7094a
-Cext_1827 dig_in[4] s2 94.1862a
-Cext_1828 dig_in[4] s3 164.288a
-Cext_1829 dig_in[4] slow 22.4602a
-Cext_1830 dig_in[4] vdd_3v3 3.5307f
-Cext_1831 dig_in[4] vin 197.612a
+Cext_1827 dig_in[4] s2 92.6742a
+Cext_1828 dig_in[4] s3 166.755a
+Cext_1829 dig_in[4] slow 24.7894a
+Cext_1830 dig_in[4] vdd_3v3 3.56476f
+Cext_1831 dig_in[4] vin 198.581a
 Cext_1832 dig_in[4] vss_1v2 233.76a
-Cext_1833 dig_in[4] vss_3v3 729.342a
-Cext_1834 dig_in[5] dig_in[6] 41.5787f
+Cext_1833 dig_in[4] vss_3v3 729.504a
+Cext_1834 dig_in[5] dig_in[6] 41.841f
 Cext_1835 dig_in[5] dig_in[7] 42.3652a
 Cext_1836 dig_in[5] dig_in[8] 25.6593a
 Cext_1837 dig_in[5] dig_in[9] 27.9225a
@@ -2035,14 +2035,14 @@ Cext_1852 dig_in[5] s0 35.9605a
 Cext_1853 dig_in[5] s1 747.14a
 Cext_1854 dig_in[5] s1_an[1] 2.33437a
 Cext_1855 dig_in[5] s1_an_0_esd 26.3354a
-Cext_1856 dig_in[5] s2 129.593a
-Cext_1857 dig_in[5] s3 164.288a
-Cext_1858 dig_in[5] slow 22.1487a
-Cext_1859 dig_in[5] vdd_3v3 2.96991f
-Cext_1860 dig_in[5] vin 194.859a
+Cext_1856 dig_in[5] s2 128.081a
+Cext_1857 dig_in[5] s3 166.755a
+Cext_1858 dig_in[5] slow 24.1811a
+Cext_1859 dig_in[5] vdd_3v3 2.99803f
+Cext_1860 dig_in[5] vin 195.829a
 Cext_1861 dig_in[5] vss_1v2 233.76a
-Cext_1862 dig_in[5] vss_3v3 753.716a
-Cext_1863 dig_in[6] dig_in[7] 41.6276f
+Cext_1862 dig_in[5] vss_3v3 753.622a
+Cext_1863 dig_in[6] dig_in[7] 41.8899f
 Cext_1864 dig_in[6] dig_in[8] 27.0686a
 Cext_1865 dig_in[6] dig_in[9] 28.5979a
 Cext_1866 dig_in[6] dig_out[0] 30.4494a
@@ -2063,13 +2063,13 @@ Cext_1880 dig_in[6] s0 35.9605a
 Cext_1881 dig_in[6] s1 58.2563a
 Cext_1882 dig_in[6] s1_an[1] 2.57733a
 Cext_1883 dig_in[6] s1_an_0_esd 26.3354a
-Cext_1884 dig_in[6] s2 958.463a
-Cext_1885 dig_in[6] s3 164.288a
-Cext_1886 dig_in[6] slow 21.8686a
-Cext_1887 dig_in[6] vdd_3v3 1.84104f
-Cext_1888 dig_in[6] vin 196.624a
+Cext_1884 dig_in[6] s2 956.388a
+Cext_1885 dig_in[6] s3 166.755a
+Cext_1886 dig_in[6] slow 23.6515a
+Cext_1887 dig_in[6] vdd_3v3 1.85692f
+Cext_1888 dig_in[6] vin 197.594a
 Cext_1889 dig_in[6] vss_1v2 233.76a
-Cext_1890 dig_in[6] vss_3v3 803.829a
+Cext_1890 dig_in[6] vss_3v3 803.722a
 Cext_1891 dig_in[7] dig_in[8] 15.5737f
 Cext_1892 dig_in[7] dig_in[9] 30.0072a
 Cext_1893 dig_in[7] dig_out[0] 30.6056a
@@ -2085,19 +2085,19 @@ Cext_1902 dig_in[7] dig_out[7] 23.7067a
 Cext_1903 dig_in[7] dig_out[8] 23.7067a
 Cext_1904 dig_in[7] dig_out[9] 23.7067a
 Cext_1905 dig_in[7] enable 32.4277a
-Cext_1906 dig_in[7] rst 2.82744f
+Cext_1906 dig_in[7] rst 2.398f
 Cext_1907 dig_in[7] s0 35.9605a
 Cext_1908 dig_in[7] s1 58.2563a
 Cext_1909 dig_in[7] s1_an[1] 2.87674a
 Cext_1910 dig_in[7] s1_an_0_esd 26.3354a
-Cext_1911 dig_in[7] s2 99.3489a
-Cext_1912 dig_in[7] s3 1.19427f
-Cext_1913 dig_in[7] slow 1.54642f
-Cext_1914 dig_in[7] vdd_3v3 1.63135f
-Cext_1915 dig_in[7] vin 10.3026f
+Cext_1911 dig_in[7] s2 97.8369a
+Cext_1912 dig_in[7] s3 1.19674f
+Cext_1913 dig_in[7] slow 1.54799f
+Cext_1914 dig_in[7] vdd_3v3 1.64304f
+Cext_1915 dig_in[7] vin 11.8373f
 Cext_1916 dig_in[7] vss_1v2 233.76a
-Cext_1917 dig_in[7] vss_3v3 933.223a
-Cext_1918 dig_in[8] dig_in[9] 45.0709f
+Cext_1917 dig_in[7] vss_3v3 933.1a
+Cext_1918 dig_in[8] dig_in[9] 45.3332f
 Cext_1919 dig_in[8] dig_out[0] 30.91a
 Cext_1920 dig_in[8] dig_out[10] 24.0027a
 Cext_1921 dig_in[8] dig_out[11] 31.9646a
@@ -2116,13 +2116,13 @@ Cext_1933 dig_in[8] s0 644.157a
 Cext_1934 dig_in[8] s1 54.332a
 Cext_1935 dig_in[8] s1_an[1] 3.25486a
 Cext_1936 dig_in[8] s1_an_0_esd 26.3354a
-Cext_1937 dig_in[8] s2 94.1862a
-Cext_1938 dig_in[8] s3 164.288a
-Cext_1939 dig_in[8] slow 22.4602a
-Cext_1940 dig_in[8] vdd_3v3 3.7567f
-Cext_1941 dig_in[8] vin 233.926a
+Cext_1937 dig_in[8] s2 92.6742a
+Cext_1938 dig_in[8] s3 166.755a
+Cext_1939 dig_in[8] slow 24.7894a
+Cext_1940 dig_in[8] vdd_3v3 3.78932f
+Cext_1941 dig_in[8] vin 234.895a
 Cext_1942 dig_in[8] vss_1v2 233.76a
-Cext_1943 dig_in[8] vss_3v3 784.724a
+Cext_1943 dig_in[8] vss_3v3 785.701a
 Cext_1944 dig_in[9] dig_out[0] 38.0347a
 Cext_1945 dig_in[9] dig_out[10] 30.6321a
 Cext_1946 dig_in[9] dig_out[11] 38.5123a
@@ -2141,13 +2141,13 @@ Cext_1958 dig_in[9] s0 35.9605a
 Cext_1959 dig_in[9] s1 747.14a
 Cext_1960 dig_in[9] s1_an[1] 59.9588a
 Cext_1961 dig_in[9] s1_an_0_esd 26.3354a
-Cext_1962 dig_in[9] s2 129.593a
-Cext_1963 dig_in[9] s3 164.288a
-Cext_1964 dig_in[9] slow 22.1487a
-Cext_1965 dig_in[9] vdd_3v3 3.19358f
-Cext_1966 dig_in[9] vin 220.295a
+Cext_1962 dig_in[9] s2 128.081a
+Cext_1963 dig_in[9] s3 166.755a
+Cext_1964 dig_in[9] slow 24.1811a
+Cext_1965 dig_in[9] vdd_3v3 3.22066f
+Cext_1966 dig_in[9] vin 221.265a
 Cext_1967 dig_in[9] vss_1v2 233.76a
-Cext_1968 dig_in[9] vss_3v3 774.333a
+Cext_1968 dig_in[9] vss_3v3 774.323a
 Cext_1969 dig_out[0] dig_out[10] 30.3117a
 Cext_1970 dig_out[0] dig_out[11] 34.6304a
 Cext_1971 dig_out[0] dig_out[1] 41.8269f
@@ -2321,12 +2321,12 @@ Cext_2138 ibias1 vss_1v2 13.1087a
 Cext_2139 reset vss_1v2 14.7279a
 Cext_2140 rst s0 156.378a
 Cext_2141 rst s1 239.701a
-Cext_2142 rst s2 405.232a
-Cext_2143 rst s3 749.505a
-Cext_2144 rst slow 58.3064f
-Cext_2145 rst vdd_3v3 4.52016f
-Cext_2146 rst vin 39.2506f
-Cext_2147 rst vss_3v3 3.92106f
+Cext_2142 rst s2 399.184a
+Cext_2143 rst s3 763.477a
+Cext_2144 rst slow 56.293f
+Cext_2145 rst vdd_3v3 4.56596f
+Cext_2146 rst vin 45.3856f
+Cext_2147 rst vss_3v3 4.09715f
 Cext_2148 s0 s1 852.813a
 Cext_2149 s0 slow 1.57193f
 Cext_2150 s0 vdd_3v3 761.346a
@@ -2348,26 +2348,26 @@ Cext_2165 s1_an_0_esd vdd_1v2 327.323a
 Cext_2166 s1_an_0_esd vdd_3v3 4.3402f
 Cext_2167 s1_an_0_esd vss_1v2 1.18086f
 Cext_2168 s1_an_0_esd vss_3v3 7.87172f
-Cext_2169 s2 s3 5.63988a
-Cext_2170 s2 slow 4.39182f
-Cext_2171 s2 vdd_3v3 1.53158f
-Cext_2172 s2 vin 1.36674f
-Cext_2173 s2 vss_3v3 3.01907f
-Cext_2174 s3 slow 8.47182f
-Cext_2175 s3 vdd_3v3 5.07911f
-Cext_2176 s3 vin 2.14903f
-Cext_2177 s3 vss_3v3 5.60145f
-Cext_2178 slow vdd_3v3 9.90468f
-Cext_2179 slow vin 103.185a
-Cext_2180 slow vss_3v3 31.973f
+Cext_2169 s2 s3 7.82832a
+Cext_2170 s2 slow 4.8586f
+Cext_2171 s2 vdd_3v3 1.64536f
+Cext_2172 s2 vin 1.36069f
+Cext_2173 s2 vss_3v3 2.85818f
+Cext_2174 s3 slow 8.48579f
+Cext_2175 s3 vdd_3v3 5.23369f
+Cext_2176 s3 vin 2.30351f
+Cext_2177 s3 vss_3v3 5.68604f
+Cext_2178 slow vdd_3v3 11.4866f
+Cext_2179 slow vin 108.764a
+Cext_2180 slow vss_3v3 43.4321f
 Cext_2181 vbias vss_1v2 84.0098a
 Cext_2182 vdd_1v2 vdd_3v3 2.81753f
 Cext_2183 vdd_1v2 vss_1v2 5.5756f
 Cext_2184 vdd_1v2 vss_3v3 5.44381f
-Cext_2185 vdd_3v3 vin 8.66642f
+Cext_2185 vdd_3v3 vin 9.07264f
 Cext_2186 vdd_3v3 vss_1v2 1.66451f
-Cext_2187 vdd_3v3 vss_3v3 186.96f
-Cext_2188 vin vss_3v3 2.53997f
+Cext_2187 vdd_3v3 vss_3v3 188.577f
+Cext_2188 vin vss_3v3 2.67996f
 Cext_2189 vss_1v2 vss_3v3 6.48746f
 Cext_2190 sub! analog_bus0 15.5786f
 Cext_2191 sub! analog_bus1 3.90723f
@@ -2376,30 +2376,30 @@ Cext_2193 sub! analog_bus3 15.3103f
 Cext_2194 sub! bs 877.886a
 Cext_2195 sub! bw 801.934a
 Cext_2196 sub! clk 63.0269a
-Cext_2197 sub! dig_in[0] 4.77909f
-Cext_2198 sub! dig_in[10] 4.54956f
-Cext_2199 sub! dig_in[11] 5.60253f
-Cext_2200 sub! dig_in[12] 4.08616f
-Cext_2201 sub! dig_in[13] 3.88792f
-Cext_2202 sub! dig_in[14] 4.12219f
-Cext_2203 sub! dig_in[15] 6.44726f
+Cext_2197 sub! dig_in[0] 4.80195f
+Cext_2198 sub! dig_in[10] 4.57749f
+Cext_2199 sub! dig_in[11] 5.56866f
+Cext_2200 sub! dig_in[12] 4.10903f
+Cext_2201 sub! dig_in[13] 3.91089f
+Cext_2202 sub! dig_in[14] 4.15012f
+Cext_2203 sub! dig_in[15] 6.41339f
 Cext_2204 sub! dig_in[16] 6.05984f
 Cext_2205 sub! dig_in[17] 3.80658f
 Cext_2206 sub! dig_in[18] 2.97477f
 Cext_2207 sub! dig_in[19] 4.28507f
-Cext_2208 sub! dig_in[1] 3.47057f
+Cext_2208 sub! dig_in[1] 3.49343f
 Cext_2209 sub! dig_in[20] 9.92157f
 Cext_2210 sub! dig_in[21] 3.70626f
 Cext_2211 sub! dig_in[22] 4.39237f
 Cext_2212 sub! dig_in[23] 11.4755f
-Cext_2213 sub! dig_in[2] 3.73463f
-Cext_2214 sub! dig_in[3] 5.32908f
-Cext_2215 sub! dig_in[4] 3.3968f
-Cext_2216 sub! dig_in[5] 3.5819f
-Cext_2217 sub! dig_in[6] 3.83639f
-Cext_2218 sub! dig_in[7] 5.45617f
-Cext_2219 sub! dig_in[8] 3.74412f
-Cext_2220 sub! dig_in[9] 4.05505f
+Cext_2213 sub! dig_in[2] 3.76244f
+Cext_2214 sub! dig_in[3] 5.29509f
+Cext_2215 sub! dig_in[4] 3.41972f
+Cext_2216 sub! dig_in[5] 3.60483f
+Cext_2217 sub! dig_in[6] 3.86426f
+Cext_2218 sub! dig_in[7] 5.42224f
+Cext_2219 sub! dig_in[8] 3.76699f
+Cext_2220 sub! dig_in[9] 4.07804f
 Cext_2221 sub! dig_out[0] 4.62603f
 Cext_2222 sub! dig_out[10] 4.04352f
 Cext_2223 sub! dig_out[11] 5.35785f
@@ -2418,21 +2418,21 @@ Cext_2235 sub! gw 8.87146f
 Cext_2236 sub! ibias0 182.749a
 Cext_2237 sub! ibias1 182.749a
 Cext_2238 sub! reset 25.2743a
-Cext_2239 sub! rst 14.8103f
+Cext_2239 sub! rst 15.2283f
 Cext_2240 sub! s0 2.37912f
 Cext_2241 sub! s1 4.43825f
 Cext_2242 sub! s1_an[0] 2.04321f
 Cext_2243 sub! s1_an[1] 30.4283f
 Cext_2244 sub! s1_an_0_esd 21.8917f
-Cext_2245 sub! s2 7.28884f
-Cext_2246 sub! s3 12.5496f
-Cext_2247 sub! slow 189.098f
+Cext_2245 sub! s2 7.32622f
+Cext_2246 sub! s3 12.8114f
+Cext_2247 sub! slow 270.441f
 Cext_2248 sub! vbias 182.749a
 Cext_2249 sub! vdd_1v2 48.3186f
-Cext_2250 sub! vdd_3v3 267.47f
-Cext_2251 sub! vin 18.1646f
+Cext_2250 sub! vdd_3v3 265.579f
+Cext_2251 sub! vin 18.7934f
 Cext_2252 sub! vss_1v2 46.5305f
-Cext_2253 sub! vss_3v3 399.445f
+Cext_2253 sub! vss_3v3 398.648f
 .ENDS bbl_slot_pads
 
 .SUBCKT bbl_tielo q0 vss vssl vddl q2 q1 q3 q7 q6 q5 q4 q10 q9 q8 q11 sub!
@@ -2488,15 +2488,15 @@ X$9 vss sub! ptap1
 .SUBCKT bbl_inv a vdd y vss sub!
 X$1 y a vss sub! sg13_hv_nmos w=1e-06 l=4.5e-07 as=3.4e-13 ad=3.4e-13
 + ps=2.68e-06 pd=2.68e-06
-X$2 y a vdd \$5 sg13_hv_pmos w=1e-06 l=4.5e-07 as=3.4e-13 ad=3.4e-13
-+ ps=2.68e-06 pd=2.68e-06
+X$2 vdd \$5 ntap1
 X$3 vdd \$5 ntap1
-X$4 vdd \$5 ntap1
+X$4 vss sub! ptap1
 X$5 vss sub! ptap1
-X$6 vss sub! ptap1
+X$6 y a vdd \$5 sg13_hv_pmos w=1e-06 l=4.5e-07 as=3.4e-13 ad=3.4e-13
++ ps=2.68e-06 pd=2.68e-06
 .ENDS bbl_inv
 
-.SUBCKT bbl_syn vss enw ens vdd spk post sub!
+.SUBCKT bbl_syn vss enw ens spk vdd post sub!
 X$1 gs spk vdd \$19 sg13_hv_pmos w=3e-07 l=4.5e-07 as=1.02e-13 ad=1.02e-13
 + ps=1.28e-06 pd=1.28e-06
 X$2 gw spk vdd \$19 sg13_hv_pmos w=3e-07 l=4.5e-07 as=1.02e-13 ad=1.02e-13
@@ -2509,14 +2509,10 @@ X$5 gw enw bw sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=1.02e-13 ad=1.02e-13
 + ps=1.28e-06 pd=1.28e-06
 X$6 gs ens bs sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=1.02e-13 ad=1.02e-13
 + ps=1.28e-06 pd=1.28e-06
-X$7 gw vss vdd \$19 sg13_hv_pmos w=3e-07 l=2e-05 as=1.02e-13 ad=1.02e-13
-+ ps=1.28e-06 pd=1.28e-06
-X$8 gs vss vdd \$19 sg13_hv_pmos w=3e-07 l=2e-05 as=1.02e-13 ad=1.02e-13
-+ ps=1.28e-06 pd=1.28e-06
-X$9 post gs vdd \$19 sg13_hv_pmos w=3e-07 l=2e-05 as=1.02e-13 ad=1.02e-13
-+ ps=1.28e-06 pd=1.28e-06
-X$10 post gw vdd \$19 sg13_hv_pmos w=3e-07 l=0.0001 as=1.02e-13 ad=1.02e-13
-+ ps=1.28e-06 pd=1.28e-06
+X$7 vdd \$19 ntap1
+X$8 vdd \$19 ntap1
+X$9 vdd \$19 ntap1
+X$10 vdd \$19 ntap1
 X$11 vdd \$19 ntap1
 X$12 vdd \$19 ntap1
 X$13 vdd \$19 ntap1
@@ -2556,10 +2552,10 @@ X$46 vdd \$19 ntap1
 X$47 vdd \$19 ntap1
 X$48 vdd \$19 ntap1
 X$49 vdd \$19 ntap1
-X$50 vdd \$19 ntap1
-X$51 vdd \$19 ntap1
-X$52 vdd \$19 ntap1
-X$53 vdd \$19 ntap1
+X$50 vss sub! ptap1
+X$51 vss sub! ptap1
+X$52 vss sub! ptap1
+X$53 vss sub! ptap1
 X$54 vss sub! ptap1
 X$55 vss sub! ptap1
 X$56 vss sub! ptap1
@@ -2599,101 +2595,103 @@ X$89 vss sub! ptap1
 X$90 vss sub! ptap1
 X$91 vss sub! ptap1
 X$92 vss sub! ptap1
-X$93 vss sub! ptap1
-X$94 vss sub! ptap1
-X$95 vss sub! ptap1
-X$96 vss sub! ptap1
+X$93 post gw vdd \$19 sg13_hv_pmos w=3e-07 l=0.0001 as=1.02e-13 ad=1.02e-13
++ ps=1.28e-06 pd=1.28e-06
+X$94 gw vss vdd \$19 sg13_hv_pmos w=3e-07 l=2e-05 as=1.02e-13 ad=1.02e-13
++ ps=1.28e-06 pd=1.28e-06
+X$95 gs vss vdd \$19 sg13_hv_pmos w=3e-07 l=2e-05 as=1.02e-13 ad=1.02e-13
++ ps=1.28e-06 pd=1.28e-06
+X$96 post gs vdd \$19 sg13_hv_pmos w=3e-07 l=2e-05 as=1.02e-13 ad=1.02e-13
++ ps=1.28e-06 pd=1.28e-06
 .ENDS bbl_syn
 
-.SUBCKT bbl_unit vss vm vbnl b0 b1 b2 b3 out vdd sub!
-X$1 vin vbnl vss sub! sg13_hv_nmos w=3e-07 l=9e-06 as=1.02e-13 ad=1.02e-13
+.SUBCKT bbl_unit vss vm vbnl b0 b1 b2 b3 vdd out sub!
+X$1 rst vdd vss sub! sg13_hv_nmos w=3e-07 l=2e-05 as=1.02e-13 ad=1.02e-13
 + ps=1.28e-06 pd=1.28e-06
-X$2 vss slow vss sub! sg13_hv_nmos w=1e-05 l=1e-05 as=3.4e-12 ad=1.9e-12
-+ ps=2.068e-05 pd=1.038e-05
-X$3 vss slow vss sub! sg13_hv_nmos w=1e-05 l=1e-05 as=1.9e-12 ad=1.9e-12
-+ ps=1.038e-05 pd=1.038e-05
-X$4 vss slow vss sub! sg13_hv_nmos w=1e-05 l=1e-05 as=1.9e-12 ad=1.9e-12
-+ ps=1.038e-05 pd=1.038e-05
-X$5 vss slow vss sub! sg13_hv_nmos w=1e-05 l=1e-05 as=1.9e-12 ad=3.4e-12
-+ ps=1.038e-05 pd=2.068e-05
-X$6 rst vdd vss sub! sg13_hv_nmos w=3e-07 l=2e-05 as=1.02e-13 ad=1.02e-13
-+ ps=1.28e-06 pd=1.28e-06
-X$7 vm rst vss sub! sg13_hv_nmos w=2e-06 l=4.5e-07 as=6.8e-13 ad=6.8e-13
+X$2 vm rst vss sub! sg13_hv_nmos w=2e-06 l=4.5e-07 as=6.8e-13 ad=6.8e-13
 + ps=4.68e-06 pd=4.68e-06
-X$8 out vm vss sub! sg13_hv_nmos w=1e-06 l=1e-06 as=3.4e-13 ad=3.4e-13
+X$3 out vm vss sub! sg13_hv_nmos w=1e-06 l=1e-06 as=3.4e-13 ad=3.4e-13
 + ps=2.68e-06 pd=2.68e-06
-X$9 vin vin vdd \$30 sg13_hv_pmos w=3e-06 l=3e-06 as=1.02e-12 ad=1.02e-12
+X$4 vin vin vdd \$30 sg13_hv_pmos w=3e-06 l=3e-06 as=1.02e-12 ad=1.02e-12
 + ps=6.68e-06 pd=6.68e-06
-X$10 vm vin vdd \$30 sg13_hv_pmos w=3e-07 l=3e-05 as=1.02e-13 ad=1.02e-13
+X$5 vm vin vdd \$30 sg13_hv_pmos w=3e-07 l=3e-05 as=1.02e-13 ad=1.02e-13
 + ps=1.28e-06 pd=1.28e-06
-X$11 s3 b3 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=1.02e-13 ad=5.7e-14
+X$6 s3 b3 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=1.02e-13 ad=5.7e-14
 + ps=1.28e-06 pd=6.8e-07
-X$12 vss b3 s3 sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
+X$7 vss b3 s3 sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$13 s3 b3 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
+X$8 s3 b3 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$14 vss b3 s3 sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
+X$9 vss b3 s3 sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$15 s3 b3 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
+X$10 s3 b3 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$16 vss b3 s3 sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
+X$11 vss b3 s3 sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$17 s3 b3 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
+X$12 s3 b3 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$18 vss b3 s3 sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=1.02e-13
+X$13 vss b3 s3 sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=1.02e-13
 + ps=6.8e-07 pd=1.28e-06
-X$19 vin vbnl s3 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=1.02e-13 ad=5.7e-14
+X$14 vin vbnl s3 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=1.02e-13 ad=5.7e-14
 + ps=1.28e-06 pd=6.8e-07
-X$20 s3 vbnl vin sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
+X$15 s3 vbnl vin sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$21 vin vbnl s3 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
+X$16 vin vbnl s3 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$22 s3 vbnl vin sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
+X$17 s3 vbnl vin sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$23 vin vbnl s3 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
+X$18 vin vbnl s3 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$24 s3 vbnl vin sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
+X$19 s3 vbnl vin sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$25 vin vbnl s3 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
+X$20 vin vbnl s3 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$26 s3 vbnl vin sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=1.02e-13
+X$21 s3 vbnl vin sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=1.02e-13
 + ps=6.8e-07 pd=1.28e-06
-X$27 s2 b2 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=1.02e-13 ad=5.7e-14
+X$22 s2 b2 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=1.02e-13 ad=5.7e-14
 + ps=1.28e-06 pd=6.8e-07
-X$28 vss b2 s2 sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
+X$23 vss b2 s2 sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$29 s2 b2 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
+X$24 s2 b2 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$30 vss b2 s2 sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=1.02e-13
+X$25 vss b2 s2 sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=1.02e-13
 + ps=6.8e-07 pd=1.28e-06
-X$31 vin vbnl s2 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=1.02e-13 ad=5.7e-14
+X$26 vin vbnl s2 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=1.02e-13 ad=5.7e-14
 + ps=1.28e-06 pd=6.8e-07
-X$32 s2 vbnl vin sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
+X$27 s2 vbnl vin sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$33 vin vbnl s2 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
+X$28 vin vbnl s2 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=5.7e-14
 + ps=6.8e-07 pd=6.8e-07
-X$34 s2 vbnl vin sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=1.02e-13
+X$29 s2 vbnl vin sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=1.02e-13
 + ps=6.8e-07 pd=1.28e-06
-X$35 s1 b1 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=1.02e-13 ad=5.7e-14
+X$30 s1 b1 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=1.02e-13 ad=5.7e-14
 + ps=1.28e-06 pd=6.8e-07
-X$36 vss b1 s1 sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=1.02e-13
+X$31 vss b1 s1 sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=5.7e-14 ad=1.02e-13
 + ps=6.8e-07 pd=1.28e-06
-X$37 vin vbnl s1 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=1.02e-13 ad=5.7e-14
+X$32 vin vbnl s1 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=1.02e-13 ad=5.7e-14
 + ps=1.28e-06 pd=6.8e-07
-X$38 s1 vbnl vin sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=1.02e-13
+X$33 s1 vbnl vin sub! sg13_hv_nmos w=3e-07 l=2e-06 as=5.7e-14 ad=1.02e-13
 + ps=6.8e-07 pd=1.28e-06
-X$39 s0 b0 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=1.02e-13 ad=1.02e-13
+X$34 s0 b0 vss sub! sg13_hv_nmos w=3e-07 l=4.5e-07 as=1.02e-13 ad=1.02e-13
 + ps=1.28e-06 pd=1.28e-06
-X$40 vin vbnl s0 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=1.02e-13 ad=1.02e-13
+X$35 vin vbnl s0 sub! sg13_hv_nmos w=3e-07 l=2e-06 as=1.02e-13 ad=1.02e-13
 + ps=1.28e-06 pd=1.28e-06
-X$41 out vss vdd \$30 sg13_hv_pmos w=3e-07 l=2e-05 as=1.02e-13 ad=1.02e-13
+X$36 vin vbnl vss sub! sg13_hv_nmos w=3e-07 l=9e-06 as=1.02e-13 ad=1.02e-13
 + ps=1.28e-06 pd=1.28e-06
-X$42 slow vss out \$30 sg13_hv_pmos w=3e-07 l=0.0001 as=1.02e-13 ad=1.02e-13
-+ ps=1.28e-06 pd=1.28e-06
-X$43 vm out vdd \$30 sg13_hv_pmos w=1e-06 l=4.5e-07 as=3.4e-13 ad=3.4e-13
-+ ps=2.68e-06 pd=2.68e-06
-X$44 rst slow vdd \$30 sg13_hv_pmos w=1e-06 l=4.5e-07 as=3.4e-13 ad=3.4e-13
-+ ps=2.68e-06 pd=2.68e-06
+X$37 vss slow vss sub! sg13_hv_nmos w=1e-05 l=1e-05 as=3.4e-12 ad=1.9e-12
++ ps=2.068e-05 pd=1.038e-05
+X$38 vss slow vss sub! sg13_hv_nmos w=1e-05 l=1e-05 as=1.9e-12 ad=1.9e-12
++ ps=1.038e-05 pd=1.038e-05
+X$39 vss slow vss sub! sg13_hv_nmos w=1e-05 l=1e-05 as=1.9e-12 ad=1.9e-12
++ ps=1.038e-05 pd=1.038e-05
+X$40 vss slow vss sub! sg13_hv_nmos w=1e-05 l=1e-05 as=1.9e-12 ad=1.9e-12
++ ps=1.038e-05 pd=1.038e-05
+X$41 vss slow vss sub! sg13_hv_nmos w=1e-05 l=1e-05 as=1.9e-12 ad=1.9e-12
++ ps=1.038e-05 pd=1.038e-05
+X$42 vss slow vss sub! sg13_hv_nmos w=1e-05 l=1e-05 as=1.9e-12 ad=3.4e-12
++ ps=1.038e-05 pd=2.068e-05
+X$43 vdd \$30 ntap1
+X$44 vdd \$30 ntap1
 X$45 vdd \$30 ntap1
 X$46 vdd \$30 ntap1
 X$47 vdd \$30 ntap1
@@ -2782,7 +2780,7 @@ X$129 vdd \$30 ntap1
 X$130 vdd \$30 ntap1
 X$131 vdd \$30 ntap1
 X$132 vdd \$30 ntap1
-X$133 vdd \$30 ntap1
+X$133 vss sub! ptap1
 X$134 vss sub! ptap1
 X$135 vss sub! ptap1
 X$136 vss sub! ptap1
@@ -2872,16 +2870,16 @@ X$219 vss sub! ptap1
 X$220 vss sub! ptap1
 X$221 vss sub! ptap1
 X$222 vss sub! ptap1
-X$223 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=4.25e-12 ad=2.375e-12
+X$223 slow vss out \$30 sg13_hv_pmos w=3e-07 l=0.0001 as=1.02e-13 ad=1.02e-13
++ ps=1.28e-06 pd=1.28e-06
+X$224 rst slow vdd \$30 sg13_hv_pmos w=1e-06 l=4.5e-07 as=3.4e-13 ad=3.4e-13
++ ps=2.68e-06 pd=2.68e-06
+X$225 out vss vdd \$30 sg13_hv_pmos w=3e-07 l=2e-05 as=1.02e-13 ad=1.02e-13
++ ps=1.28e-06 pd=1.28e-06
+X$226 vm out vdd \$30 sg13_hv_pmos w=3e-07 l=4e-06 as=1.02e-13 ad=1.02e-13
++ ps=1.28e-06 pd=1.28e-06
+X$227 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=4.25e-12 ad=2.375e-12
 + ps=2.568e-05 pd=1.288e-05
-X$224 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=2.375e-12 ad=2.375e-12
-+ ps=1.288e-05 pd=1.288e-05
-X$225 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=2.375e-12 ad=2.375e-12
-+ ps=1.288e-05 pd=1.288e-05
-X$226 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=2.375e-12 ad=2.375e-12
-+ ps=1.288e-05 pd=1.288e-05
-X$227 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=2.375e-12 ad=2.375e-12
-+ ps=1.288e-05 pd=1.288e-05
 X$228 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=2.375e-12 ad=2.375e-12
 + ps=1.288e-05 pd=1.288e-05
 X$229 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=2.375e-12 ad=2.375e-12
@@ -2906,6 +2904,14 @@ X$238 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=2.375e-12 ad=2.375e-12
 + ps=1.288e-05 pd=1.288e-05
 X$239 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=2.375e-12 ad=2.375e-12
 + ps=1.288e-05 pd=1.288e-05
-X$240 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=2.375e-12 ad=4.25e-12
+X$240 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=2.375e-12 ad=2.375e-12
++ ps=1.288e-05 pd=1.288e-05
+X$241 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=2.375e-12 ad=2.375e-12
++ ps=1.288e-05 pd=1.288e-05
+X$242 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=2.375e-12 ad=2.375e-12
++ ps=1.288e-05 pd=1.288e-05
+X$243 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=2.375e-12 ad=2.375e-12
++ ps=1.288e-05 pd=1.288e-05
+X$244 vdd vm vdd \$30 sg13_hv_pmos w=1.25e-05 l=1e-05 as=2.375e-12 ad=4.25e-12
 + ps=1.288e-05 pd=2.568e-05
 .ENDS bbl_unit

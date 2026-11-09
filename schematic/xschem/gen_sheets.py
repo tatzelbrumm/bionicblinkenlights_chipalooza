@@ -373,8 +373,8 @@ def hier_sheet(sub, title, placement, symbols, notes=()):
     # ports: a column on the left
     for k, n in enumerate(sub['ports']):
         S.port('iopin', -600, -400 + 25 * k, n)
-        S.N(-600, -400 + 25 * k, -560, -400 + 25 * k, n)
-        S.lab(-560, -400 + 25 * k, n, 1)
+        S.N(-600, -400 + 25 * k, -440, -400 + 25 * k, n)
+        S.lab(-440, -400 + 25 * k, n, 1)
     S.text(-600, -560, title, 0.6)
     for k, s in enumerate(notes):
         S.text(-600, -510 + 30 * k, s, 0.3)

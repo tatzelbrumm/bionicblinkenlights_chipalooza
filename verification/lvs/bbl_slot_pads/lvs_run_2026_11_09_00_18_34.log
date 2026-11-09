@@ -1,0 +1,16 @@
+09-Nov-2026 00:18:34 | INFO    | Your Klayout version is: KLayout 0.30.12
+09-Nov-2026 00:18:34 | INFO    | Running SG13CMOS5L LVS checks on design /home/user/bionicblinkenlights_chipalooza/layout/gds/bbl_slot_pads.gds on cell bbl_slot_pads
+09-Nov-2026 00:18:41 | INFO    | ==============================================================================
+09-Nov-2026 00:18:41 | INFO    | Important Summary
+09-Nov-2026 00:18:41 | INFO    | +------------------+-----------------------------------------------------------------------------------+
+09-Nov-2026 00:18:41 | INFO    | | Status           | PASS                                                                              |
+09-Nov-2026 00:18:41 | INFO    | | Mode             | COMPARE                                                                           |
+09-Nov-2026 00:18:41 | INFO    | | Outcome          | Comparison mode: PASS (netlists match).                                           |
+09-Nov-2026 00:18:41 | INFO    | | Layout           | bbl_slot_pads.gds                                                                 |
+09-Nov-2026 00:18:41 | INFO    | | Top Cell         | bbl_slot_pads                                                                     |
+09-Nov-2026 00:18:41 | INFO    | | Results Dir      | /tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/lvs_pads |
+09-Nov-2026 00:18:41 | INFO    | | Warnings         | 0                                                                                 |
+09-Nov-2026 00:18:41 | INFO    | | Errors           | 0                                                                                 |
+09-Nov-2026 00:18:41 | INFO    | | Run Time (s)     | 6.684                                                                             |
+09-Nov-2026 00:18:41 | INFO    | +------------------+-----------------------------------------------------------------------------------+
+09-Nov-2026 00:18:41 | INFO    | ==============================================================================

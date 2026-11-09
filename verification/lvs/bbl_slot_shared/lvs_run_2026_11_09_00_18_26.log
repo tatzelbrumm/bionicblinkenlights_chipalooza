@@ -1,0 +1,16 @@
+09-Nov-2026 00:18:27 | INFO    | Your Klayout version is: KLayout 0.30.12
+09-Nov-2026 00:18:27 | INFO    | Running SG13CMOS5L LVS checks on design /home/user/bionicblinkenlights_chipalooza/layout/gds/bbl_slot_shared.gds on cell bbl_slot_shared
+09-Nov-2026 00:18:34 | INFO    | ==============================================================================
+09-Nov-2026 00:18:34 | INFO    | Important Summary
+09-Nov-2026 00:18:34 | INFO    | +------------------+-------------------------------------------------------------------------------------+
+09-Nov-2026 00:18:34 | INFO    | | Status           | PASS                                                                                |
+09-Nov-2026 00:18:34 | INFO    | | Mode             | COMPARE                                                                             |
+09-Nov-2026 00:18:34 | INFO    | | Outcome          | Comparison mode: PASS (netlists match).                                             |
+09-Nov-2026 00:18:34 | INFO    | | Layout           | bbl_slot_shared.gds                                                                 |
+09-Nov-2026 00:18:34 | INFO    | | Top Cell         | bbl_slot_shared                                                                     |
+09-Nov-2026 00:18:34 | INFO    | | Results Dir      | /tmp/claude-0/-home-user/2a06bece-b916-5de7-9fe8-eba4cec9cb08/scratchpad/lvs_shared |
+09-Nov-2026 00:18:34 | INFO    | | Warnings         | 0                                                                                   |
+09-Nov-2026 00:18:34 | INFO    | | Errors           | 0                                                                                   |
+09-Nov-2026 00:18:34 | INFO    | | Run Time (s)     | 7.505                                                                               |
+09-Nov-2026 00:18:34 | INFO    | +------------------+-------------------------------------------------------------------------------------+
+09-Nov-2026 00:18:34 | INFO    | ==============================================================================

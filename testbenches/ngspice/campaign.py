@@ -44,16 +44,27 @@ for name, bits, c in [('off', (), 0), ('weak', (22,), 0), ('strong', (23,), 0), 
     CASES[f'bus23_{name}'] = dict(dig=dig(0, 0, 5, 7, bits), cbus=(C3, C3, C3 + c, C3), tstop=2.5)
 
 
+# post-layout subset (extracted netlist), 1.5 s each
+PEX_CASES = ['tune_0_1_2_3', 'tune_4_5_6_7', 'tune_8_9_10_11', 'tune_12_13_14_15', 'busload_0p', 'busload_30p',
+             'busload_100p', 'syn01_both', 'gap_off', 'gap_both', 'bus23_off', 'bus23_strong']
+
+
 def one(args):
     name, case, include, tag = args
     outdir = os.path.join(bbltb.OUT, tag)
     os.makedirs(outdir, exist_ok=True)
     kw = {k: v for k, v in case.items() if k in ('dig', 'cbus', 'vcpla', 'vcplb')}
+    pex = include.endswith('.pex.spice')
+    if pex:
+        cell = os.path.basename(include).split('.')[0]
+        kw['dut'] = bbltb.slot_dut(include, cell)
     net = netlist(include=include, **kw)
     res = dict(case=name, **{k: (list(v) if isinstance(v, tuple) else v) for k, v in case.items()})
     try:
-        d = run(net, os.path.join(tag, name), tstop=case['tstop'])
-        s = summary(d, t0=0.3)
+        d = run(net, os.path.join(tag, name), tstop=case['tstop'], vecs=bbltb.BUSVECS if pex else bbltb.VECS + ['v(busx0)'])
+        s = bbltb.summary_bus(d, t0=0.3) if pex else summary(d, t0=0.3)
+        sb = bbltb.summary_bus(d, t0=0.3)
+        res['f_bus'] = [float(sb[k]['f']) for k in range(4)]
         res['f'] = [float(s[k]['f']) for k in range(4)]
         res['spikes'] = [list(map(float, s[k]['spikes'])) for k in range(4)]
         res['iavg'] = float(iavg(d, 0.3))
@@ -76,7 +87,11 @@ if __name__ == '__main__':
     ap.add_argument('--tag', default='sch')
     ap.add_argument('--jobs', type=int, default=3)
     ap.add_argument('cases', nargs='*')
+    ap.add_argument('--tstop', type=float, default=None)
     a = ap.parse_args()
     names = a.cases or list(CASES)
+    if a.tstop:
+        for n in names:
+            CASES[n] = dict(CASES[n], tstop=a.tstop)
     with Pool(a.jobs) as p:
         p.map(one, [(n, CASES[n], a.include, a.tag) for n in names], chunksize=1)
