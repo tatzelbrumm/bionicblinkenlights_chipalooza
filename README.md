@@ -39,18 +39,27 @@ MOS capacitors.
 | C2 | XC2 nmos gate capacitor, 2.6 pF | slow node |
 
 The spike is a few microseconds long (fast spikes; the LED amplifier stretches them). The membrane, and with
-it the bus of a bus-coupled neuron, rises by up to about 2 V during the spike (less with a heavily loaded bus). Between spikes the neuron draws no static
-current; the slot draws about 0.2 uA in total (reference, DACs).
+it the bus of a bus-coupled neuron, rises by up to about 2 V during the spike (1.2 V with 30 pF on the bus,
+0.9 V with 100 pF). Between spikes the neuron draws no static current; the whole slot draws 0.37 to 0.48 uA
+from `vdd_3v3` (simulated average, all codes 0 to codes 12..15).
 
 ## The slot (`bbl_core`)
 
 | block | what |
 |---|---|
 | `bbl_bias` | self-biased reference: subthreshold beta multiplier (K = 8, rhigh 1.2 MOhm), about 45 nA per branch; start-up by Vgs = 0 leakage; `enable` gates it; 2.5 nA reference `vbnl` for the DACs; weak pull-ups for the coupling voltages |
-| `bbl_unit` x 4 | neuron + 4-bit tuning DAC (`bbl_dac`); f is about proportional to (0.5 + code) |
+| `bbl_unit` x 4 | neuron + 4-bit tuning DAC (`bbl_dac`); f rises about linearly with the code: 1.2 Hz at code 0, 1.3 Hz more per step (buffered neuron) |
 | N0, N1 | buffered: inverters drive `analog_bus0` / `analog_bus1` high while they fire, so bus load does not affect them. Pulse synapses N0 -> N1 and N1 -> N0 (`bbl_syn`, the photoresistor of the demos), gap junction N0 <-> N1 (`bbl_gap`) |
 | N2, N3 | membranes on `analog_bus2` / `analog_bus3` through NMOS pass gates (gate `vcplb`): the bus line's own capacitance and whatever loads the bus become part of the membrane capacitance. N3 can also be connected to `analog_bus2`, which couples it to N2 through the bus |
 | `bbl_tielo` | holds `dig_out[11:0]` low |
+
+### What the bus does to N2 and N3
+
+The bus line and whatever loads it become part of the membrane capacitance of N2 and N3, so the firing rate
+follows 1 / (10 pF + C_bus): at code 6, 7.2 Hz with the 3 pF bus line alone, 4.1 Hz with 10 pF more, 2.2 Hz
+with 30 pF, 0.84 Hz with 100 pF (exponent -1.0; post-layout 2.18 Hz at 30 pF). N0 and N1 stay at 9.3 Hz.
+Figure: [`testbenches/ngspice/results/busload.png`](testbenches/ngspice/results/busload.png); all results in
+[`docs/SUMMARY.md`](docs/SUMMARY.md).
 
 ### Controls
 
@@ -84,8 +93,10 @@ Supplies: `vdd_3v3` / `vss_3v3` (everything), `vdd_1v2` / `vss_1v2` (enable inve
 
 Each analog bus goes to an LED through an ultra-high-impedance amplifier (input leakage well below 1 pA,
 input capacitance a few pF): the neurons charge their membranes with 4..150 pA, so a scope probe or a
-10 MOhm load on `analog_bus2/3` stops N2/N3. A bus is high (about 2.5 V for N2/N3, 3.3 V for N0/N1) for
-about 10 us per spike; the amplifier has to stretch that pulse to make it visible. Close the harness's bus
+10 MOhm load on `analog_bus2/3` stops N2/N3. A bus is high for about 10 us per spike: 3.3 V for N0/N1;
+2.0 V for N2/N3 on an unloaded bus, 1.2 V with 30 pF, 0.9 V with 100 pF. The amplifier has to stretch that
+pulse to make it visible. The spikes of N2/N3 reach the bus only with `vcplb` high (the open-input default);
+at 0.8 to 1.2 V the pass gate clips them, while the bus still loads the membrane. Close the harness's bus
 switches for the buses in use; the shared variant also needs the harness voltage bias on `vbias` only if a
 gap junction strength other than "full" is wanted.
 
@@ -158,3 +169,9 @@ netlist.
   to about 1 us; the disabled-coupling rates then agree with the uncoupled ones to 0.3 %.
   Occasional "timestep too small" aborts at spike onsets remain; the testbench retries those runs once with
   a 5 us maximum step.
+- Spike detection: in the schematic from the neurons' `out` nodes; post-layout (no internal node names) from
+  the bus voltages, as the start of a fast upstroke (rise of more than 0.15 V within 100 us). A level threshold
+  misses the spikes of a bus-coupled neuron on a loaded bus, whose pulse peaks at 0.9 V with 100 pF, barely
+  above the 0.7 V the membrane ramps to between spikes. Both detectors agree in every schematic case in which
+  the spike reaches the bus (all but `vcplb` 0 / 0.8 / 1.2 V).
+  `campaign.py --reanalyze` recomputes the results from the saved waveforms.
