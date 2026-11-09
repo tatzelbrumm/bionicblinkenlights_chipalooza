@@ -1,0 +1,12 @@
+bbl_neuron: OK (11 devices/instances, xschem exit 0)
+bbl_dac: OK (10 devices/instances, xschem exit 0)
+bbl_unit: OK (2 devices/instances, xschem exit 0)
+bbl_inv: OK (2 devices/instances, xschem exit 0)
+bbl_syn: OK (10 devices/instances, xschem exit 0)
+bbl_gap: OK (4 devices/instances, xschem exit 0)
+bbl_bias: OK (17 devices/instances, xschem exit 0)
+bbl_core: OK (15 devices/instances, xschem exit 0)
+bbl_tielo: OK (12 devices/instances, xschem exit 0)
+bbl_slot_shared: OK (2 devices/instances, xschem exit 0)
+bbl_slot_pads: OK (2 devices/instances, xschem exit 0)
+sheets with mismatches: 0
