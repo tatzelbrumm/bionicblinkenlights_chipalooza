@@ -125,7 +125,7 @@ def unit(ly):
             ('XMR2', 'n', 0.3, 20, 1, 'vss', 'rst', 'vdd'),
             ('XMR5A', 'n', 0.3, 100, 1, 'out', 'slow', 'vdd'),
             ('XC2', 'n', 60, 10, 6, 'vss', 'vss', 'slow'),
-            ('XMH', 'n', 0.3, 9, 1, 'vss', 'vin', 'vbnl'),
+            ('XMH', 'n', 0.3, 3.2, 1, 'vss', 'vin', 'vbnl'),
             ('XMU0', 'n', 0.3, 2, 1, 's0', 'vin', 'vbnl'),
             ('XMS0', 'n', 0.3, 0.45, 1, 'vss', 's0', 'b0'),
             ('XMU1', 'n', 0.6, 2, 2, 's1', 'vin', 'vbnl'),
@@ -157,7 +157,7 @@ def cells(ly):
         ports=('vss', 'vm2', 'bus2', 'vm3', 'bus3', 'vcplb')))
     out.append(make_cell(ly, 'bbl_biasc',
         [('XMPA', 'p', 2, 2, 1, 'vdd', 'vbn', 'vbp'), ('XMPB', 'p', 2, 2, 1, 'vdd', 'vbp', 'vbp'),
-         ('XMSU', 'p', 4, 0.45, 1, 'vdd', 'vbn', 'vdd'), ('XMLP', 'p', 0.3, 8, 1, 'vdd', 'vbnl', 'vbp'),
+         ('XMSU', 'p', 4, 0.45, 1, 'vdd', 'vbn', 'vdd'), ('XMLP', 'p', 0.3, 7, 1, 'vdd', 'vbnl', 'vbp'),
          ('XMCA', 'p', 0.3, 22, 1, 'vdd', 'vcpla', 'vbp'), ('XMCB', 'p', 0.3, 22, 1, 'vdd', 'vcplb', 'vbp')],
         [('XMNA', 'n', 2, 2, 1, 'sa', 'vbn', 'vbn'), ('XMNB', 'n', 16, 2, 8, 'rs', 'vbp', 'vbn'),
          ('XMEA', 'n', 1, 0.45, 1, 'vss', 'sa', 'ena'), ('XMEB', 'n', 1, 0.45, 1, 'vss', 'sb', 'ena'),

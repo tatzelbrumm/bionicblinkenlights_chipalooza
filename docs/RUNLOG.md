@@ -73,3 +73,7 @@ Scratch work in the session scratchpad (not committed); `S` below is that scratc
 | 46 | 00:52 | repo | netlist, layout, sheets updated; slots rebuilt; LVS both; `check_sheets.py` | 0 | — | match, match; 0 mismatches |
 | 47 | 00:53 | `testbenches/ngspice` | `campaign.py --tag sch --jobs 3` (30 cases, with tune_low 5 s) | — | `out/sch/` | see SUMMARY |
 | 48 | 00:54 | repo | final DRC and kpex both slots, then the post-layout campaign (12 cases, 1.5 s) | — | `verification/`, `out/pex/` | see SUMMARY |
+| 49 | 01:00 | repo | commit `746af5a` (R5 split, final DRC/LVS/PEX), push | 0 | — | — |
+| 50 | 01:03 | `schematic/xschem` | agent started (Christoph's question): hand-redraw of the leaf sheets with the skill `xschem-analog-schematic`, checks `check_sheets.py` and `sheet_equiv.py` | — | — | see below |
+| 51 | 01:18 | `testbenches/ngspice` | campaign results (9 cases): code 1..13 1.56..15.49 Hz unloaded; code 0 fires every 3 s (0.3 Hz); code 15 about 18 Hz | — | `out/sch/` | below the 1..20 Hz spec at both ends |
+| 52 | 01:19 | repo | recalibration: XMLP 0.3/8 -> 0.3/7 (DAC reference +14 %), XMH 0.3/9 -> 0.3/3.2 (base leg 0.75 unit); layouts rebuilt; LVS both | 0 | — | match, match; campaigns restarted (`--tag sch --jobs 3`; DRC, kpex, then `--tag pex`) |

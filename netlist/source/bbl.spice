@@ -48,12 +48,12 @@ XC2 vss slow vss vss sg13_hv_nmos w=60u l=10u ng=6 m=1
 
 * ---------------------------------------------------------------------------------------------------
 * Tuning DAC (the bias of the R3 stand-in): the diode XMD carries (0.5 + code) x 0.7 nA,
-* code = b3..b0; XMR3 mirrors about 1/57 of it into the membrane: f is about 0.65 Hz x (1 + 2 code),
-* i.e. 0.7 Hz .. 21 Hz. The half-unit leg is always on, so dig_in = 0 (harness default) still blinks.
+* code = b3..b0; XMR3 mirrors about 1/57 of it into the membrane: f is about 1.3 Hz x (0.75 + code),
+* i.e. 1 Hz .. 21 Hz (unloaded). The base leg XMH is always on, so dig_in = 0 (harness default) blinks at 1 Hz.
 * b0..b3 are 1.2 V logic on NMOS switches whose sources sit at vss.
 .subckt bbl_dac vdd vss vin vbnl b0 b1 b2 b3
 XMD vin vin vdd vdd sg13_hv_pmos w=3u l=3u ng=1 m=1
-XMH vin vbnl vss vss sg13_hv_nmos w=0.3u l=9u ng=1 m=1
+XMH vin vbnl vss vss sg13_hv_nmos w=0.3u l=3.2u ng=1 m=1
 XMU0 vin vbnl s0 vss sg13_hv_nmos w=0.3u l=2u ng=1 m=1
 XMS0 s0 b0 vss vss sg13_hv_nmos w=0.3u l=0.45u ng=1 m=1
 XMU1 vin vbnl s1 vss sg13_hv_nmos w=0.6u l=2u ng=2 m=1
@@ -124,7 +124,7 @@ XMEA sa ena vss vss sg13_hv_nmos w=1u l=0.45u ng=1 m=1
 XMEB sb ena vss vss sg13_hv_nmos w=1u l=0.45u ng=1 m=1
 XMCL vbn enab vss vss sg13_hv_nmos w=1u l=0.45u ng=1 m=1
 XMSU vbn vdd vdd vdd sg13_hv_pmos w=4u l=0.45u ng=1 m=1
-XMLP vbnl vbp vdd vdd sg13_hv_pmos w=0.3u l=8u ng=1 m=1
+XMLP vbnl vbp vdd vdd sg13_hv_pmos w=0.3u l=7u ng=1 m=1
 XMLD vbnl vbnl vss vss sg13_hv_nmos w=2u l=2u ng=1 m=1
 XMCA vcpla vbp vdd vdd sg13_hv_pmos w=0.3u l=22u ng=1 m=1
 XMCB vcplb vbp vdd vdd sg13_hv_pmos w=0.3u l=22u ng=1 m=1
